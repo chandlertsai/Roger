@@ -28,7 +28,6 @@ function auth(
     default:
       return state;
   }
-  return state;
 }
 
 export default auth;
