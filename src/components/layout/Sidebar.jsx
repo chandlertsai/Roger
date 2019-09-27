@@ -34,18 +34,12 @@ const createSubMenu = submenu => (
 );
 
 const submenus = [
-  {
-    name: "遠端數據",
-    key: "sidebar_remote_data_menu",
-    icon: MeterIcon,
-    items: monitorRouters
-  },
-  {
-    name: "系統設定",
-    key: "sidebar_system_settings",
-    icon: "setting",
-    items: deviceSettingsRoutes
-  }
+  // {
+  //   name: "系統設定",
+  //   key: "sidebar_system_settings",
+  //   icon: "setting",
+  //   items: deviceSettingsRoutes
+  // }
 ];
 
 const sidebar = () => {

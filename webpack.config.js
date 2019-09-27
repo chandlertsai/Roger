@@ -39,11 +39,11 @@ module.exports = {
     extensions: [".js", ".jsx"],
     alias: {
       components: path.resolve(__dirname, "src/components/"),
-      css: path.resolve(__dirname, "src/css/"),
       asset: path.resolve(__dirname, "src/asset/"),
       apis: path.resolve(__dirname, "src/apis/"),
       reducers: path.resolve(__dirname, "src/reducers"),
-      actions: path.resolve(__dirname, "src/actions")
+      actions: path.resolve(__dirname, "src/actions"),
+      routers: path.resolve(__dirname, "src/routers")
     }
   },
   plugins: [

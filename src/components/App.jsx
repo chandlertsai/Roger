@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { compose, createStore } from "redux";
+import { compose, createStore, applyMiddleware } from "redux";
 import { connect, Provider } from "react-redux";
+import thunk from "redux-thunk";
 import rootReducer from "reducers";
 
 import { Layout } from "antd";
-import Navbar from "components/layout/Navbar";
-import ContentArea from "components/layout/ContentArea";
+
+import { ContentArea, Sidebar, Navbar } from "components/layout";
+
 import "./app.less";
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-let store = createStore(rootReducer, {}, composeEnhancer());
+let store = createStore(
+  rootReducer,
+  {},
+  composeEnhancer(applyMiddleware(thunk))
+);
 console.log(store.getState());
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -30,7 +36,7 @@ const App = props => {
             collapsed={!showSidebar}
             styel={{ background: "blue" }}
           >
-            <h2>sider</h2>
+            <Sidebar />
           </Sider>
 
           <Layout>

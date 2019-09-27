@@ -1,17 +1,11 @@
 // @flow
 import R from "ramda";
-import { LOGIN, WRONG_LOGIN } from "actions/auth.js";
-
-// const processLogin = (state: mixed, payload: mixed): mixed => {
-//   const updateUser = R.mergeLeft(payload);
-//   return R.evolve({
-//     user: updateUser,
-//   })(state);
-// };
+import { LOGIN, SET_PASSWORD_TIP } from "actions/auth";
 
 const initialState = {
   username: "",
   password: "",
+  passwordTip: "",
   token: ""
 };
 // authentication reducer
@@ -19,11 +13,13 @@ function auth(
   state: mixed = initialState,
   action: { type: string, payload?: any }
 ) {
-  const { type, payload } = action;
+  const { type, passwordTip, user } = action;
+
   switch (type) {
     case LOGIN:
-    case WRONG_LOGIN:
-      return R.mergeLeft(payload, state);
+      return R.mergeLeft(user, state);
+    case SET_PASSWORD_TIP:
+      return R.mergeLeft(passwordTip, state);
 
     default:
       return state;

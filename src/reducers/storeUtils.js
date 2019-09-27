@@ -1,3 +1,7 @@
+// @flow
+/**
+ * This file provied convenient functions to access store
+ */
 import R from "ramda";
 
 //General

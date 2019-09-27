@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import { Formik, Form, ErrorMessage, Field } from "formik";
 import { connect } from "react-redux";
-import { loginAct, wrongLoginAct } from "actions/auth";
-import { loginApi } from "apis/auth";
-import { Redirect } from "react-router-dom";
+import { loginUser } from "actions/auth";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { default as ErrorDiv } from "./ErrorTip";
 import {
   loadingState,
   authHint,
@@ -17,19 +18,13 @@ import R from "ramda";
 // $FlowFixMe
 import "./form.less";
 
-const ErrorDiv = props => (
-  <div className='entire_row' style={{ color: "red" }}>
-    {props.children}
-  </div>
-);
-
 const validator = yup.object().shape({
   username: yup.string().required(),
   password: yup.string()
 });
 
 const loginForm = props => {
-  const { loading, login, passwordTip, hint, text } = props;
+  const { loading, login, passwordTip, hint, text, history } = props;
 
   return (
     <Formik
@@ -37,24 +32,32 @@ const loginForm = props => {
       validationSchema={validator}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
-        login(values);
-        // login(values).then(pass => {
-        //   if (pass) {
-        //     console.log("pass ",pass)
-        //     <Redirect to='/welcome' />
-        //   }
-        // });
+        login(values).then(success =>
+          success
+            ? history.push({
+                pathname: "/welcome"
+              })
+            : null
+        );
       }}
-      render={({ errors, touched, isValid }) => (
-        <Form>
+      render={({ errors, isValid }) => (
+        <Form className='container'>
           <label htmlFor='name'>使用者帳號: </label>
           <Field name='username' type='text' />
           <ErrorMessage name='username' component={ErrorDiv} />
           <label htmlFor='password'>登入密碼: </label>
           <Field name='password' type='password' />
           <ErrorMessage name='password' component={ErrorDiv} />
-          <Button htmlType='submit' disabled={!isValid} loading={loading}>
-            Submit
+          <Link className='alignRight' to='/forgetPassword'>
+            忘記密碼？
+          </Link>
+          <Button
+            className='center'
+            htmlType='submit'
+            disabled={!isValid}
+            loading={loading}
+          >
+            登入
           </Button>
           {hint ? (
             <>
@@ -77,21 +80,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: auth => {
-      return loginApi(auth)
-        .then(user => {
-          console.log("response :", user);
-          if (user.success) {
-            dispatch(loginAct(user));
-          } else {
-            dispatch(wrongLoginAct(user));
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          return false;
-        });
-    }
+    login: auth => dispatch(loginUser(auth))
   };
 };
 
@@ -100,4 +89,4 @@ const LoginForm = connect(
   mapDispatchToProps
 )(loginForm);
 
-export default LoginForm;
+export default withRouter(LoginForm);
