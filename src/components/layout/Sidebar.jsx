@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
+import { testRoutes } from "routers/testRoutes";
 
 const SubMenu = Menu.SubMenu;
 
-const defaultOpenKey = menu => {
-  if (menu[0]) {
-    return menu[0].key.toString();
-  }
-  return "0";
-};
+// const defaultOpenKey = menu => {
+//   if (menu[0]) {
+//     return menu[0].key.toString();
+//   }
+//   return "0";
+// };
 
 const createSubMenu = submenu => (
   <SubMenu
@@ -26,7 +27,7 @@ const createSubMenu = submenu => (
     }
   >
     {submenu.items.map(submenuItem => (
-      <Menu.Item key={submenuItem.key}>
+      <Menu.Item key={submenuItem.to}>
         <Link to={submenuItem.to}> {submenuItem.name} </Link>
       </Menu.Item>
     ))}
@@ -34,6 +35,12 @@ const createSubMenu = submenu => (
 );
 
 const submenus = [
+  {
+    name: "測試",
+    key: "sidbar_test",
+    icon: "bug",
+    items: testRoutes
+  }
   // {
   //   name: "系統設定",
   //   key: "sidebar_system_settings",
@@ -48,8 +55,8 @@ const sidebar = () => {
       <Menu
         theme='dark'
         mode='inline'
-        defaultSelectedKeys={["1"]}
-        defaultOpenKeys={[defaultOpenKey(submenus)]}
+        // defaultSelectedKeys={["1"]}
+        // defaultOpenKeys={[defaultOpenKey(submenus)]}
         className='menu'
       >
         {submenus.map(item => createSubMenu(item))}

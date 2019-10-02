@@ -1,30 +1,61 @@
+// @flow
 import React, { useState } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
+import { connect } from "react-redux";
+import { Button } from "antd";
 import * as yup from "yup";
 import R from "ramda";
 import ErrorTip from "./ErrorTip";
+import { loadingState, username } from "reducers/storeUtils";
+import { authFetch } from "actions/auth";
 
 const validator = yup.object().shape({
-  email: yup
+  oripassword: yup.string(),
+  newpassword: yup.string().required("請輸入密碼"),
+  validnewpassword: yup
     .string()
-    .email()
-    .required()
+    .test("valid-password", "輸入密碼不相同", function(value) {
+      const newpw = this.parent.newpassword;
+      return value === newpw;
+    })
 });
 
-const forgetPasswordForm = props => {
+type typeProps = {
+  loading: boolean,
+  sendRequest: Function
+};
+
+const forgetPasswordForm = (props: typeProps) => {
+  const { loading, sendRequest, account } = props;
   return (
     <Formik
-      initialValues={{ email: "" }}
+      initialValues={{
+        oripassword: "",
+        newpassword: "",
+        validnewpassword: "",
+        passwordtip: ""
+      }}
       validationSchema={validator}
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
+        sendRequest();
       }}
       render={({ errors, isValid }) => (
-        <Form className='container'>
-          <label htmlFor='name'>使用者帳號: </label>
-          <Field name='username' type='text' />
-          <ErrorMessage name='username' component={ErrorTip} />
+        <Form className='container_col'>
+          <span>{account}</span>
+          <label htmlFor='oripassword'>舊登入密碼: </label>
+          <Field name='oripassword' type='password' />
+          <ErrorMessage name='oripassword' component={ErrorTip} />
 
+          <label htmlFor='newpassword'>新登入密碼: </label>
+          <Field name='newpassword' type='password' />
+          <ErrorMessage name='newpassword' component={ErrorTip} />
+          <label htmlFor='validnewpassword'>確認新登入密碼: </label>
+          <Field name='validnewpassword' type='password' />
+          <ErrorMessage name='validnewpassword' component={ErrorTip} />
+          <label htmlFor='passwordtip'>密碼提示: </label>
+          <Field name='passwordtip' type='passwordtip' />
+          <ErrorMessage name='passwordtip' component={ErrorTip} />
           <Button
             className='center'
             htmlType='submit'
@@ -33,16 +64,27 @@ const forgetPasswordForm = props => {
           >
             送出
           </Button>
-          {hint ? (
-            <>
-              <p className='center warning'>提示: {passwordTip}</p>
-              <p className='center'>{text}</p>
-            </>
-          ) : null}
         </Form>
       )}
     />
   );
 };
 
-export default forgetPasswordForm;
+const mapState2Props = state => ({
+  account: username(state),
+  loading: loadingState(state)
+});
+
+const mapDispatch2Props = dispatch => ({
+  sendRequest: (url, opt) =>
+    dispatch(
+      authFetch("/apis/v1/users", {
+        methos: "GET"
+      })
+    )
+});
+
+export default connect(
+  mapState2Props,
+  mapDispatch2Props
+)(forgetPasswordForm);

@@ -2,19 +2,26 @@
 import React from "react";
 import { Icon } from "antd";
 import { connect } from "react-redux";
+import { auth, authLogin } from "reducers/storeUtils";
+import AvatorDropdown from "components/pureComponents/AvatorDropdown";
 
 const Navbar = (props: { showSidebar: boolean, toggleSidebar: Function }) => {
-  const { showSidebar, toggleSidebar } = props;
+  const { showSidebar, toggleSidebar, auth, alreadyLogin } = props;
   return (
-    <div>
+    <div className='container'>
       <Icon
-        className='trigger'
         type={showSidebar ? "menu-fold" : "menu-unfold"}
         onClick={toggleSidebar}
       />
-      <span style={{ color: "white" }}>Eyesfree</span>
+      <h2 style={{ color: "white" }}>Eyesfree</h2>
+
+      <AvatorDropdown alreadyLogin={alreadyLogin} username={auth.username} />
     </div>
   );
 };
 
-export default Navbar;
+const mapState2Props = (state: mixed) => ({
+  auth: auth(state),
+  alreadyLogin: authLogin(state)
+});
+export default connect(mapState2Props)(Navbar);

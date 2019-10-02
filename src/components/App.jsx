@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import { compose, createStore, applyMiddleware } from "redux";
-import { connect, Provider } from "react-redux";
-import thunk from "redux-thunk";
-import rootReducer from "reducers";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+import { persistor, store } from "store";
 
 import { Layout } from "antd";
-
 import { ContentArea, Sidebar, Navbar } from "components/layout";
-
 import "./app.less";
-
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-let store = createStore(
-  rootReducer,
-  {},
-  composeEnhancer(applyMiddleware(thunk))
-);
-console.log(store.getState());
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,25 +18,30 @@ const App = props => {
   return (
     <Router>
       <Provider store={store}>
-        <Layout sytel={{ minHeight: "100vh" }}>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={!showSidebar}
-            styel={{ background: "blue" }}
-          >
-            <Sidebar />
-          </Sider>
+        <PersistGate loading={<h1>Loading...</h1>} persistor={persistor}>
+          <Layout sytel={{ minHeight: "100vh" }}>
+            <Sider
+              trigger={null}
+              collapsible
+              collapsed={!showSidebar}
+              styel={{ background: "blue" }}
+            >
+              <Sidebar />
+            </Sider>
 
-          <Layout>
-            <Header style={{ background: "gray", padding: 0 }}>
-              <Navbar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
-            </Header>
-            <Content style={{ margin: "0 16px" }}>
-              <ContentArea />
-            </Content>
+            <Layout>
+              <Header style={{ background: "gray", padding: 0 }}>
+                <Navbar
+                  showSidebar={showSidebar}
+                  toggleSidebar={toggleSidebar}
+                />
+              </Header>
+              <Content style={{ margin: "0 16px" }}>
+                <ContentArea />
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
+        </PersistGate>
       </Provider>
     </Router>
   );

@@ -2,6 +2,7 @@
 import R from "ramda";
 import { setLoading, setError } from "actions/appState";
 import { loginApi } from "apis/auth";
+import { authToken } from "reducers/storeUtils";
 
 export const SET_PASSWORD_TIP = "SETPASSWORDTIP";
 const setPasswrodTip = (tip: string) => ({
@@ -35,3 +36,21 @@ export function loginUser(auth: { username: string, password: string }) {
       });
   };
 }
+
+// fetch with auth information (JWT)
+export const authFetch = (url: string, option?: mixed) => (
+  dispatch: Function,
+  getState: Function
+) => {
+  const token = authToken(getState());
+
+  dispatch(setLoading(true));
+  const authOption = R.assocPath(
+    ["headers", "Authorization"],
+    "Bearer " + token
+  );
+  fetch(url, authOption(option))
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+};

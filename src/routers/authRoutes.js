@@ -13,6 +13,6 @@ export const authRoutes = [
     to: "/forgetpassword",
     icon: "frown",
     component: ForgetPassword,
-    permision: "normal"
+    permision: "private"
   }
 ];

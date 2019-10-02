@@ -1,3 +1,4 @@
+// @flow
 /**
  * POST request for login
  * @param {username, password} body

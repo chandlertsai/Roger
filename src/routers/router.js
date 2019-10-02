@@ -10,11 +10,12 @@ import PrivateRouter from "./PrivateRoute";
 import { Route } from "react-router";
 import { authRoutes } from "./authRoutes";
 import { pageRoutes } from "./pageRoutes";
+import { testRoutes } from "./testRoutes";
 import MainLayout from "components/pages/MainLayout";
 
 const concatAll = R.reduce(R.concat, []);
 
-const allRoutes = concatAll([authRoutes, pageRoutes]);
+const allRoutes = concatAll([authRoutes, pageRoutes, testRoutes]);
 const makePrivateRouter = r => {
   return (
     <PrivateRouter
