@@ -4,15 +4,6 @@ import { Dropdown, Icon, Menu, Button } from "antd";
 import { Link } from "react-router-dom";
 //
 
-const menu = (
-  <Menu>
-    <Menu.Item key='changepassword'>
-      <Link to='/forgetpassword'>更改密碼</Link>
-    </Menu.Item>
-    <Menu.Item key='logout'>登出</Menu.Item>
-  </Menu>
-);
-
 const avatorDropdown = (props: {
   alreadyLogin: boolean,
   username: string,
@@ -20,6 +11,22 @@ const avatorDropdown = (props: {
   changePassword: Function
 }) => {
   const { username, alreadyLogin, doLogout, changePassword } = props;
+  const handleMenuClick = ({ key }) => {
+    if (key === "logout") {
+      console.log("key =", key);
+      doLogout();
+    }
+  };
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key='changepassword'>
+        <Link to='/resetpassword'>更改密碼</Link>
+      </Menu.Item>
+      <Menu.Item key='logout'>登出</Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className='alignRight'>
       {alreadyLogin ? (

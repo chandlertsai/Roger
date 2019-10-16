@@ -5,6 +5,6 @@ export const pageRoutes = [
     to: "/welcome",
     icon: "login",
     component: WelCome,
-    permision: "private"
+    permission: "private"
   }
 ];

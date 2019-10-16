@@ -7,7 +7,7 @@ import * as yup from "yup";
 import R from "ramda";
 import ErrorTip from "./ErrorTip";
 import { loadingState, username } from "reducers/storeUtils";
-import { authFetch } from "actions/auth";
+import { authFetch } from "actions/appState";
 
 const validator = yup.object().shape({
   oripassword: yup.string(),
@@ -22,7 +22,8 @@ const validator = yup.object().shape({
 
 type typeProps = {
   loading: boolean,
-  sendRequest: Function
+  sendRequest: Function,
+  account: string
 };
 
 const forgetPasswordForm = (props: typeProps) => {

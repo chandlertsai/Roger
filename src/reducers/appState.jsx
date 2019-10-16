@@ -1,24 +1,24 @@
 // @flow
 import R from "ramda";
 
-import { SET_ERROR, SET_LOADING } from "actions/appState";
+import { SET_ERROR, SET_LOADING, SET_LAST_RESPONSE } from "actions/appState";
+import { Action, State } from "apis/types";
 
-type actionType = {
-  type: string,
-  loading: boolean
-};
 const initialState = {
-  loading: false
+  loading: false,
+  hint: false
 };
-const appState = (state: mixed = initialState, action: actionType) => {
-  const { type } = action;
-  const getLoading = R.prop("loading", action);
-  const errorState = R.pick(["hasError", "errorMessage"], action);
+
+const appState = (state: State = initialState, action: Action) => {
+  const { type, payload } = action;
+
   switch (type) {
     case SET_LOADING:
-      return R.assoc("loading", getLoading)(state);
+      return R.assoc("loading", payload)(state);
     case SET_ERROR:
-      return R.mergeLeft(errorState, state);
+      return R.mergeLeft(payload, state);
+    case SET_LAST_RESPONSE:
+      return R.assoc("lastResponse", payload)(state);
   }
   return state;
 };

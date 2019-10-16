@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router";
+import history from "routers/history";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "store";
-
+import { intercepteRefreshAxios, intercepteAuthRequest } from "apis/auth";
 import { Layout } from "antd";
 import { ContentArea, Sidebar, Navbar } from "components/layout";
 import "./app.less";
@@ -15,9 +16,13 @@ const App = props => {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(pre => !pre);
 
+  useEffect(() => {
+    intercepteRefreshAxios(store);
+    intercepteAuthRequest(store);
+  }, []);
   return (
-    <Router>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Router history={history}>
         <PersistGate loading={<h1>Loading...</h1>} persistor={persistor}>
           <Layout sytel={{ minHeight: "100vh" }}>
             <Sider
@@ -42,8 +47,8 @@ const App = props => {
             </Layout>
           </Layout>
         </PersistGate>
-      </Provider>
-    </Router>
+      </Router>
+    </Provider>
   );
 };
 

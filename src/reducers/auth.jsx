@@ -1,26 +1,35 @@
 // @flow
 import R from "ramda";
-import { LOGIN, SET_PASSWORD_TIP } from "actions/auth";
+import { LOGIN, LOGOUT, REFRESH_TOKEN } from "actions/auth";
+import type { Action, State } from "apis/types";
 
 const initialState = {
   username: "",
   password: "",
-  passwordTip: "",
-  token: ""
+  token: "",
+  success: false,
+  refreshToken: "",
+  tokenTimeStamp: 0,
+  refreshTimeStamp: 0
 };
 // authentication reducer
-function auth(
-  state: mixed = initialState,
-  action: { type: string, payload?: any }
-) {
-  const { type, passwordTip, user } = action;
+function auth(state: State = initialState, action: Action) {
+  const { type, payload } = action;
 
   switch (type) {
     case LOGIN:
-      return R.mergeLeft(user, state);
-    case SET_PASSWORD_TIP:
-      return R.mergeLeft(passwordTip, state);
+      const timeStamp = R.assoc(R.__, new Date().getTime());
+      const addTimeStamp = R.pipe(
+        timeStamp("tokenTimeStamp"),
+        timeStamp("refreshTimeStamp")
+      );
+      return R.mergeLeft(addTimeStamp(payload), state);
+    case REFRESH_TOKEN:
+      return R.mergeLeft(payload, state);
+    case LOGOUT:
+      return initialState; // R.mergeLeft(initialState, state);
 
+    //return R.mergeLeft(payload, state);
     default:
       return state;
   }

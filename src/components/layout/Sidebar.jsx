@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
 import { testRoutes } from "routers/testRoutes";
-
+import { settingsRoutes } from "routers/settingsRoutes";
 const SubMenu = Menu.SubMenu;
 
 // const defaultOpenKey = menu => {
@@ -40,13 +40,13 @@ const submenus = [
     key: "sidbar_test",
     icon: "bug",
     items: testRoutes
+  },
+  {
+    name: "系統設定",
+    key: "sidebar_system_settings",
+    icon: "setting",
+    items: settingsRoutes
   }
-  // {
-  //   name: "系統設定",
-  //   key: "sidebar_system_settings",
-  //   icon: "setting",
-  //   items: deviceSettingsRoutes
-  // }
 ];
 
 const sidebar = () => {

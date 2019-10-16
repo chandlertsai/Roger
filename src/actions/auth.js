@@ -1,56 +1,98 @@
 // @flow
 import R from "ramda";
 import { setLoading, setError } from "actions/appState";
-import { loginApi } from "apis/auth";
-import { authToken } from "reducers/storeUtils";
+import qs from "qs";
+import axios from "axios";
+import history from "routers/history";
+import type { ThunkAction } from "apis/types";
 
-export const SET_PASSWORD_TIP = "SETPASSWORDTIP";
-const setPasswrodTip = (tip: string) => ({
-  type: SET_PASSWORD_TIP,
-  tip
-});
-// login action {type, status:"success"|"error", error:" users not found"}
+// login action {type, user: from server}
 // logingUser -> success? loginSuccess{LOGIN,user} : setError(err)
 export const LOGIN = "LOGIN";
 const loginSuccess = user => ({
   type: LOGIN,
-  user
+  payload: user
 });
 
-export function loginUser(auth: { username: string, password: string }) {
+export function loginUser(auth: {
+  username: string,
+  password: string
+}): ThunkAction {
   return (dispatch: Function) => {
     dispatch(setLoading(true));
-    loginApi(auth)
-      .then(user => {
+    axios
+      .post("/api/login", auth)
+      .then(res => {
+        const { data } = res;
         dispatch(setLoading(false));
-        console.log("response :", user);
-        if (user.success) {
-          dispatch(loginSuccess(user));
-        } else {
-          dispatch(setPasswrodTip(user.text));
-          dispatch(setError(true, user.text || "Unknow Error!"));
-        }
+
+        const login = R.ifElse(
+          R.propEq("success", true),
+          R.pipe(
+            loginSuccess,
+            dispatch
+          ),
+          data => {
+            dispatch(setError(true, data.text));
+          }
+        );
+        login(data);
       })
       .catch(err => {
-        dispatch(setError(true, err));
+        dispatch(setLoading(false));
+
+        dispatch(setError(true, err.message));
       });
   };
 }
 
-// fetch with auth information (JWT)
-export const authFetch = (url: string, option?: mixed) => (
-  dispatch: Function,
-  getState: Function
-) => {
-  const token = authToken(getState());
-
-  dispatch(setLoading(true));
-  const authOption = R.assocPath(
-    ["headers", "Authorization"],
-    "Bearer " + token
-  );
-  fetch(url, authOption(option))
-    .then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+export const LOGOUT = "LOGOUT";
+export const logout = (): ThunkAction => (dispatch: Function) => {
+  history.push("/login");
+  dispatch({ type: LOGOUT });
 };
+
+export const REFRESH_TOKEN = "REFRESHT_TOKEN";
+// tokens:{token, refreshToken}
+export const refreshToken = (tokens: {
+  token: string,
+  refreshToken: string
+}) => ({
+  type: REFRESH_TOKEN,
+  payload: tokens
+});
+
+export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+export const updatePasssword = (password: {
+  newpassword: string,
+  passwordtip: string
+}) => {
+  return (dispatch: Function, getState: Function) => {
+    const key = R.path(["auth", "key"])(getState());
+
+    const payload = {
+      password: password.newpassword,
+      passwordTip: password.passwordtip
+    };
+    dispatch(setLoading(true));
+
+    axios({
+      method: "PUT",
+      url: "/apis/v1/users",
+      data: {
+        key,
+        ...payload
+      }
+    })
+      .then(res => {
+        console.log("update password done ", res.data);
+        dispatch(setLoading(false));
+      })
+
+      .catch(err => {
+        dispatch(setLoading(false));
+        dispatch(setError(true, err.message));
+      });
+  };
+};
+// Update password

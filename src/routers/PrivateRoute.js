@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import R from "ramda";
 import { authLogin } from "reducers/storeUtils";
 import { Route, Redirect } from "react-router-dom";
 
-function PrivateRoute({ component: Component, login, ...rest }) {
+function PrivateRoute({ component: Component, ...rest }) {
+  const login = useSelector(authLogin);
   return (
     <Route
       {...rest}
@@ -24,8 +25,4 @@ function PrivateRoute({ component: Component, login, ...rest }) {
   );
 }
 
-const mapStateToProp = state => ({
-  login: authLogin(state)
-});
-
-export default connect(mapStateToProp)(PrivateRoute);
+export default PrivateRoute;

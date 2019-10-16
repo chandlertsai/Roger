@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "actions/auth";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
@@ -11,7 +11,7 @@ import { Redirect } from "react-router-dom";
 
 import {
   loadingState,
-  authHint,
+  appStateHint,
   authText,
   authPasswordTip,
   authLogin
@@ -27,8 +27,11 @@ const validator = yup.object().shape({
 });
 
 const loginForm = props => {
-  const { loading, hasLogin, login, passwordTip, hint, text, history } = props;
-
+  const { login, hint, text, history } = props;
+  const dispatch = useDispatch();
+  const loading = useSelector(loadingState);
+  const passwordTip = useSelector(authPasswordTip);
+  const hasLogin = useSelector(authLogin);
   return (
     <>
       {hasLogin ? (
@@ -39,7 +42,7 @@ const loginForm = props => {
           validationSchema={validator}
           onSubmit={(values, actions) => {
             actions.setSubmitting(false);
-            login(values);
+            dispatch(loginUser(values));
           }}
           render={({ errors, isValid }) => (
             <Form className='container_col'>
@@ -60,12 +63,6 @@ const loginForm = props => {
               >
                 登入
               </Button>
-              {hint ? (
-                <>
-                  <p className='center warning'>提示: {passwordTip}</p>
-                  <p className='center'>{text}</p>
-                </>
-              ) : null}
             </Form>
           )}
         />
@@ -74,23 +71,4 @@ const loginForm = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  loading: loadingState(state),
-  hint: authHint(state),
-  text: authText(state),
-  passwordTip: authPasswordTip(state),
-  hasLogin: authLogin(state)
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    login: auth => dispatch(loginUser(auth))
-  };
-};
-
-const LoginForm = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(loginForm);
-
-export default withRouter(LoginForm);
+export default withRouter(loginForm);
