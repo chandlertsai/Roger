@@ -33,7 +33,8 @@ const userForm = (props: Props) => {
         enableReinitialize
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
-          doSubmit(values);
+          const newData = R.omit(["_id"], values);
+          doSubmit(newData);
         }}
         render={({ errors, isValid, setFieldValue, values }) => (
           <Form className='container_col'>

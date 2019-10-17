@@ -4,12 +4,6 @@ import R from "ramda";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setError, setLoading } from "actions/appState";
-//Update 'PUT'
-const apiPut = (url: string, body: any) => {
-  axois({
-    method: "PUT"
-  });
-};
 
 /**
  * useFetch() - eyesfree server CRUD api hooks
@@ -36,7 +30,7 @@ export const useFetch = (collection: string): [mixed, Function, Function] => {
   const post = url => body => {
     dispatch(setLoading(true));
     axios
-      .post(url, R.omit(["_id"], body))
+      .post(url, body)
       .then(res => {
         setData(res.data);
       })
@@ -47,7 +41,7 @@ export const useFetch = (collection: string): [mixed, Function, Function] => {
   const put = url => body => {
     dispatch(setLoading(true));
     axios
-      .put(url, R.omit(["_id"], body))
+      .put(url, body)
       .then(res => {
         setData(res.data);
       })

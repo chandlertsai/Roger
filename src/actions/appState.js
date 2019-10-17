@@ -31,6 +31,7 @@ const setLastResponse = (lastResponse: mixed) => ({
 });
 
 const defaultOption = {
+  timeout: 2000,
   method: "GET",
   headers: {
     Accept: "application/json",

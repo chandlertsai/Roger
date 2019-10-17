@@ -42,6 +42,11 @@ const usersTable = (props: Props) => {
     setShowUserForm(true);
   };
 
+  const onSubmit = user => {
+    update(user);
+    setShowUserForm(false);
+  };
+
   const rowSelection = {
     selectedRowKeys,
     onChange: selectKeys => setSelectedRowKeys(selectKeys)
@@ -130,7 +135,7 @@ const usersTable = (props: Props) => {
         <UserForm
           permissions={permissions}
           userData={editingUser}
-          doSubmit={update}
+          doSubmit={onSubmit}
         />
       </Modal>
       <Table

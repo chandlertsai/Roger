@@ -25,7 +25,6 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
       params: { key: pKey }
     })
       .then(res => {
-        console.log("fetch permission response ", res.data);
         if (notArray(res.data)) {
           setReason(`無法取得正確的權限...`);
           setCurState(FAILURE);
@@ -36,7 +35,7 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
           R.prop("abilities")
         );
         const permission = getAbilies(res.data);
-        console.log("fetched permission ", permission, "group ", group);
+
         if (matchGroup(permission)) {
           console.log("PASS");
 
