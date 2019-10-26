@@ -40,7 +40,6 @@ export function loginUser(auth: {
       })
       .catch(err => {
         dispatch(setLoading(false));
-
         dispatch(setError(true, err.message));
       });
   };

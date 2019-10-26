@@ -1,91 +1,45 @@
 // @flow
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
+import useForm from "react-hook-form";
 import { connect } from "react-redux";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import * as yup from "yup";
 import R from "ramda";
 import ErrorTip from "./ErrorTip";
-import { loadingState, username } from "reducers/storeUtils";
-import { authFetch } from "actions/appState";
+import { useSendPasswordEmail } from "apis/crud";
 
-const validator = yup.object().shape({
-  oripassword: yup.string(),
-  newpassword: yup.string().required("請輸入密碼"),
-  validnewpassword: yup
-    .string()
-    .test("valid-password", "輸入密碼不相同", function(value) {
-      const newpw = this.parent.newpassword;
-      return value === newpw;
-    })
-});
+const forgetPasswordForm = () => {
+  const { register, handleSubmit, watch, errors } = useForm();
 
-type typeProps = {
-  loading: boolean,
-  sendRequest: Function,
-  account: string
-};
+  const [response, checkEmail] = useSendPasswordEmail("users");
 
-const forgetPasswordForm = (props: typeProps) => {
-  const { loading, sendRequest, account } = props;
+  const onSubmit = data => {
+    console.log(data);
+    checkEmail({ email: data.email });
+  };
+
+  useEffect(() => {
+    console.log("forgetpassword effect ", response);
+    if (response === "Not Found") {
+    }
+  }, [response]);
+
   return (
-    <Formik
-      initialValues={{
-        oripassword: "",
-        newpassword: "",
-        validnewpassword: "",
-        passwordtip: ""
-      }}
-      validationSchema={validator}
-      onSubmit={(values, actions) => {
-        actions.setSubmitting(false);
-        sendRequest();
-      }}
-      render={({ errors, isValid }) => (
-        <Form className='container_col'>
-          <span>{account}</span>
-          <label htmlFor='oripassword'>舊登入密碼: </label>
-          <Field name='oripassword' type='password' />
-          <ErrorMessage name='oripassword' component={ErrorTip} />
-
-          <label htmlFor='newpassword'>新登入密碼: </label>
-          <Field name='newpassword' type='password' />
-          <ErrorMessage name='newpassword' component={ErrorTip} />
-          <label htmlFor='validnewpassword'>確認新登入密碼: </label>
-          <Field name='validnewpassword' type='password' />
-          <ErrorMessage name='validnewpassword' component={ErrorTip} />
-          <label htmlFor='passwordtip'>密碼提示: </label>
-          <Field name='passwordtip' type='passwordtip' />
-          <ErrorMessage name='passwordtip' component={ErrorTip} />
-          <Button
-            className='center'
-            htmlType='submit'
-            disabled={!isValid}
-            loading={loading}
-          >
-            送出
-          </Button>
-        </Form>
-      )}
-    />
+    <form className='container_col' onSubmit={handleSubmit(onSubmit)}>
+      <div className='form-row'>
+        <label htmlFor='email'>登入 Email: </label>
+        <input name='email' ref={register({ required: true })} />
+      </div>
+      <div className='form-row'>
+        {errors.email && <p>This field is required</p>}
+      </div>
+      <div className='form-row'>
+        {response ? <span>{response}</span> : null}
+      </div>
+      <Button htmlType='submit'> submit</Button>
+    </form>
   );
 };
 
-const mapState2Props = state => ({
-  account: username(state),
-  loading: loadingState(state)
-});
-
-const mapDispatch2Props = dispatch => ({
-  sendRequest: (url, opt) =>
-    dispatch(
-      authFetch("/apis/v1/users", {
-        methos: "GET"
-      })
-    )
-});
-
-export default connect(
-  mapState2Props,
-  mapDispatch2Props
-)(forgetPasswordForm);
+export default forgetPasswordForm;

@@ -15,14 +15,23 @@ const setLoading = (loading: boolean) => {
 
 const SET_ERROR = "SET_ERROR";
 
-// {type, state: true|false, message:string}
-const setError = (error: boolean, errorMessage: string) => ({
-  type: SET_ERROR,
-  payload: {
-    hasError: error,
-    errorMessage
-  }
-});
+// {type, state: true|false, message: axios error object}
+const setError = (error: boolean, err: mixed | string) => {
+  const responsePath = ["response", "data"];
+  const haveResponse = R.hasPath(responsePath);
+  const responseData = R.path(responsePath);
+  const errorMessage = R.prop("message");
+  let text = R.ifElse(haveResponse, responseData, errorMessage)(err);
+  if (!text) text = err;
+
+  return {
+    type: SET_ERROR,
+    payload: {
+      hasError: error,
+      errorMessage: text
+    }
+  };
+};
 
 const SET_LAST_RESPONSE = "SET_LAST_RESPONSE";
 const setLastResponse = (lastResponse: mixed) => ({

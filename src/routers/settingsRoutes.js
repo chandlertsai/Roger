@@ -1,6 +1,8 @@
 import UsersTable from "components/pages/UsersTable";
 import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
+import UploadLicense from "components/forms/UploadLicense";
+
 export const settingsRoutes = [
   {
     name: "使用者設定",
@@ -17,5 +19,13 @@ export const settingsRoutes = [
     component: PermissionRoleForm,
     permission: "permission",
     permissionGroup: PermissionGroup.group
+  },
+  {
+    name: "上傳 License",
+    to: "/uploadlicense",
+    icon: "uplaod",
+    component: UploadLicense,
+    permission: "permission",
+    permissionGroup: PermissionGroup.license
   }
 ];

@@ -1,10 +1,10 @@
 // @flow
 import React, { useState } from "react";
 import { Button } from "antd";
-import { Formik, Form, ErrorMessage, Field } from "formik";
+import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "actions/auth";
-import { withRouter } from "react-router";
+
 import { Link } from "react-router-dom";
 import { default as ErrorDiv } from "./ErrorTip";
 import { Redirect } from "react-router-dom";
@@ -26,49 +26,42 @@ const validator = yup.object().shape({
   password: yup.string()
 });
 
-const loginForm = props => {
-  const { login, hint, text, history } = props;
+const LForm = props => {
   const dispatch = useDispatch();
+  const { register, handleSubmit, watch, errors } = useForm({
+    validationSchema: validator
+  });
   const loading = useSelector(loadingState);
   const passwordTip = useSelector(authPasswordTip);
-  const hasLogin = useSelector(authLogin);
+
+  const onSubmit = data => {
+    dispatch(loginUser(data));
+  };
   return (
-    <>
-      {hasLogin ? (
-        <Redirect to='/welcome' />
-      ) : (
-        <Formik
-          initialValues={{ username: "", password: "" }}
-          validationSchema={validator}
-          onSubmit={(values, actions) => {
-            actions.setSubmitting(false);
-            dispatch(loginUser(values));
-          }}
-          render={({ errors, isValid }) => (
-            <Form className='container_col'>
-              <label htmlFor='name'>使用者帳號: </label>
-              <Field name='username' type='text' />
-              <ErrorMessage name='username' component={ErrorDiv} />
-              <label htmlFor='password'>登入密碼: </label>
-              <Field name='password' type='password' />
-              <ErrorMessage name='password' component={ErrorDiv} />
-              <Link className='alignRight' to='/forgetPassword'>
-                忘記密碼？
-              </Link>
-              <Button
-                className='center'
-                htmlType='submit'
-                disabled={!isValid}
-                loading={loading}
-              >
-                登入
-              </Button>
-            </Form>
-          )}
-        />
-      )}
-    </>
+    <form onSubmit={handleSubmit(onSubmit)} className='container_col'>
+      <div className='form-row'>
+        <label htmlFor='username'>使用者帳號: </label>
+        <input type='text' name='username' defaultValue='' ref={register} />
+      </div>
+      {errors.username && <p className='error'>使用者帳號為必要欄位</p>}
+
+      <div className='form-row'>
+        <label htmlFor='password'>登入密碼: </label>
+        <input type='password' name='password' defaultValue='' ref={register} />
+      </div>
+      <Link className='alignRight' to='/forgetPassword'>
+        忘記密碼？
+      </Link>
+      <Button className='center' htmlType='submit' loading={loading}>
+        登入
+      </Button>
+    </form>
   );
 };
 
-export default withRouter(loginForm);
+const loginForm = props => {
+  const hasLogin = useSelector(authLogin);
+  return <>{hasLogin ? <Redirect to='/welcome' /> : <LForm />}</>;
+};
+
+export default loginForm;

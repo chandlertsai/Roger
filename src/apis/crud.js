@@ -4,7 +4,27 @@ import R from "ramda";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setError, setLoading } from "actions/appState";
+// Fetch 'GET'
+/**
+ * @return [response, get(email)]
+ */
+export const useSendPasswordEmail = (collection: string): [mixed, Function] => {
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
 
+  const get = param => {
+    dispatch(setLoading(true));
+    axios
+      .get("/api/sendpassword", { params: param })
+      .then(res => {
+        setData(res.data);
+      })
+      .catch(error => dispatch(setError(true, error.response.data)))
+      .finally(() => dispatch(setLoading(false)));
+  };
+
+  return [data, get];
+};
 /**
  * useFetch() - eyesfree server CRUD api hooks
  * @param {collection name i.e. users, permission} collection

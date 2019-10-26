@@ -6,11 +6,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "store";
 import { intercepteRefreshAxios, intercepteAuthRequest } from "apis/auth";
-import { Layout } from "antd";
-import { ContentArea, Sidebar, Navbar } from "components/layout";
+import MainFrame from "components/layout/MainFrame";
 import "./app.less";
-
-const { Header, Content, Footer, Sider } = Layout;
 
 const App = props => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -20,32 +17,12 @@ const App = props => {
     intercepteRefreshAxios(store);
     intercepteAuthRequest(store);
   }, []);
+
   return (
     <Provider store={store}>
       <Router history={history}>
         <PersistGate loading={<h1>Loading...</h1>} persistor={persistor}>
-          <Layout sytel={{ minHeight: "100vh" }}>
-            <Sider
-              trigger={null}
-              collapsible
-              collapsed={!showSidebar}
-              styel={{ background: "blue" }}
-            >
-              <Sidebar />
-            </Sider>
-
-            <Layout>
-              <Header style={{ background: "gray", padding: 0 }}>
-                <Navbar
-                  showSidebar={showSidebar}
-                  toggleSidebar={toggleSidebar}
-                />
-              </Header>
-              <Content style={{ margin: "0 16px" }}>
-                <ContentArea />
-              </Content>
-            </Layout>
-          </Layout>
+          <MainFrame showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
         </PersistGate>
       </Router>
     </Provider>

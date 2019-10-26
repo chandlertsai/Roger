@@ -9,7 +9,7 @@ import {
 } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Modal, Tag } from "antd";
+import { Table, Drawer, Tag } from "antd";
 import UserForm from "components/forms/UserForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import axios from "axios";
@@ -126,18 +126,20 @@ const usersTable = (props: Props) => {
           remove: "移除選取使用者"
         }}
       />
-      <Modal
+      <Drawer
         title='編輯使用者資料'
         visible={isShowUserForm}
+        placement='right'
         footer={null}
-        onCancel={() => setShowUserForm(false)}
+        width='40%'
+        onClose={() => setShowUserForm(false)}
       >
         <UserForm
           permissions={permissions}
           userData={editingUser}
           doSubmit={onSubmit}
         />
-      </Modal>
+      </Drawer>
       <Table
         rowSelection={rowSelection}
         columns={columns}
