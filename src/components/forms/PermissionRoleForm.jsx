@@ -69,7 +69,7 @@ const permissionRoleForm = (props: Props) => {
   const fetchPermission = () => {
     dispatch(setLoading(true));
     axios
-      .get("/apis/v1/permission")
+      .get("/apis/v1/read/permission")
       .then(res => {
         console.log(res.data);
         const regroupArray = arr => ({
@@ -100,7 +100,7 @@ const permissionRoleForm = (props: Props) => {
   const addRole = data => {
     dispatch(setLoading(true));
     axios({
-      url: "/apis/v1/permission",
+      url: "/apis/v1/create/permission",
       method: "POST",
       data
     })
@@ -129,7 +129,7 @@ const permissionRoleForm = (props: Props) => {
     dispatch(setLoading(true));
     axios({
       method: "DELETE",
-      url: "/apis/v1/permission",
+      url: "/apis/v1/delete/permission",
       params: keyValue
     })
       .then(res => {
@@ -150,7 +150,7 @@ const permissionRoleForm = (props: Props) => {
     dispatch(setLoading(true));
     axios({
       method: "PUT",
-      url: "/apis/v1/permission",
+      url: "/apis/v1/update/permission",
       data: body
     })
       .then(res => {

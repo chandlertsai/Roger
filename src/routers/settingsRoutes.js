@@ -1,4 +1,5 @@
 import UsersTable from "components/pages/UsersTable";
+import DevicesTable from "components/pages/DeviceTable";
 import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
@@ -27,5 +28,13 @@ export const settingsRoutes = [
     component: UploadLicense,
     permission: "permission",
     permissionGroup: PermissionGroup.license
+  },
+  {
+    name: "設備設定",
+    to: "/devicestable",
+    icon: "cluster",
+    component: DevicesTable,
+    permission: "permission",
+    permissionGroup: PermissionGroup.device.information
   }
 ];

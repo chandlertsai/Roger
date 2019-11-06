@@ -3,10 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { usePermission } from "apis/auth";
-import {
-  EditableFormRow,
-  EditOperationCell
-} from "components/pureComponents/TableCells";
+import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
 import { Table, Drawer, Tag } from "antd";
@@ -25,7 +22,7 @@ const permissionName = key =>
 type Props = {
   dispatch: Function
 };
-const usersTable = (props: Props) => {
+const contactTable = (props: Props) => {
   const [editingkey, setEditingKey] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update] = useFetch("users");
@@ -147,4 +144,4 @@ const usersTable = (props: Props) => {
   );
 };
 
-export default usersTable;
+export default contactTable;

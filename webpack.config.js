@@ -58,7 +58,8 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       "/api": "http://localhost:3001",
-      "/apis": "http://localhost:3001"
+      "/apis": "http://localhost:3001",
+      "/webapi": "http://localhost:3001"
     }
     //   '/qpe': {
     //     target: 'http://localhost:8080',

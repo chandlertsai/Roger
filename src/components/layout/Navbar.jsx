@@ -18,8 +18,9 @@ type Props = {
 const Navbar = (props: Props) => {
   const { showSidebar, toggleSidebar, auth, alreadyLogin, logout } = props;
   return (
-    <div className='container'>
+    <div className='navbar'>
       <Typography.Title
+        className='navbar-brand'
         level={3}
         onClick={toggleSidebar}
         style={{ color: "white", flex: "1 0 200px", marginLeft: "0.5rem" }}
@@ -28,6 +29,7 @@ const Navbar = (props: Props) => {
       </Typography.Title>
 
       <AvatorDropdown
+        className='nav-link'
         alreadyLogin={alreadyLogin}
         username={auth.username}
         doLogout={logout}

@@ -13,7 +13,7 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => (
       <Sidebar />
     </Sider>
 
-    <Layout>
+    <Layout className='bg-light'>
       <Header style={{ background: "gray", padding: 0 }}>
         <Navbar showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
       </Header>

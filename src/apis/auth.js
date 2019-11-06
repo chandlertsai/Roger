@@ -96,7 +96,7 @@ const usePermission = (): Array<mixed> => {
   useEffect(() => {
     dispatch(setLoading(true));
     axios
-      .get("/apis/v1/permission")
+      .get("/apis/v1/read/permission")
       .then(res => res.data)
       .then(setPermissions)
       .catch(error => dispatch(setError(true, error.message)))

@@ -15,14 +15,37 @@ const setLoading = (loading: boolean) => {
 
 const SET_ERROR = "SET_ERROR";
 
+const isString = R.is(String);
+const haveError = R.has("error");
+const getResponseErrorMessage = R.cond([
+  [isString, R.identity],
+  [haveError, R.prop("error")],
+  [R.T, R.identity]
+]);
+
+const getErrorMessage = R.cond([
+  [isString, R.identity],
+  [R.has("message"), R.prop("message")],
+  [R.T, R.identity]
+]);
+
 // {type, state: true|false, message: axios error object}
 const setError = (error: boolean, err: mixed | string) => {
+  console.log("got error ", err);
   const responsePath = ["response", "data"];
   const haveResponse = R.hasPath(responsePath);
   const responseData = R.path(responsePath);
   const errorMessage = R.prop("message");
-  let text = R.ifElse(haveResponse, responseData, errorMessage)(err);
-  if (!text) text = err;
+  let text = R.ifElse(
+    haveResponse,
+    R.pipe(
+      responseData,
+      getResponseErrorMessage
+    ),
+    getErrorMessage
+  )(err);
+
+  if (text === undefined) text = err;
 
   return {
     type: SET_ERROR,

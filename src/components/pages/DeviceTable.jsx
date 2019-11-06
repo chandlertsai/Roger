@@ -1,48 +1,46 @@
 // @flow
 
 import React, { useState, useEffect } from "react";
-import { useFetch } from "apis/crud";
+import { useFetch, useNameList } from "apis/crud";
 import { usePermission } from "apis/auth";
-import {
-  EditableFormRow,
-  EditOperationCell
-} from "components/pureComponents/TableCells";
+import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
 import { Table, Drawer, Tag } from "antd";
-import UserForm from "components/forms/UserForm";
+import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import R from "ramda";
-
-const permissionName = key =>
-  R.compose(
-    R.prop("name"),
-    R.head,
-    R.filter(R.propEq("key", key))
-  );
 
 // props type
 type Props = {
   dispatch: Function
 };
-const usersTable = (props: Props) => {
+
+//  <option value='NormalNetwork'>一般網路設備</option>
+//           <option value='Monitor'>數據監控設備</option>
+//           <option value='SimpleDevice'>簡易資料設備</option>
+
+const devicesTable = (props: Props) => {
   const [editingkey, setEditingKey] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tableData, remove, update] = useFetch("users");
+  const [tableData, remove, update] = useFetch("devices");
   const [isShowUserForm, setShowUserForm] = useState(false);
-  const [editingUser, setEditingUser] = useState({});
+  const [editingDevice, setEditingDevice] = useState({});
   const permissions = usePermission();
+  const usersNameList = useNameList("users");
+  const vendorNameList = useNameList("vendors");
 
   const isEditing = key => key === editingkey;
 
   const onEditing = record => {
-    setEditingUser(record);
+    setEditingDevice(record);
     setShowUserForm(true);
   };
 
-  const onSubmit = user => {
-    update(user);
+  const onSubmit = device => {
+    update(device);
     setShowUserForm(false);
+    console.log(device);
   };
 
   const rowSelection = {
@@ -50,14 +48,19 @@ const usersTable = (props: Props) => {
     onChange: selectKeys => setSelectedRowKeys(selectKeys)
   };
 
-  const addDefaultUser = () => {
+  const addDefaultDevice = () => {
     const key = uniqueKey();
     onEditing({
       key: key,
       name: "輸入名稱",
-      email: "請輸入電子郵件",
-      password: "請輸入密碼"
+      ip: "請輸入ip"
     });
+  };
+
+  const deviceType = {
+    NormalNetwork: "一般網路設備",
+    Monitor: "數據監控設備",
+    SimpleDevice: "簡易資料設備"
   };
 
   const columns = [
@@ -66,29 +69,36 @@ const usersTable = (props: Props) => {
       dataIndex: "name",
       key: "name"
     },
-    {
-      title: "E-mail",
-      dataIndex: "email",
-      key: "email"
-    },
-    {
-      title: "密碼提示",
-      dataIndex: "passwordTip",
-      key: "passwordTip"
-    },
 
     {
-      title: "權限",
-      dataIndex: "pkey",
-      key: "pkey",
-      render: pKey => (
+      title: "類型",
+      dataIndex: "type",
+      key: "type",
+      render: t => (
         <span>
-          <Tag color='geekblue' key='pKey'>
-            {permissionName(pKey)(permissions) || "None"}
+          <Tag color='geekblue' key='t'>
+            {deviceType[t] || "None"}
           </Tag>
         </span>
       )
     },
+
+    {
+      title: "IP位置",
+      dataIndex: "ip",
+      key: "ip"
+    },
+    {
+      title: "管理員",
+      dataIndex: "userid",
+      key: "userid"
+    },
+    {
+      title: "供應商資料",
+      dataIndex: "vendorid",
+      key: "vendorid"
+    },
+
     {
       title: "Action",
       key: "action",
@@ -115,30 +125,32 @@ const usersTable = (props: Props) => {
       <TableToolbar
         selectedRowKeys={selectedRowKeys}
         handlers={{
-          addItem: addDefaultUser,
+          addItem: addDefaultDevice,
           removeSelectedItems: remove
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增使用者",
-          remove: "移除選取使用者"
+          add: "新增裝置",
+          remove: "移除選取裝置"
         }}
       />
       <Drawer
-        title='編輯使用者資料'
+        title='編輯裝置資料'
         visible={isShowUserForm}
         placement='right'
         footer={null}
         width='40%'
         onClose={() => setShowUserForm(false)}
       >
-        <UserForm
-          permissions={permissions}
-          userData={editingUser}
+        <DeviceForm
+          device={editingDevice}
           doSubmit={onSubmit}
+          users={usersNameList}
+          vendors={vendorNameList}
         />
       </Drawer>
       <Table
+        size='small'
         rowSelection={rowSelection}
         columns={columns}
         dataSource={tableData}
@@ -147,4 +159,4 @@ const usersTable = (props: Props) => {
   );
 };
 
-export default usersTable;
+export default devicesTable;

@@ -28,7 +28,7 @@ const avatorDropdown = (props: {
   );
 
   return (
-    <div className='alignRight'>
+    <div className='form-inline'>
       {alreadyLogin ? (
         <Dropdown trigger={["click"]} overlay={menu}>
           <div>

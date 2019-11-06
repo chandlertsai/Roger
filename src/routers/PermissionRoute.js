@@ -21,7 +21,7 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
     const matchGroup = R.includes(group);
     axios({
       method: "GET",
-      url: "/apis/v1/permission",
+      url: "/apis/v1/read/permission",
       params: { key: pKey }
     })
       .then(res => {

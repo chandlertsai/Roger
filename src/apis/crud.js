@@ -25,6 +25,7 @@ export const useSendPasswordEmail = (collection: string): [mixed, Function] => {
 
   return [data, get];
 };
+
 /**
  * useFetch() - eyesfree server CRUD api hooks
  * @param {collection name i.e. users, permission} collection
@@ -33,16 +34,16 @@ export const useSendPasswordEmail = (collection: string): [mixed, Function] => {
 export const useFetch = (collection: string): [mixed, Function, Function] => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
-  const basicUrl = "/apis/v1/" + collection;
+  const readUrl = "/apis/v1/read/" + collection;
 
   useEffect(() => {
     dispatch(setLoading(true));
     axios
-      .get(basicUrl)
+      .get(readUrl)
       .then(res => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch(error => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   }, []);
 
@@ -54,10 +55,11 @@ export const useFetch = (collection: string): [mixed, Function, Function] => {
       .then(res => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch(error => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   };
 
+  const updateUrl = "/apis/v1/update/" + collection;
   const put = url => body => {
     dispatch(setLoading(true));
     axios
@@ -65,9 +67,39 @@ export const useFetch = (collection: string): [mixed, Function, Function] => {
       .then(res => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch(error => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   };
 
-  return [data, post(removeurl), put(basicUrl)];
+  return [data, post(removeurl), put(updateUrl)];
+};
+
+/**
+ * useNameList(collection) - Get collection and pick object {key, name}
+ * @param {collection name i.e. users, permission} collection
+ * @returns [collectionContext, remove, update]
+ */
+export const useNameList = (collection: string) => {
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const readUrl = "/apis/v1/read/" + collection;
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    axios
+      .get(readUrl)
+      .then(res => {
+        const namelist = R.ifElse(
+          Array.isArray,
+          R.map(R.pick(["name", "key"])),
+          R.pick(["name", "key"])
+        )(res.data);
+        console.log("namelist ", namelist);
+        setData(namelist);
+      })
+      .catch(error => dispatch(setError(true, error.message)))
+      .finally(() => dispatch(setLoading(false)));
+  }, []);
+
+  return data;
 };

@@ -24,6 +24,7 @@ export function loginUser(auth: {
       .post("/api/login", auth)
       .then(res => {
         const { data } = res;
+
         dispatch(setLoading(false));
 
         const login = R.ifElse(
@@ -77,7 +78,7 @@ export const updatePasssword = (password: {
 
     axios({
       method: "PUT",
-      url: "/apis/v1/users",
+      url: "/apis/v1/update/users",
       data: {
         key,
         ...payload

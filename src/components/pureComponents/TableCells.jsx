@@ -14,6 +14,7 @@ export const EditOperationCell = ({ editing, record, handlerSetEditing }) => {
   return (
     <div>
       <Button
+        size='small'
         type='primary'
         onClick={() => handlerSetEditing(record)}
         style={{ margin: "5px" }}
