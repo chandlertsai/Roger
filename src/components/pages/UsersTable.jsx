@@ -113,6 +113,7 @@ const usersTable = (props: Props) => {
   return (
     <div>
       <TableToolbar
+        title='使用者'
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultUser,

@@ -1,18 +1,11 @@
 // @flow
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "antd";
 import useForm from "react-hook-form";
 import { useDispatch } from "react-redux";
 import R from "ramda";
 import { default as ErrorDiv } from "./ErrorTip";
 
-import {
-  loadingState,
-  appStateHint,
-  authText,
-  authPasswordTip,
-  authLogin
-} from "reducers/storeUtils";
 import * as yup from "yup";
 
 // $FlowFixMe
@@ -27,14 +20,19 @@ const validator = yup.object().shape({
 });
 
 const deviceForm = props => {
-  console.log(props);
-  const dispatch = useDispatch();
-  const { register, handleSubmit, watch, errors } = useForm({
-    validationSchema: validator
-  });
-
   const { users, vendors, device, doSubmit } = props;
   const { name, ip, userkey, vendorkey, key } = device;
+  const dispatch = useDispatch();
+  const { register, handleSubmit, watch, errors, reset } = useForm({
+    validationSchema: validator,
+    defaultValues: device
+  });
+
+  useEffect(() => {
+    reset(device);
+  }, [device]);
+
+  console.log("device form device ", device);
 
   const onSubmit = data => {
     const newData = R.pipe(
@@ -60,7 +58,6 @@ const deviceForm = props => {
           className='form-control'
           type='text'
           name='name'
-          defaultValue={name}
           ref={register}
         />
       </div>
@@ -77,19 +74,13 @@ const deviceForm = props => {
 
       <div className='form-group'>
         <label htmlFor='ip'>IP 位址: </label>
-        <input
-          className='form-control'
-          type='text'
-          name='ip'
-          defaultValue={ip}
-          ref={register}
-        />
+        <input className='form-control' type='text' name='ip' ref={register} />
       </div>
       <small className='form-text text-muted'>ex: 192.168.0.1</small>
       {errors.ip && <p className='error'> IP位址格式錯誤</p>}
 
       <div className='form-group'>
-        <label htmlFor='userkey'>設備負責人: </label>
+        <label htmlFor='userkey'>設備負責人: {userkey}</label>
         <select name='userkey' className='custom-select' ref={register}>
           {createOptions(users)}
         </select>

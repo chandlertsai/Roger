@@ -15,36 +15,33 @@ type ComponentText = {
 type Props = {
   handlers: Handlers,
   componentsText: ComponentText,
-  selectedRowKeys: Array<string>
+  selectedRowKeys: Array<string>,
+  title: string,
+  info?: string
 };
 
 const tableToolBar = (props: Props) => {
-  const { handlers, componentsText, selectedRowKeys } = props;
+  const { handlers, componentsText, selectedRowKeys, title, info } = props;
   const { addItem, removeSelectedItems } = handlers;
 
   return (
-    <div>
-      <Row>
-        <Col span={16}>
-          <Button
-            type='default'
-            icon='plus'
-            onClick={addItem}
-            style={{ margin: "5px" }}
-          >
-            {componentsText.add}
-          </Button>
+    <div className='navbar navbar-light bg-light'>
+      <div className='navbar-brand'>{title}</div>
+      <span className='navbar-text'>{info}</span>
+      <form className='form-inline'>
+        <Button type='default' icon='plus' onClick={addItem}>
+          {componentsText.add}
+        </Button>
 
-          <Button
-            type='danger'
-            icon='delete'
-            onClick={() => removeSelectedItems(selectedRowKeys)}
-            style={{ margin: "5px" }}
-          >
-            {componentsText.remove}
-          </Button>
-        </Col>
-      </Row>
+        <Button
+          type='danger'
+          icon='delete'
+          onClick={() => removeSelectedItems(selectedRowKeys)}
+          className='ml-1'
+        >
+          {componentsText.remove}
+        </Button>
+      </form>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const editableRow = ({ form, index, ...props }) => (
 
 export const EditableFormRow = Form.create()(editableRow);
 
-export const EditOperationCell = ({ editing, record, handlerSetEditing }) => {
+export const EditOperationCell = ({ record, handlerSetEditing }) => {
   return (
     <div>
       <Button

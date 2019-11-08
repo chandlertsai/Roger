@@ -1,14 +1,15 @@
 // @flow
 
 import React, { useState, useEffect } from "react";
-import { useFetch, useNameList } from "apis/crud";
-import { usePermission } from "apis/auth";
+import { useFetch, useNameList, getName } from "apis/crud";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag } from "antd";
+import { Table, Drawer, Tag, Popover } from "antd";
 import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
+import { useLicense } from "apis/license";
+
 import R from "ramda";
 
 // props type
@@ -21,16 +22,18 @@ type Props = {
 //           <option value='SimpleDevice'>簡易資料設備</option>
 
 const devicesTable = (props: Props) => {
-  const [editingkey, setEditingKey] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update] = useFetch("devices");
   const [isShowUserForm, setShowUserForm] = useState(false);
   const [editingDevice, setEditingDevice] = useState({});
-  const permissions = usePermission();
+  const license = useLicense();
+  const [licenseInfo, setLicenseInfo] = useState("");
   const usersNameList = useNameList("users");
-  const vendorNameList = useNameList("vendors");
+  const [vendorList, rv, uv] = useFetch("vendors");
 
-  const isEditing = key => key === editingkey;
+  useEffect(() => {
+    setLicenseInfo("可用裝置: " + tableData.length + "/" + license.permitCount);
+  }, [licenseInfo, tableData]);
 
   const onEditing = record => {
     setEditingDevice(record);
@@ -90,13 +93,29 @@ const devicesTable = (props: Props) => {
     },
     {
       title: "管理員",
-      dataIndex: "userid",
-      key: "userid"
+      dataIndex: "userkey",
+      key: "userkey",
+      render: userkey => getName(userkey)(usersNameList)
     },
     {
       title: "供應商資料",
-      dataIndex: "vendorid",
-      key: "vendorid"
+      dataIndex: "vendorkey",
+      key: "vendorkey",
+      render: vkey => {
+        const vendor = R.find(R.propEq("key", vkey))(vendorList) || {};
+
+        const content = (
+          <div>
+            <p>電話:{vendor.phone}</p>
+            <p>Email:{vendor.email}</p>
+          </div>
+        );
+        return (
+          <Popover title={vendor.name} content={content}>
+            {vendor.name}
+          </Popover>
+        );
+      }
     },
 
     {
@@ -106,23 +125,17 @@ const devicesTable = (props: Props) => {
       onCell: record => ({
         style: { paddingTop: 0, paddingBottom: 0 }
       }),
-      render: (text, record) => {
-        const editing = isEditing(record.key);
-
-        return (
-          <EditOperationCell
-            editing={editing}
-            handlerSetEditing={onEditing}
-            record={record}
-          />
-        );
-      }
+      render: (text, record) => (
+        <EditOperationCell handlerSetEditing={onEditing} record={record} />
+      )
     }
   ];
 
   return (
     <div>
       <TableToolbar
+        title='裝置管理'
+        info={licenseInfo}
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultDevice,
@@ -146,7 +159,7 @@ const devicesTable = (props: Props) => {
           device={editingDevice}
           doSubmit={onSubmit}
           users={usersNameList}
-          vendors={vendorNameList}
+          vendors={vendorList}
         />
       </Drawer>
       <Table

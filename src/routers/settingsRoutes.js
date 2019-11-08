@@ -3,6 +3,7 @@ import DevicesTable from "components/pages/DeviceTable";
 import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
+import VendorTable from "components/pages/VendorTable";
 
 export const settingsRoutes = [
   {
@@ -36,5 +37,13 @@ export const settingsRoutes = [
     component: DevicesTable,
     permission: "permission",
     permissionGroup: PermissionGroup.device.information
+  },
+  {
+    name: "供應商設定",
+    to: "/vendortable",
+    icon: "account-book",
+    component: VendorTable,
+    permission: "permission",
+    permissionGroup: PermissionGroup.device.vendor
   }
 ];

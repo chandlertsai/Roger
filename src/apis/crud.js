@@ -94,7 +94,7 @@ export const useNameList = (collection: string) => {
           R.map(R.pick(["name", "key"])),
           R.pick(["name", "key"])
         )(res.data);
-        console.log("namelist ", namelist);
+
         setData(namelist);
       })
       .catch(error => dispatch(setError(true, error.message)))
@@ -103,3 +103,10 @@ export const useNameList = (collection: string) => {
 
   return data;
 };
+
+// Use getName on useNameList return list
+export const getName = (key: string) =>
+  R.pipe(
+    R.find(R.propEq("key", key)),
+    R.prop("name")
+  );
