@@ -1,5 +1,7 @@
 import UsersTable from "components/pages/UsersTable";
+import GroupsTable from "components/pages/GroupsTabe";
 import DevicesTable from "components/pages/DeviceTable";
+import AlarmTable from "components/pages/AlarmTable";
 import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
@@ -13,6 +15,14 @@ export const settingsRoutes = [
     component: UsersTable,
     permission: "permission",
     permissionGroup: PermissionGroup.users
+  },
+  {
+    name: "群組設定",
+    to: "/groupstable",
+    icon: "block",
+    component: GroupsTable,
+    permission: "permission",
+    permissionGroup: PermissionGroup.group
   },
   {
     name: "權限設定",
@@ -38,6 +48,15 @@ export const settingsRoutes = [
     permission: "permission",
     permissionGroup: PermissionGroup.device.information
   },
+  {
+    name: "報警設定",
+    to: "/alarmtable",
+    icon: "warning",
+    component: AlarmTable,
+    permission: "permission",
+    permissionGroup: PermissionGroup.device.alarm
+  },
+
   {
     name: "供應商設定",
     to: "/vendortable",

@@ -38,34 +38,13 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      components: path.resolve(__dirname, "src/components/"),
-      asset: path.resolve(__dirname, "src/asset/"),
-      apis: path.resolve(__dirname, "src/apis/"),
-      reducers: path.resolve(__dirname, "src/reducers"),
-      actions: path.resolve(__dirname, "src/actions"),
-      routers: path.resolve(__dirname, "src/routers"),
-      store: path.resolve(__dirname, "src/store"),
-      src: path.resolve(__dirname, "src")
+      components: path.resolve(__dirname, "../src/components/"),
+      asset: path.resolve(__dirname, "../src/asset/"),
+      apis: path.resolve(__dirname, "../src/apis/"),
+      reducers: path.resolve(__dirname, "../src/reducers"),
+      actions: path.resolve(__dirname, "../src/actions"),
+      routers: path.resolve(__dirname, "../src/routers"),
+      store: path.resolve(__dirname, "../src/store")
     }
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./public/index.html",
-      filename: "./index.html"
-    })
-  ],
-  devServer: {
-    port: 4000,
-    historyApiFallback: true,
-    proxy: {
-      "/api": "http://localhost:3001",
-      "/apis": "http://localhost:3001",
-      "/webapi": "http://localhost:3001"
-    }
-    //   '/qpe': {
-    //     target: 'http://localhost:8080',
-    //     changeOrigin: true
-    //   }
-    // }
   }
 };

@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import { persistor, store } from "store";
 import { intercepteRefreshAxios, intercepteAuthRequest } from "apis/auth";
 import MainFrame from "components/layout/MainFrame";
+import initIcon from "components/fontawesome";
 import "./app.less";
 
 const App = props => {
@@ -14,6 +15,7 @@ const App = props => {
   const toggleSidebar = () => setShowSidebar(pre => !pre);
 
   useEffect(() => {
+    initIcon();
     intercepteRefreshAxios(store);
     intercepteAuthRequest(store);
   }, []);

@@ -6,6 +6,7 @@ import { auth, authLogin } from "reducers/storeUtils";
 import AvatorDropdown from "components/pureComponents/AvatorDropdown";
 import { logout } from "actions/auth";
 import type { ThunkAction } from "apis/types";
+import { webVersion, useServerVersion } from "src/version";
 
 type Props = {
   showSidebar: boolean,
@@ -17,23 +18,26 @@ type Props = {
 
 const Navbar = (props: Props) => {
   const { showSidebar, toggleSidebar, auth, alreadyLogin, logout } = props;
+  const serverVersion = useServerVersion();
   return (
-    <div className='navbar'>
+    <div className="navbar navbar-dark bg-dark">
       <Typography.Title
-        className='navbar-brand'
+        className="navbar-brand"
         level={3}
         onClick={toggleSidebar}
         style={{ color: "white", flex: "1 0 200px", marginLeft: "0.5rem" }}
       >
         Eyesfree
       </Typography.Title>
-
       <AvatorDropdown
-        className='nav-link'
         alreadyLogin={alreadyLogin}
         username={auth.username}
         doLogout={logout}
       />
+
+      <div className="navbar-text text-white mx-2">
+        Web:{webVersion} | Server:{serverVersion}
+      </div>
     </div>
   );
 };
@@ -46,7 +50,4 @@ const mapState2Props = (state: mixed) => ({
 const mapDispatch2Props = (dispatch: Function) => ({
   logout: () => dispatch(logout())
 });
-export default connect(
-  mapState2Props,
-  mapDispatch2Props
-)(Navbar);
+export default connect(mapState2Props, mapDispatch2Props)(Navbar);

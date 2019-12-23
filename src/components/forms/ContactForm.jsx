@@ -31,7 +31,7 @@ const contactForm = props => {
     onChange: selectKeys => setSelectedRowKeys(selectKeys)
   };
   const addDefaultContact = () => {
-    const key = uniqueKey();
+    const key = uniqueKey("contact");
     const newContact = {
       key: key,
       name: "請輸入名稱",
@@ -42,7 +42,6 @@ const contactForm = props => {
   };
   const removeContact = () => {};
   const onFinish = () => {
-    // R.mergeLeft(data, contacts);
     console.log("onFinish ", data);
 
     doSubmit(data);
@@ -51,42 +50,30 @@ const contactForm = props => {
     const idx = itemIndex(newItem.key)(data.contacts);
     console.log("contactForm modify idx ", idx);
     if (idx < 0) {
-      const newContacts = R.pipe(
-        R.prop("contacts"),
-        R.append(newItem)
-      );
+      const newContacts = R.pipe(R.prop("contacts"), R.append(newItem));
       const addContact = R.useWith(R.assoc("contacts"), [
         newContacts,
         R.identity
       ]);
 
-      R.pipe(
-        addContact,
-        setData
-      )(data);
+      R.pipe(addContact, setData)(data);
     } else {
       //update
-      const updateContact = R.pipe(
-        R.prop("contacts"),
-        R.update(idx, newItem)
-      );
+      const updateContact = R.pipe(R.prop("contacts"), R.update(idx, newItem));
 
       const setContact = R.useWith(R.assoc("contacts"), [
         updateContact,
         R.identity
       ]);
-      R.pipe(
-        setContact,
-        setData
-      )(data);
+      R.pipe(setContact, setData)(data);
     }
     setShowForm(false);
   };
 
   return (
-    <div className='container'>
+    <div className="container">
       <TableToolbar
-        title='聯絡人'
+        title="聯絡人"
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultContact,
@@ -110,7 +97,7 @@ const contactForm = props => {
           hideForm={() => setShowForm(false)}
         />
       ) : (
-        <Button type='primary' onClick={onFinish}>
+        <Button type="primary" onClick={onFinish}>
           確定
         </Button>
       )}

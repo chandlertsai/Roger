@@ -1,36 +1,33 @@
 // @flow
 
 import React, { useState, useEffect } from "react";
+import R from "ramda";
+import { useDispatch } from "react-redux";
+import { Table, Drawer, Tag } from "antd";
 import { useFetch } from "apis/crud";
 import { usePermission } from "apis/auth";
+
+import { uniqueKey } from "apis/utils";
+import { setLoading, setError } from "actions/appState";
+import UserForm from "components/forms/UserForm";
+import TableToolbar from "components/pureComponents/TableToolbar";
 import {
   EditableFormRow,
   EditOperationCell
 } from "components/pureComponents/TableCells";
-import { uniqueKey } from "apis/utils";
-import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag } from "antd";
-import UserForm from "components/forms/UserForm";
-import TableToolbar from "components/pureComponents/TableToolbar";
-import R from "ramda";
 
 const permissionName = key =>
-  R.compose(
-    R.prop("name"),
-    R.head,
-    R.filter(R.propEq("key", key))
-  );
+  R.compose(R.prop("name"), R.head, R.filter(R.propEq("key", key)));
 
 // props type
-type Props = {
-  dispatch: Function
-};
-const usersTable = (props: Props) => {
+
+const usersTable = () => {
   const [editingkey, setEditingKey] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tableData, remove, update] = useFetch("users");
+  const [tableData, remove, update, query] = useFetch("users");
   const [isShowUserForm, setShowUserForm] = useState(false);
   const [editingUser, setEditingUser] = useState({});
+  const dispatch = useDispatch();
   const permissions = usePermission();
 
   const isEditing = key => key === editingkey;
@@ -41,6 +38,12 @@ const usersTable = (props: Props) => {
   };
 
   const onSubmit = user => {
+    const idx = R.findIndex(R.propEq("name", user.name))(tableData);
+    if (idx !== -1) {
+      dispatch(setError(true, "使用者名稱重複"));
+      setShowUserForm(false);
+      return;
+    }
     update(user);
     setShowUserForm(false);
   };
@@ -51,7 +54,7 @@ const usersTable = (props: Props) => {
   };
 
   const addDefaultUser = () => {
-    const key = uniqueKey();
+    const key = uniqueKey("user");
     onEditing({
       key: key,
       name: "輸入名稱",
@@ -83,7 +86,7 @@ const usersTable = (props: Props) => {
       key: "pkey",
       render: pKey => (
         <span>
-          <Tag color='geekblue' key='pKey'>
+          <Tag color="geekblue" key="pKey">
             {permissionName(pKey)(permissions) || "None"}
           </Tag>
         </span>
@@ -113,8 +116,9 @@ const usersTable = (props: Props) => {
   return (
     <div>
       <TableToolbar
-        title='使用者'
+        title="使用者"
         selectedRowKeys={selectedRowKeys}
+        onSearch={query}
         handlers={{
           addItem: addDefaultUser,
           removeSelectedItems: remove
@@ -126,11 +130,11 @@ const usersTable = (props: Props) => {
         }}
       />
       <Drawer
-        title='編輯使用者資料'
+        title="編輯使用者資料"
         visible={isShowUserForm}
-        placement='right'
+        placement="right"
         footer={null}
-        width='40%'
+        width="40%"
         onClose={() => setShowUserForm(false)}
       >
         <UserForm

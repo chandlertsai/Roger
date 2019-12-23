@@ -36,7 +36,7 @@ const AddPermissionRole = props => {
         <Col span={12}>
           <Input
             value={name}
-            placeholder='輸入新的權限名稱...'
+            placeholder="輸入新的權限名稱..."
             style={{ margin: "5px" }}
             onChange={e => setRoleName(e.target.value)}
           />
@@ -47,7 +47,7 @@ const AddPermissionRole = props => {
             onClick={() =>
               addRole({
                 name,
-                key: uniqueKey(),
+                key: uniqueKey("permission"),
                 abilities: []
               })
             }

@@ -42,7 +42,7 @@ const vendorTable = props => {
   };
 
   const addDefaultVendor = () => {
-    const key = uniqueKey();
+    const key = uniqueKey("vendor");
     onEditing({
       key: key,
       name: "",
@@ -87,7 +87,7 @@ const vendorTable = props => {
   return (
     <div>
       <TableToolbar
-        title='供應商'
+        title="供應商"
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultVendor,
@@ -100,31 +100,31 @@ const vendorTable = props => {
         }}
       />
       <Drawer
-        title='編輯供應商資料'
+        title="編輯供應商資料"
         visible={isShowVendorForm}
-        placement='bottom'
+        placement="bottom"
         footer={null}
-        height='80%'
+        height="80%"
         onClose={() => setShowVendorForm(false)}
       >
-        <Button type='primary' className='my-2' onClick={onEditingContact}>
+        <Button type="primary" className="my-2" onClick={onEditingContact}>
           編輯聯絡人
         </Button>
         <VendorForm doSubmit={onSubmit} vendor={editingVendor} />
       </Drawer>
       <Drawer
-        title='編輯聯絡人資料'
+        title="編輯聯絡人資料"
         visible={isShowContactForm}
-        placement='bottom'
+        placement="bottom"
         footer={null}
         destroyOnClose={true}
-        height='75%'
+        height="75%"
         onClose={() => setShowContactForm(false)}
       >
         <ContactForm doSubmit={onSubmit} vendor={editingVendor} />
       </Drawer>
       <Table
-        size='small'
+        size="small"
         rowSelection={rowSelection}
         columns={columns}
         expandedRowRender={ContactTable}

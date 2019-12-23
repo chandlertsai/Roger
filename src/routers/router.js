@@ -12,6 +12,7 @@ import { Route } from "react-router";
 import { authRoutes } from "routers/authRoutes";
 import { pageRoutes } from "routers/pageRoutes";
 import { testRoutes } from "routers/testRoutes";
+import { normalRoutes } from "routers/normalRoutes";
 import { settingsRoutes } from "routers/settingsRoutes";
 import MainLayout from "components/pages/MainLayout";
 
@@ -21,7 +22,8 @@ const allRoutes = concatAll([
   authRoutes,
   pageRoutes,
   testRoutes,
-  settingsRoutes
+  settingsRoutes,
+  normalRoutes
 ]);
 
 const makePrivateRouter = r => {
@@ -35,7 +37,7 @@ const makePrivateRouter = r => {
 };
 
 export const rootRoute = (
-  <PrivateRouter exact path='/' component={MainLayout} />
+  <PrivateRouter exact path="/" component={MainLayout} />
 );
 
 const makeNormalRouter = r => {

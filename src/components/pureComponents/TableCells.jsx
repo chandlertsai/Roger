@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Form, Input, Button } from "antd";
+import Hide from "components/utils/Hide";
 
 const EditableContext = React.createContext();
 const editableRow = ({ form, index, ...props }) => (
@@ -10,17 +11,29 @@ const editableRow = ({ form, index, ...props }) => (
 
 export const EditableFormRow = Form.create()(editableRow);
 
-export const EditOperationCell = ({ record, handlerSetEditing }) => {
+export const EditOperationCell = ({
+  record,
+  handlerSetEditing,
+  handleDetail
+}) => {
   return (
-    <div>
+    <div className="navbar">
       <Button
-        size='small'
-        type='primary'
+        size="small"
+        type="primary"
         onClick={() => handlerSetEditing(record)}
         style={{ margin: "5px" }}
       >
         編輯
       </Button>
+      <Hide show={handleDetail}>
+        <Button
+          type="secondary"
+          shape="circle"
+          icon="search"
+          onClick={() => handleDetail(record)}
+        />
+      </Hide>
     </div>
   );
 };

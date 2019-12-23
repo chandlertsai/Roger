@@ -23,7 +23,7 @@ type Props = {
 
 const devicesTable = (props: Props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tableData, remove, update] = useFetch("devices");
+  const [tableData, remove, update, query] = useFetch("devices");
   const [isShowUserForm, setShowUserForm] = useState(false);
   const [editingDevice, setEditingDevice] = useState({});
   const license = useLicense();
@@ -32,8 +32,9 @@ const devicesTable = (props: Props) => {
   const [vendorList, rv, uv] = useFetch("vendors");
 
   useEffect(() => {
-    setLicenseInfo("可用裝置: " + tableData.length + "/" + license.permitCount);
-  }, [licenseInfo, tableData]);
+    const length = tableData ? tableData.length : 0;
+    setLicenseInfo("可用裝置: " + length + "/" + license.permitCount);
+  }, [license, tableData]);
 
   const onEditing = record => {
     setEditingDevice(record);
@@ -52,7 +53,7 @@ const devicesTable = (props: Props) => {
   };
 
   const addDefaultDevice = () => {
-    const key = uniqueKey();
+    const key = uniqueKey("device");
     onEditing({
       key: key,
       name: "輸入名稱",
@@ -79,7 +80,7 @@ const devicesTable = (props: Props) => {
       key: "type",
       render: t => (
         <span>
-          <Tag color='geekblue' key='t'>
+          <Tag color="geekblue" key="t">
             {deviceType[t] || "None"}
           </Tag>
         </span>
@@ -134,9 +135,10 @@ const devicesTable = (props: Props) => {
   return (
     <div>
       <TableToolbar
-        title='裝置管理'
+        title="裝置管理"
         info={licenseInfo}
         selectedRowKeys={selectedRowKeys}
+        onSearch={query}
         handlers={{
           addItem: addDefaultDevice,
           removeSelectedItems: remove
@@ -148,11 +150,11 @@ const devicesTable = (props: Props) => {
         }}
       />
       <Drawer
-        title='編輯裝置資料'
+        title="編輯裝置資料"
         visible={isShowUserForm}
-        placement='right'
+        placement="right"
         footer={null}
-        width='40%'
+        width="40%"
         onClose={() => setShowUserForm(false)}
       >
         <DeviceForm
@@ -163,7 +165,7 @@ const devicesTable = (props: Props) => {
         />
       </Drawer>
       <Table
-        size='small'
+        size="small"
         rowSelection={rowSelection}
         columns={columns}
         dataSource={tableData}

@@ -83,7 +83,8 @@ const PermissionGroup = {
     monitor: "DeviceMonitor",
     errorLog: "DeviceErrorLog",
     maintainLog: "DeviceManintainLog",
-    errorReport: "DeviceErrorReport"
+    errorReport: "DeviceErrorReport",
+    alarm: "DevcieAlarm"
   }
 };
 

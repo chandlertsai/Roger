@@ -35,7 +35,8 @@ const optionsDevice = [
   { label: "設備即時狀態", value: PermissionGroup.device.monitor },
   { label: "設備異常紀錄", value: PermissionGroup.device.errorLog },
   { label: "設備維修紀錄", value: PermissionGroup.device.maintainLog },
-  { label: "設備損壞記錄表", value: PermissionGroup.device.errorReport }
+  { label: "設備損壞記錄表", value: PermissionGroup.device.errorReport },
+  { label: "報警資料管理", value: PermissionGroup.device.alarm }
 ];
 
 const toArry = R.map(R.prop("value"));
@@ -63,7 +64,7 @@ const abilityField = (props: Props) => {
   }, [roleName]);
 
   return (
-    <div className='form-card'>
+    <div className="form-card">
       {isCollapsing ? (
         nameNode(name)
       ) : (
@@ -76,7 +77,7 @@ const abilityField = (props: Props) => {
                 setCollapsing(true);
                 submit({ name, key: roleKey, abilities: value });
               }}
-              type='primary'
+              type="primary"
               loading={loading}
             >
               送出
@@ -84,34 +85,34 @@ const abilityField = (props: Props) => {
             <Button
               onClick={e => setCollapsing(true)}
               loading={loading}
-              type='secondary'
+              type="secondary"
             >
               取消
             </Button>,
             <Button
               onClick={e => del({ key: roleKey })}
               loading={loading}
-              type='danger'
+              type="danger"
             >
               刪除
             </Button>
           ]}
         >
-          <Card type='inner' title='使用者相關權限'>
+          <Card type="inner" title="使用者相關權限">
             <Checkbox.Group
               options={optionsUser}
               defaultValue={value}
               onChange={checkChanged("user")}
             />
           </Card>
-          <Card type='inner' title='告警相關權限'>
+          <Card type="inner" title="告警相關權限">
             <Checkbox.Group
               options={optionsWarnning}
               defaultValue={value}
               onChange={checkChanged("alarm")}
             />
           </Card>
-          <Card type='inner' title='裝置相關權限'>
+          <Card type="inner" title="裝置相關權限">
             <Checkbox.Group
               options={optionsDevice}
               defaultValue={value}

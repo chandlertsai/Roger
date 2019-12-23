@@ -35,55 +35,46 @@ const vendorForm = (props: tProps) => {
   }, [vendor]);
 
   const onSubmit = data => {
-    const newData = R.pipe(
-      R.mergeRight(vendor),
-      R.omit(["_id"])
-    )(data);
+    const newData = R.pipe(R.mergeRight(vendor), R.omit(["_id"]))(data);
 
     doSubmit(newData);
   };
 
-  const createOptions = R.map(p => (
-    <option value={p.key} key={p.key}>
-      {p.name}
-    </option>
-  ));
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='form-group'>
-        <label htmlFor='name'>供應商名稱: </label>
+      <div className="form-group">
+        <label htmlFor="name">供應商名稱: </label>
         <input
-          className='form-control'
-          type='text'
-          name='name'
+          className="form-control"
+          type="text"
+          name="name"
           ref={register}
         />
       </div>
-      {errors.name && <p className='error'>名稱為必要欄位</p>}
+      {errors.name && <p className="error">名稱為必要欄位</p>}
 
-      <div className='form-group'>
-        <label htmlFor='ip'>供應商電話: </label>
+      <div className="form-group">
+        <label htmlFor="ip">供應商電話: </label>
         <input
-          className='form-control'
-          type='text'
-          name='phone'
+          className="form-control"
+          type="text"
+          name="phone"
           ref={register}
         />
       </div>
 
-      <div className='form-group'>
-        <label htmlFor='ip'>供應商Email: </label>
+      <div className="form-group">
+        <label htmlFor="ip">供應商Email: </label>
         <input
-          className='form-control'
-          type='email'
-          name='email'
+          className="form-control"
+          type="email"
+          name="email"
           ref={register}
         />
       </div>
-      {errors.name && <p className='error'>email格式錯誤</p>}
+      {errors.name && <p className="error">email格式錯誤</p>}
 
-      <Button htmlType='submit'> 確定 </Button>
+      <Button htmlType="submit"> 確定 </Button>
     </form>
   );
 };

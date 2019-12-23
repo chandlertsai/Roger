@@ -1,5 +1,14 @@
 {
   "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-flow"],
   "retainLines": true,
-  "plugins": ["ramda", ["import", { "libraryName": "antd", "style": true }]]
+  "plugins": [
+    "ramda",
+    ["import", { "libraryName": "antd", "style": true }],
+    [
+      "react-docgen",
+      {
+        "DOC_GEN_COLLECTION_NAME": "STORYBOOK_REACT_CLASSES"
+      }
+    ]
+  ]
 }

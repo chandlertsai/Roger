@@ -1,0 +1,10 @@
+import { configure, addDecorator } from "@storybook/react";
+import React from "react";
+import docs from "storybook-addon-react-flow-docgen/dist";
+import { Provider } from "react-redux";
+import { store } from "store";
+import "antd/dist/antd.less";
+global.STORYBOOK_REACT_CLASSES = {};
+// addDecorator(docs());
+addDecorator(f => <Provider store={store}>{f()}</Provider>);
+configure(require.context("../src", true, /\.stories\.js$/), module);

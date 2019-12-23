@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-
+import { Row, Col } from "antd";
 const welCome = (props: any) => {
   return (
     <>

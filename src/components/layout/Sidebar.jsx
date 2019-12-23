@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Menu, Icon } from "antd";
 import { testRoutes } from "routers/testRoutes";
 import { settingsRoutes } from "routers/settingsRoutes";
+import { normalRoutes } from "routers/normalRoutes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const SubMenu = Menu.SubMenu;
 
 // const defaultOpenKey = menu => {
@@ -20,7 +22,7 @@ const createSubMenu = submenu => (
         {typeof submenu.icon === "string" ? (
           <Icon type={submenu.icon} />
         ) : (
-          React.createElement(submenu.icon)
+          submenu.icon
         )}
         <span>{submenu.name}</span>
       </span>
@@ -36,16 +38,23 @@ const createSubMenu = submenu => (
 
 const submenus = [
   {
-    name: "測試",
-    key: "sidbar_test",
-    icon: "bug",
-    items: testRoutes
+    name: "系統資訊",
+    key: "sidebar_system_informations",
+    icon: "info",
+    items: normalRoutes
   },
+
   {
     name: "系統設定",
     key: "sidebar_system_settings",
     icon: "setting",
     items: settingsRoutes
+  },
+  {
+    name: "測試",
+    key: "sidbar_test",
+    icon: "bug",
+    items: testRoutes
   }
 ];
 
@@ -53,11 +62,11 @@ const sidebar = () => {
   return (
     <div>
       <Menu
-        theme='dark'
-        mode='inline'
+        theme="dark"
+        mode="inline"
         // defaultSelectedKeys={["1"]}
         // defaultOpenKeys={[defaultOpenKey(submenus)]}
-        className='menu'
+        className="menu"
       >
         {submenus.map(item => createSubMenu(item))}
       </Menu>

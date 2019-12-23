@@ -4,7 +4,7 @@ import { setError, setLoading } from "actions/appState";
 import axios from "axios";
 
 export const useLicense = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const dispatch = useDispatch();
   const readUrl = "/api/license";
 
