@@ -9,7 +9,7 @@ import { useFetchFields } from "apis/crud";
 import {
   UsersSimpleTable,
   DevicesSimpleTable
-} from "components/pages/SimpleTables";
+} from "components/tables/SimpleTables";
 
 // $FlowFixMe
 import "./form.less";

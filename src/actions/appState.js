@@ -38,10 +38,7 @@ const setError = (error: boolean, err: mixed | string) => {
   const errorMessage = R.prop("message");
   let text = R.ifElse(
     haveResponse,
-    R.pipe(
-      responseData,
-      getResponseErrorMessage
-    ),
+    R.pipe(responseData, getResponseErrorMessage),
     getErrorMessage
   )(err);
 
@@ -60,6 +57,12 @@ const SET_LAST_RESPONSE = "SET_LAST_RESPONSE";
 const setLastResponse = (lastResponse: mixed) => ({
   type: SET_LAST_RESPONSE,
   payload: JSON.stringify(lastResponse)
+});
+
+const SET_LANGUAGE = "SET_LANGUAGE";
+const setLanguage = (lang: string) => ({
+  type: SET_LANGUAGE,
+  payload: lang
 });
 
 const defaultOption = {
@@ -106,5 +109,7 @@ export {
   setError,
   SET_LAST_RESPONSE,
   setLastResponse,
+  SET_LANGUAGE,
+  setLanguage,
   authFetch
 };

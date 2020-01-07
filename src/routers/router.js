@@ -12,19 +12,11 @@ import { Route } from "react-router";
 import { authRoutes } from "routers/authRoutes";
 import { pageRoutes } from "routers/pageRoutes";
 import { testRoutes } from "routers/testRoutes";
-import { normalRoutes } from "routers/normalRoutes";
-import { settingsRoutes } from "routers/settingsRoutes";
+import { getNormalRoutes } from "routers/normalRoutes";
+import { getSettingsRoutes } from "routers/settingsRoutes";
 import MainLayout from "components/pages/MainLayout";
 
 const concatAll = R.reduce(R.concat, []);
-
-const allRoutes = concatAll([
-  authRoutes,
-  pageRoutes,
-  testRoutes,
-  settingsRoutes,
-  normalRoutes
-]);
 
 const makePrivateRouter = r => {
   return (
@@ -60,12 +52,22 @@ const makePermissionRouter = r => (
 );
 // makeRouters: return all routers
 export const makeRouters = () => {
+  const _settingsRoutes = getSettingsRoutes();
+  const _normalRoutes = getNormalRoutes();
+  const allRoutes = concatAll([
+    authRoutes,
+    pageRoutes,
+    testRoutes,
+    _settingsRoutes,
+    _normalRoutes
+  ]);
+
   const routers = R.map(
     R.cond([
       [R.propEq("permission", "normal"), makeNormalRouter],
       [R.propEq("permission", "private"), makePrivateRouter],
-      [R.propEq("permission", "permission"), makePermissionRouter],
-      [R.T, makeNormalRouter]
+      [R.propEq("permission", "permission"), makePermissionRouter]
+      // [R.T, makeNormalRouter]
     ])
   )(allRoutes);
 

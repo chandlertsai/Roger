@@ -17,7 +17,7 @@ export const appStateHint = R.pathEq(["appState", "hint"], false);
 // get Error state and message
 export const errorState = R.path(["appState", "hasError"]);
 export const errorMessage = R.path(["appState", "errorMessage"]);
-
+export const lang = R.path(["appState", "lang"]);
 // get auth.text
 export const auth = R.prop("auth");
 export const authText = R.path(["auth", "text"]);
@@ -29,6 +29,7 @@ export const username = R.path(["auth", "username"]);
 // true: already login
 export const authLogin = R.path(["auth", "success"]);
 export const authPkey = R.path(["auth", "pkey"]);
+
 // token
 export const authToken = R.path(["auth", "token"]);
 export const authRefreshToken = R.path(["auth", "refreshToken"]);

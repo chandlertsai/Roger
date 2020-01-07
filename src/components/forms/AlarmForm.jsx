@@ -15,7 +15,14 @@ import "./form.less";
 const alarmForm = props => {
   const { alarm, doSubmit } = props;
   const conditions = alarm.conditions || [];
-  const { register, handleSubmit, setValue, errors, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    errors,
+    reset
+  } = useForm({
     defaultValues: alarm
   });
 
@@ -26,6 +33,12 @@ const alarmForm = props => {
   useEffect(() => {
     register({ name: "conditions" });
   }, [register]);
+
+  const speak = () => {
+    const values = getValues();
+    var words = new SpeechSynthesisUtterance(values["message"]);
+    window.speechSynthesis.speak(words);
+  };
 
   const onSubmit = data => {
     console.log("submit ", data);
@@ -80,12 +93,17 @@ const alarmForm = props => {
 
       <div className="form-group">
         <label htmlFor="message">警告訊息: </label>
-        <input
-          className="form-control"
-          type="text"
-          name="message"
-          ref={register}
-        />
+        <div className="d-flex">
+          <input
+            className="form-control"
+            type="text"
+            name="message"
+            ref={register}
+          />
+          <Button type="primary" className="mx-2" onClick={speak}>
+            語音
+          </Button>
+        </div>
       </div>
 
       <div className="form-group">

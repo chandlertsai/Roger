@@ -4,7 +4,7 @@ import { Button } from "antd";
 import useForm from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "actions/auth";
-
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { default as ErrorDiv } from "./ErrorTip";
 import { Redirect } from "react-router-dom";
@@ -28,6 +28,7 @@ const validator = yup.object().shape({
 
 const LForm = props => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { register, handleSubmit, watch, errors } = useForm({
     validationSchema: validator
   });
@@ -38,22 +39,22 @@ const LForm = props => {
     dispatch(loginUser(data));
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='container_col'>
-      <div className='form-row'>
-        <label htmlFor='username'>使用者帳號: </label>
-        <input type='text' name='username' defaultValue='' ref={register} />
+    <form onSubmit={handleSubmit(onSubmit)} className="container_col">
+      <div className="form-row">
+        <label htmlFor="username">{t("loginForm.username")}</label>
+        <input type="text" name="username" defaultValue="" ref={register} />
       </div>
-      {errors.username && <p className='error'>使用者帳號為必要欄位</p>}
+      {errors.username && <p className="error">{t("loginForm.usernameErr")}</p>}
 
-      <div className='form-row'>
-        <label htmlFor='password'>登入密碼: </label>
-        <input type='password' name='password' defaultValue='' ref={register} />
+      <div className="form-row">
+        <label htmlFor="password">{t("loginForm.password")}</label>
+        <input type="password" name="password" defaultValue="" ref={register} />
       </div>
-      <Link className='alignRight' to='/forgetPassword'>
-        忘記密碼？
+      <Link className="alignRight" to="/forgetPassword">
+        {t("loginForm.forgetpassword")}
       </Link>
-      <Button className='center' htmlType='submit' loading={loading}>
-        登入
+      <Button className="center" htmlType="submit" loading={loading}>
+        {t("login")}
       </Button>
     </form>
   );
@@ -61,7 +62,7 @@ const LForm = props => {
 
 const loginForm = props => {
   const hasLogin = useSelector(authLogin);
-  return <>{hasLogin ? <Redirect to='/welcome' /> : <LForm />}</>;
+  return <>{hasLogin ? <Redirect to="/welcome" /> : <LForm />}</>;
 };
 
 export default loginForm;

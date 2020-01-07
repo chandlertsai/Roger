@@ -46,12 +46,6 @@ export default props => {
     conditionsAciton.updateAt(idx, newValue);
   };
 
-  const handleCheckboxChanged = (idx, e) => {
-    const v = R.assoc(e.target.name, e.target.checked, {});
-    const newValue = R.mergeLeft(v, cond[idx]);
-    conditionsAciton.updateAt(idx, newValue);
-  };
-
   const createConditionSelects = (cond, idx) => (
     <div key={cond.key}>
       <label htmlFor="cond">執行條件: </label>
@@ -83,20 +77,6 @@ export default props => {
           &times;
         </span>
       </button>
-
-      <div className="custom-control custom-checkbox">
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id="customCheck1"
-          value={cond.not}
-          name="not"
-          onChange={e => handleCheckboxChanged(idx, e)}
-        />
-        <label className="custom-control-label" for="customCheck1">
-          Not
-        </label>
-      </div>
 
       <div className="row">
         <div className="col">

@@ -3,18 +3,15 @@ import { message } from "antd";
 import React, { useState, useEffect } from "react";
 
 import { Button, Row, Col, Input } from "antd";
+import { useTranslation } from "react-i18next";
 import ErrorTip from "components/forms/ErrorTip";
 import { useSelector, useDispatch } from "react-redux";
+
 import { loadingState } from "reducers/storeUtils";
 import R from "ramda";
 import FormRow from "components/forms/FormRow";
 import AbilityField from "components/forms/AbilityField";
-import {
-  userArray,
-  warnningArray,
-  deviceArray
-} from "components/forms/AbilityField";
-
+import { PermissionGroup } from "apis/auth";
 import { uniqueKey } from "apis/utils";
 import axios from "axios";
 import { setError, setLoading } from "actions/appState";
@@ -29,6 +26,7 @@ type Props = {
 
 const AddPermissionRole = props => {
   const { addRole } = props;
+  const { t } = useTranslation();
   const [name, setRoleName] = useState("");
   return (
     <div>
@@ -36,7 +34,7 @@ const AddPermissionRole = props => {
         <Col span={12}>
           <Input
             value={name}
-            placeholder="輸入新的權限名稱..."
+            placeholder={t("inputPermissionName")}
             style={{ margin: "5px" }}
             onChange={e => setRoleName(e.target.value)}
           />
@@ -60,10 +58,30 @@ const AddPermissionRole = props => {
   );
 };
 
+export const userArray = R.intersection([
+  PermissionGroup.license,
+  PermissionGroup.users,
+  PermissionGroup.group
+]);
+export const warnningArray = R.intersection([
+  PermissionGroup.settings.tts,
+  PermissionGroup.settings.errorMessage,
+  PermissionGroup.settings.specialMonitor
+]);
+export const deviceArray = R.intersection([
+  PermissionGroup.device.information,
+  PermissionGroup.device.vendor,
+  PermissionGroup.device.monitor,
+  PermissionGroup.device.errorLog,
+  PermissionGroup.device.maintainLog,
+  PermissionGroup.device.errorReport,
+  PermissionGroup.device.alarm
+]);
+
 const permissionRoleForm = (props: Props) => {
   const loading = useSelector(loadingState);
   const [options, setOptions] = useState([]);
-
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const fetchPermission = () => {

@@ -44,7 +44,8 @@ module.exports = {
       reducers: path.resolve(__dirname, "../src/reducers"),
       actions: path.resolve(__dirname, "../src/actions"),
       routers: path.resolve(__dirname, "../src/routers"),
-      store: path.resolve(__dirname, "../src/store")
+      store: path.resolve(__dirname, "../src/store"),
+      src: path.resolve(__dirname, "../src")
     }
   }
 };

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Form, Input, Button } from "antd";
+import { useTranslation } from "react-i18next";
 import Hide from "components/utils/Hide";
 
 const EditableContext = React.createContext();
@@ -16,6 +17,7 @@ export const EditOperationCell = ({
   handlerSetEditing,
   handleDetail
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="navbar">
       <Button
@@ -24,7 +26,7 @@ export const EditOperationCell = ({
         onClick={() => handlerSetEditing(record)}
         style={{ margin: "5px" }}
       >
-        編輯
+        {t("edit")}
       </Button>
       <Hide show={handleDetail}>
         <Button

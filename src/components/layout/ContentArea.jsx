@@ -15,9 +15,9 @@ const contentArea = () => {
   console.log("ContentArea hasError: ", _hasError, " text: ", text);
 
   return (
-    <div className='container' style={{ padding: "0.5rem 0" }}>
+    <div className="container" style={{ padding: "0.5rem 0" }}>
       {_hasError ? (
-        <Alert type='error' closable message={text} onClose={clearError} />
+        <Alert type="error" closable message={text} onClose={clearError} />
       ) : null}
       {rootRoute}
       {makeRouters()}

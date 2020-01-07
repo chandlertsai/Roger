@@ -1,15 +1,16 @@
-import UsersTable from "components/pages/UsersTable";
-import GroupsTable from "components/pages/GroupsTabe";
-import DevicesTable from "components/pages/DeviceTable";
-import AlarmTable from "components/pages/AlarmTable";
+import UsersTable from "components/tables/UsersTable";
+import GroupsTable from "components/tables/GroupsTabe";
+import DevicesTable from "components/tables/DeviceTable";
+import AlarmTable from "components/tables/AlarmTable";
 import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
-import VendorTable from "components/pages/VendorTable";
+import VendorTable from "components/tables/VendorTable";
+import i18n from "src/i18n";
 
-export const settingsRoutes = [
+export const getSettingsRoutes = () => [
   {
-    name: "使用者設定",
+    name: i18n.t("settingsRoutes.user"),
     to: "/userstable",
     icon: "user",
     component: UsersTable,
@@ -17,7 +18,7 @@ export const settingsRoutes = [
     permissionGroup: PermissionGroup.users
   },
   {
-    name: "群組設定",
+    name: i18n.t("settingsRoutes.group"),
     to: "/groupstable",
     icon: "block",
     component: GroupsTable,
@@ -25,7 +26,7 @@ export const settingsRoutes = [
     permissionGroup: PermissionGroup.group
   },
   {
-    name: "權限設定",
+    name: i18n.t("settingsRoutes.permission"),
     to: "/permissionsettings",
     icon: "lock",
     component: PermissionRoleForm,
@@ -33,7 +34,7 @@ export const settingsRoutes = [
     permissionGroup: PermissionGroup.group
   },
   {
-    name: "上傳 License",
+    name: i18n.t("settingsRoutes.uploadLicence"),
     to: "/uploadlicense",
     icon: "uplaod",
     component: UploadLicense,
@@ -41,15 +42,15 @@ export const settingsRoutes = [
     permissionGroup: PermissionGroup.license
   },
   {
-    name: "設備設定",
-    to: "/devicestable",
+    name: i18n.t("settingsRoutes.device"),
+    to: "/deviceTable",
     icon: "cluster",
     component: DevicesTable,
     permission: "permission",
     permissionGroup: PermissionGroup.device.information
   },
   {
-    name: "報警設定",
+    name: i18n.t("settingsRoutes.alarm"),
     to: "/alarmtable",
     icon: "warning",
     component: AlarmTable,
@@ -58,7 +59,7 @@ export const settingsRoutes = [
   },
 
   {
-    name: "供應商設定",
+    name: i18n.t("settingsRoutes.vendor"),
     to: "/vendortable",
     icon: "account-book",
     component: VendorTable,

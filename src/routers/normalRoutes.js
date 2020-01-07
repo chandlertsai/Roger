@@ -1,16 +1,17 @@
 import Dashboard from "components/pages/Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import LogTable from "components/pages/LogTable";
-export const normalRoutes = [
+import LogTable from "components/tables/LogTable";
+import i18n from "src/i18n";
+export const getNormalRoutes = () => [
   {
-    name: "即時監控",
+    name: i18n.t("normalRoutes.dashboard"),
     to: "/dashboard",
     icon: "login",
     component: Dashboard,
     permission: "private"
   },
   {
-    name: "Log資料",
+    name: i18n.t("normalRoutes.log"),
     to: "/log",
     icon: "unordered-list",
     component: LogTable,

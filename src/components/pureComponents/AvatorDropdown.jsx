@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import { Dropdown, Icon, Menu, Button } from "antd";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 //
 
@@ -11,6 +12,7 @@ const avatorDropdown = (props: {
   changePassword: Function
 }) => {
   const { username, alreadyLogin, doLogout, changePassword } = props;
+  const { t } = useTranslation();
   const handleMenuClick = ({ key }) => {
     if (key === "logout") {
       console.log("key =", key);
@@ -36,12 +38,11 @@ const avatorDropdown = (props: {
             <Button type="link" ghost>
               {username}
             </Button>
-            <Icon type="down" />
           </div>
         </Dropdown>
       ) : (
         <Link to="/login" className="btn btn-outline-success  ">
-          登入
+          {t("login")}
         </Link>
       )}
     </div>
