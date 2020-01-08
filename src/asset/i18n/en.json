@@ -1,0 +1,110 @@
+{
+  "login": "Log in",
+  "test": "Test",
+  "name": "Name",
+  "ip": "IP",
+  "edit": "Edit",
+  "submit": "Submit",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "upload": "Upload",
+  "type": "Type",
+
+  "password": "Password",
+  "passwordTip": "Password Tip",
+  "permission": "Permission",
+
+  "systemInformation": "Informations",
+  "systemSettings": "Settings",
+  "selectLicenseFile": "Select license file",
+
+  "error": {
+    "ipFormat": "Wrong IP address format"
+  },
+  "loginForm": {
+    "username": "Account: ",
+    "usernameErr": "Account can not be blank.",
+    "password": "Password: ",
+    "forgetpassword": "Forget password?"
+  },
+  "settingsRoutes": {
+    "user": "User Settings",
+    "group": "Group Settings",
+    "permission": "Permission Settings",
+    "uploadLicence": "Upload License",
+    "device": "Device Settings",
+    "alarm": "Alarm Settings",
+    "vendor": "Vendor Settings"
+  },
+  "normalRoutes": {
+    "dashboard": "Dashboard",
+    "log": "Log"
+  },
+  "alarm": {
+    "alarm": "Alarm",
+    "read": "Readed Alarm",
+    "ack": "Acknowledged Alarm",
+    "close": "Closed Alarm",
+    "alarmContext": "Total alarm: ",
+    "readContext": "Total readed alarm: ",
+    "ackContext": "Total acknowledged alarm: ",
+    "closeContext": "Total closed alarm: "
+  },
+  "currentAlarmTable": {
+    "message": "Message",
+    "time": "Modify time",
+    "state": "State"
+  },
+  "usersTable": {
+    "duplicateError": "User name duplicate!",
+    "inputName": "Input Name",
+    "inputEmail": "Input Email"
+  },
+  "user": {
+    "name": "User name",
+    "tableTitle": "User",
+    "add": "Add user",
+    "remove": "Remove user",
+    "removeSelected": "Remove selected users",
+    "edit": "Edit user"
+  },
+  "group": {
+    "name": "Group name"
+  },
+  "device": {
+    "name": "Device name",
+    "tableTitle": "Device",
+    "add": "Add device",
+    "removeSelected": "Remove selected devices",
+    "avialable": "Avialable device: ",
+    "contact": "Contact",
+    "vendor": "Vendor",
+    "NormalNetwork": "Normal device",
+    "Monitor": "Monitor device",
+    "SimpleDevice": "Simple device",
+    "nameCantBlank": "設備名稱為必要欄位"
+  },
+  "inputPermissionName": "Please input permission name here...",
+  "userPermission": {
+    "title": "User permissions",
+    "license": "License",
+    "users": "Users",
+    "group": "Group"
+  },
+  "alarmPermission": {
+    "title": "Alarm permissions",
+    "tts": "語音告警設定",
+    "errorMessage": "異常訊息對應設定",
+    "specialMonitor": "溫濕度監控參數設定"
+  },
+  "devicePermission": {
+    "title": "Device permissions",
+    "information": "Device information",
+    "vendor": "Device vendor",
+    "monitor": "Device monitor",
+    "errorLog": "Error log",
+    "maintainLog": "Maintain log",
+    "errorReport": "Error report",
+    "alarm": "Alarm"
+  }
+}

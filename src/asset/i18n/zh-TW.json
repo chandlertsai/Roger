@@ -1,0 +1,111 @@
+{
+  "login": "登入",
+  "test": "測試",
+  "name": "名稱",
+  "ip": "IP",
+  "edit": "編輯",
+  "submit": "確定",
+  "delete": "刪除",
+  "cancel": "取消",
+  "upload": "上傳",
+  "type": "類別",
+
+  "password": "密碼",
+  "passwordTip": "密碼提示",
+  "permission": "權限",
+
+  "systemInformation": "系統資訊",
+  "systemSettings": "系統設定",
+  "selectLicenseFile": "選擇License檔案",
+
+  "error": {
+    "ipFormat": "錯誤的IP格式"
+  },
+
+  "loginForm": {
+    "username": "使用者帳號: ",
+    "usernameErr": "使用者帳號為必要欄位",
+    "password": "登入密碼: ",
+    "forgetpassword": "忘記密碼？"
+  },
+  "settingsRoutes": {
+    "user": "使用者設定",
+    "group": "群組設定",
+    "permission": "權限設定",
+    "uploadLicence": "上傳 License",
+    "device": "設備設定",
+    "alarm": "報警設定",
+    "vendor": "供應商設定"
+  },
+  "normalRoutes": {
+    "dashboard": "即時監控",
+    "log": "Log"
+  },
+  "alarm": {
+    "alarm": "警報數目",
+    "read": "已讀取警報",
+    "ack": "處理中警報",
+    "close": "已修復警報",
+    "alarmContext": "全部未處理警報數目: ",
+    "readContext": "全部已讀取警報數目: ",
+    "ackContext": "全部處理中警報數目: ",
+    "closeContext": "全部處理完成警報數目: "
+  },
+  "currentAlarmTable": {
+    "message": "警報訊息",
+    "time": "修改時間",
+    "state": "狀態"
+  },
+  "usersTable": {
+    "duplicateError": "使用者名稱重複",
+    "inputName": "請輸入名稱",
+    "inputEmail": "請輸入Email"
+  },
+  "user": {
+    "name": "User name",
+    "tableTitle": "User",
+    "add": "新增使用者",
+    "remove": "移除使用者",
+    "removeSelected": "移除選取使用者",
+    "edit": "編輯使用者資料"
+  },
+  "group": {
+    "name": "Group name"
+  },
+  "device": {
+    "name": "Device name",
+    "tableTitle": "裝置管理",
+    "add": "新增裝置",
+    "removeSelected": "移除選取裝置",
+    "avialable": "可用裝置: ",
+    "contact": "管理員",
+    "vendor": "供應商",
+    "NormalNetwork": "一般網路設備",
+    "Monitor": "數據監控設備",
+    "SimpleDevice": "簡易資料設備",
+    "nameCantBlank": "設備名稱為必要欄位"
+  },
+  "inputPermissionName": "請輸入新的權限名稱...",
+  "userPermission": {
+    "title": "使用者相關權限",
+    "license": "License 序號管理",
+    "users": "使用者資料管理",
+    "group": "群組資料管理"
+  },
+  "alarmPermission": {
+    "title": "告警相關權限",
+    "tts": "語音告警設定",
+    "errorMessage": "異常訊息對應設定",
+    "specialMonitor": "溫濕度監控參數設定"
+  },
+  "devicePermission": {
+    "title": "裝置相關權限",
+    "information": "設備資料管理",
+    "vendor": "設備廠商資料管理",
+    "monitor": "設備即時狀態",
+    "errorLog": "設備異常紀錄",
+    "maintainLog": "設備維修紀錄",
+    "errorReport": "設備損壞記錄表",
+    "alarm": "報警資料管理"
+  }
+}
