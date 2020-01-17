@@ -47,7 +47,7 @@ export default () => {
           onClose={closeAlarmControlPanel}
         />
       </Drawer>
-      {/* <Row gutter={[8, 8]}>
+      <Row gutter={[8, 8]}>
         <Col span={6}>
           <AlarmCard alarms={alarms} />
         </Col>
@@ -65,7 +65,7 @@ export default () => {
         <Col span={24}>
           <CurrentAlarmTable alarms={alarms} onRowClick={handleRowClick} />
         </Col>
-      </Row> */}
+      </Row>
       <Row>
         <Col span={24}>
           <AlarmVoice currentAlarms={alarms} />
