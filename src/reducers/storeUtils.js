@@ -29,6 +29,7 @@ export const username = R.path(["auth", "username"]);
 // true: already login
 export const authLogin = R.path(["auth", "success"]);
 export const authPkey = R.path(["auth", "pkey"]);
+export const userKey = R.path(["auth", "key"]);
 
 // token
 export const authToken = R.path(["auth", "token"]);

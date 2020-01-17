@@ -2,7 +2,8 @@
 import axios from "axios";
 import R from "ramda";
 import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userKey } from "reducers/storeUtils";
 import { setError, setLoading } from "actions/appState";
 
 type Option = {
@@ -10,6 +11,33 @@ type Option = {
   onError?: Function
 };
 
+/**
+ * Get alarm data
+ * @returns [alarns, getAlarm]
+ *
+ */
+const useAlarm = () => {
+  const defaultAlarm = R.defaultTo({
+    key: "",
+    conditions: [],
+    message: "",
+    name: "",
+    pollingInterval: "10",
+    source: "",
+    triggerType: ""
+  });
+  const [alarms, setAlarms] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/apis/v1/read/alarms")
+      .then(R.pipe(R.prop("data"), setAlarms))
+      .catch(err => setAlarms([defaultAlarm({})]));
+  });
+
+  const getAlarm = key => defaultAlarm(R.find(R.propEq("key", key))(alarms));
+
+  return [alarms, getAlarm];
+};
 /**
  * polling alarm status
  * @param opt options
@@ -22,7 +50,7 @@ const usePollingAlarm = (opt: Option) => {
   const [alarm, setAlarm] = useState([]);
   const [onceAlarm, setOnceAlarm] = useState([]);
   const [allAlarm, setAllAlarm] = useState([]);
-
+  const _userKey = useSelector(userKey);
   const timerID = useRef();
 
   useEffect(() => {
@@ -49,11 +77,11 @@ const usePollingAlarm = (opt: Option) => {
   const runPolling = () => {
     const timeoutID = setInterval(() => {
       axios
-        .get("/webapi/api/alarm")
+        .get("/webapi/api/alarm", { params: { userKey: _userKey } })
         .then(R.pipe(R.prop("data"), setAlarm))
         .catch(err => console.log("polling alarm error ", err));
       axios
-        .get("/webapi/api/onceAlarm")
+        .get("/webapi/api/onceAlarm", { params: { userKey: _userKey } })
         .then(R.pipe(R.prop("data"), setOnceAlarm))
         .catch(err => console.log("polling once alarm error ", err));
     }, interval);
@@ -63,4 +91,4 @@ const usePollingAlarm = (opt: Option) => {
   return [startPolling, stopPolling, isPolling, allAlarm];
 };
 
-export { usePollingAlarm };
+export { usePollingAlarm, useAlarm };

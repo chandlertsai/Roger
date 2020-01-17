@@ -21,6 +21,7 @@
   "error": {
     "ipFormat": "Wrong IP address format"
   },
+
   "loginForm": {
     "username": "Account: ",
     "usernameErr": "Account can not be blank.",
@@ -48,7 +49,8 @@
     "alarmContext": "Total alarm: ",
     "readContext": "Total readed alarm: ",
     "ackContext": "Total acknowledged alarm: ",
-    "closeContext": "Total closed alarm: "
+    "closeContext": "Total closed alarm: ",
+    "alarmVoiceTitle": "Alarm Voice"
   },
   "currentAlarmTable": {
     "message": "Message",

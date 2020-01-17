@@ -49,7 +49,8 @@
     "alarmContext": "全部未處理警報數目: ",
     "readContext": "全部已讀取警報數目: ",
     "ackContext": "全部處理中警報數目: ",
-    "closeContext": "全部處理完成警報數目: "
+    "closeContext": "全部處理完成警報數目: ",
+    "alarmVoiceTitle": "語音警報"
   },
   "currentAlarmTable": {
     "message": "警報訊息",

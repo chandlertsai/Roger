@@ -1,5 +1,6 @@
 // @flow
 import React, { useState, useEffect } from "react";
+import useDeepCompareEffect from "use-deep-compare-effect";
 import R from "ramda";
 import classNames from "classnames";
 import { useTranslation } from "react-i18next";
@@ -78,16 +79,15 @@ const alarmCard = (props: tProps) => {
 
   const matchType = type => R.filter(i => i.state == type);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const _matchAlarms = matchType(type)(alarms) || [];
-    console.log("match alarms", _matchAlarms);
     setCount(_matchAlarms.length);
   }, [alarms]);
 
   useEffect(() => {
     setContext(getContext(type) + count);
     setStyle(classNames("card", "text-white", getColor()));
-  }, [count]);
+  }, [count, type]);
 
   // const mainClass = classNames("card", "text-white", getColor());
 

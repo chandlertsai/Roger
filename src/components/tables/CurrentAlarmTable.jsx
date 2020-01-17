@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFetch } from "apis/crud";
 import { Table, Drawer, Tag, Button } from "antd";
 import { useTranslation } from "react-i18next";

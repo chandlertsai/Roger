@@ -1,8 +1,10 @@
 // @flow
 import React, { useState, useEffect } from "react";
+
 import { usePollingAlarm } from "apis/alarm";
 import AlarmCard from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
+import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
 import { Button, Row, Col, Drawer } from "antd";
 
@@ -16,7 +18,6 @@ export default () => {
   useEffect(() => {
     startPolling();
     return () => {
-      console.log("clear alarm");
       stopPolling();
     };
   }, []);
@@ -46,7 +47,7 @@ export default () => {
           onClose={closeAlarmControlPanel}
         />
       </Drawer>
-      <Row gutter={[8, 8]}>
+      {/* <Row gutter={[8, 8]}>
         <Col span={6}>
           <AlarmCard alarms={alarms} />
         </Col>
@@ -63,6 +64,11 @@ export default () => {
       <Row>
         <Col span={24}>
           <CurrentAlarmTable alarms={alarms} onRowClick={handleRowClick} />
+        </Col>
+      </Row> */}
+      <Row>
+        <Col span={24}>
+          <AlarmVoice currentAlarms={alarms} />
         </Col>
       </Row>
     </div>
