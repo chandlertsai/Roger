@@ -49,7 +49,7 @@ export default () => {
       </Drawer>
       <Row gutter={[8, 8]}>
         <Col span={6}>
-          <AlarmCard alarms={alarms} />
+          <AlarmCard alarms={alarms} type="alarm" />
         </Col>
         <Col span={6}>
           <AlarmCard alarms={alarms} type="read" />

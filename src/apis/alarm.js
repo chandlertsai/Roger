@@ -48,14 +48,9 @@ const usePollingAlarm = (opt: Option) => {
   const { interval = 1000, onError = err => {} } = opt;
   const [isPolling, setPolling] = useState(false);
   const [alarm, setAlarm] = useState([]);
-  const [onceAlarm, setOnceAlarm] = useState([]);
-  const [allAlarm, setAllAlarm] = useState([]);
+
   const _userKey = useSelector(userKey);
   const timerID = useRef();
-
-  useEffect(() => {
-    setAllAlarm(R.concat(alarm, onceAlarm));
-  }, [alarm, onceAlarm]);
 
   const stopPolling = () => {
     //console.log("into stopPolling", isPolling);
@@ -70,7 +65,6 @@ const usePollingAlarm = (opt: Option) => {
 
   const startPolling = () => {
     setPolling(true);
-    //console.log("start Polling", isPolling);
     runPolling();
   };
 
@@ -80,15 +74,11 @@ const usePollingAlarm = (opt: Option) => {
         .get("/webapi/api/alarm", { params: { userKey: _userKey } })
         .then(R.pipe(R.prop("data"), setAlarm))
         .catch(err => console.log("polling alarm error ", err));
-      axios
-        .get("/webapi/api/onceAlarm", { params: { userKey: _userKey } })
-        .then(R.pipe(R.prop("data"), setOnceAlarm))
-        .catch(err => console.log("polling once alarm error ", err));
     }, interval);
     timerID.current = timeoutID;
   };
 
-  return [startPolling, stopPolling, isPolling, allAlarm];
+  return [startPolling, stopPolling, isPolling, alarm];
 };
 
 export { usePollingAlarm, useAlarm };

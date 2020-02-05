@@ -8,7 +8,7 @@ import { Table, Drawer, Tag, Button } from "antd";
 import AlarmForm from "components/forms/AlarmForm";
 import AlarmConditionTable from "components/tables/AlarmConditionTable";
 import TableToolbar from "components/pureComponents/TableToolbar";
-
+import { useTranslation } from "react-i18next";
 import R from "ramda";
 
 const alarmTable = props => {
@@ -16,7 +16,7 @@ const alarmTable = props => {
   const [tableData, remove, update, query] = useFetch("alarms");
   const [isShowAlarmForm, setShowAlarmForm] = useState(false);
   const [editingAlarm, setEditingAlarm] = useState({});
-
+  const { t } = useTranslation();
   const onEditing = record => {
     setEditingAlarm(record);
     setShowAlarmForm(true);
@@ -49,31 +49,32 @@ const alarmTable = props => {
 
   const columns = [
     {
-      title: "名稱",
+      title: t("name"),
       dataIndex: "name",
       key: "name"
     },
 
     {
-      title: "來源",
+      title: t("alarm.source"),
       dataIndex: "source",
       key: "source"
     },
 
     {
-      title: "輪詢時間  ",
+      title: t("alarm.pollingInterval"),
       dataIndex: "pollingInterval",
       key: "pollingInterval"
     },
+
     {
-      title: "觸發類型    ",
-      dataIndex: "triggerType",
-      key: "triggerType"
-    },
-    {
-      title: "報警訊息 ",
+      title: t("alarm.message"),
       dataIndex: "message",
       key: "message"
+    },
+    {
+      title: "Release Status",
+      dataIndex: "releaseDeviceStatus",
+      key: "releaseDeviceStatus"
     },
 
     {
@@ -92,7 +93,7 @@ const alarmTable = props => {
   return (
     <div>
       <TableToolbar
-        title="報警"
+        title={t("alarm.name")}
         selectedRowKeys={selectedRowKeys}
         onSearch={query}
         handlers={{
@@ -101,13 +102,13 @@ const alarmTable = props => {
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增",
-          remove: "移除選取項目"
+          add: t("alarm.add"),
+          remove: t("alarm.removeSelected")
         }}
       />
 
       <Drawer
-        title="編輯報警資料"
+        title={t("alarm.edit")}
         visible={isShowAlarmForm}
         placement="right"
         footer={null}

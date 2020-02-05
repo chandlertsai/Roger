@@ -4,26 +4,29 @@ import { Button, message } from "antd";
 import { useList } from "react-use";
 import R from "ramda";
 import useForm from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 import { uniqueKey } from "apis/utils";
-
-const conditionList = [
-  { key: ">", text: ">" },
-  { key: "<", text: "<" },
-  { key: "=", text: "=" },
-  { key: ">=", text: ">=" },
-  { key: "<=", text: "<=" },
-  { key: "has", text: "包含" }
-];
 
 export default props => {
   const { conditions, onChanged } = props;
   const [cond, conditionsAciton] = useList(conditions);
+  const { t } = useTranslation();
+  const conditionList = [
+    { key: ">", text: ">" },
+    { key: "<", text: "<" },
+    { key: "=", text: "=" },
+    { key: ">=", text: ">=" },
+    { key: "<=", text: "<=" },
+    { key: "has", text: t("alarm.conditionHas") },
+    { key: "hasnot", text: t("alarm.conditionHasnot") }
+  ];
+
   const mapIndex = R.addIndex(R.map);
 
   const addConditions = () => {
     if (cond.length >= 5) {
-      message.warning("觸發條件最多5個");
+      message.warning(t("alarm.conditionLimitWarnning"));
       return;
     }
     conditionsAciton.push({
@@ -48,7 +51,7 @@ export default props => {
 
   const createConditionSelects = (cond, idx) => (
     <div key={cond.key}>
-      <label htmlFor="cond">執行條件: </label>
+      <label htmlFor="cond">{t("condition")}</label>
       <select
         name="condition"
         className="custom-select"
@@ -57,7 +60,9 @@ export default props => {
       >
         {R.map(
           v => (
-            <option value={v.key}> {v.text} </option>
+            <option key={v.key} value={v.key}>
+              {v.text}
+            </option>
           ),
           conditionList
         )}
@@ -69,7 +74,7 @@ export default props => {
     <div key={cond.key} className="my-2 p-3 border ">
       <button
         type="button"
-        class="close"
+        className="close"
         aria-label="Close"
         onClick={() => conditionsAciton.remove(idx)}
       >
@@ -81,7 +86,7 @@ export default props => {
       <div className="row">
         <div className="col">
           <div>
-            <label htmlFor="input">輸入欄位:</label>
+            <label htmlFor="input">{t("inputField")}</label>
             <input
               className="form-control"
               type="text"
@@ -93,7 +98,7 @@ export default props => {
         </div>
         <div className="col">{createConditionSelects(cond, idx)}</div>
         <div className="col">
-          <label htmlFor="operator"> 比較對象:</label>
+          <label htmlFor="operator"> {t("compareTo")} </label>
           <input
             className="form-control"
             type="text"
@@ -104,7 +109,7 @@ export default props => {
         </div>
       </div>
       <small id="inputHelp" className="form-text text-muted">
-        輸入欄位是JSON欄位名稱，如希望處理cacti欄位action就輸入action(請注意大小寫)
+        {t("alarm.conditionInputWarnning")}
       </small>
     </div>
   ));

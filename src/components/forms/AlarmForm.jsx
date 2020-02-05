@@ -4,9 +4,10 @@ import { Button } from "antd";
 import useForm from "react-hook-form";
 import { useList } from "react-use";
 import R from "ramda";
-
+import { useTranslation } from "react-i18next";
 import { default as ErrorDiv } from "./ErrorTip";
 import AlarmConditionForm from "components/forms/AlarmConditionForm";
+import AlarmActionForm from "components/forms/AlarmActionForm";
 import * as yup from "yup";
 
 // $FlowFixMe
@@ -15,6 +16,7 @@ import "./form.less";
 const alarmForm = props => {
   const { alarm, doSubmit } = props;
   const conditions = alarm.conditions || [];
+  const releaseConditions = alarm.releaseConditions || [];
   const {
     register,
     handleSubmit,
@@ -26,12 +28,15 @@ const alarmForm = props => {
     defaultValues: alarm
   });
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     reset(alarm);
   }, [alarm]);
 
   useEffect(() => {
     register({ name: "conditions" });
+    register({ name: "releaseConditions" });
   }, [register]);
 
   const speak = () => {
@@ -47,14 +52,15 @@ const alarmForm = props => {
     doSubmit(newData);
   };
 
-  const handleChanged = v => setValue("conditions", v);
+  const handleTriggerCondtionChanged = v => setValue("conditions", v);
+  const handleReleaseCondtionChanged = v => setValue("releaseConditions", v);
 
   const createOptions = R.map(p => <option value={p.key}>{p.name}</option>);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group">
-        <label htmlFor="pollingInterval">名稱: </label>
+        <label htmlFor="pollingInterval">{t("name")}</label>
         <input
           className="form-control"
           type="text"
@@ -63,16 +69,16 @@ const alarmForm = props => {
         />
       </div>
       <div className="form-group">
-        <label for="source">來源：</label>
+        <label htmlFor="source">{t("alarm.source")}</label>
         <select className="form-control" ref={register} name="source">
           <option value="cacti">Cacti</option>
           <option value="simpleLog">Simple Log</option>
-          <option value="customSource">客製化來源</option>
+          <option value="customSource">{t("alarm.customSource")}</option>
         </select>
       </div>
 
       <div className="form-group">
-        <label htmlFor="pollingInterval">輪詢間隔時間 (秒): </label>
+        <label htmlFor="pollingInterval">{t("alarm.pollingInterval")}</label>
         <input
           className="form-control"
           type="number"
@@ -83,16 +89,16 @@ const alarmForm = props => {
         />
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label htmlFor="triggerType">觸發類型: </label>
         <select name="triggerType" className="custom-select" ref={register}>
           <option value="once">僅一次</option>
           <option value="always">每次輪詢</option>
         </select>
-      </div>
+      </div> */}
 
       <div className="form-group">
-        <label htmlFor="message">警告訊息: </label>
+        <label htmlFor="message">{t("alarm.message")} </label>
         <div className="d-flex">
           <input
             className="form-control"
@@ -101,18 +107,55 @@ const alarmForm = props => {
             ref={register}
           />
           <Button type="primary" className="mx-2" onClick={speak}>
-            語音
+            {t("test")}
           </Button>
         </div>
       </div>
 
       <div className="form-group">
-        <label htmlFor="userkey">觸發條件: </label>
+        <label htmlFor="userkey">{t("alarm.triggerCondition")} </label>
 
-        <AlarmConditionForm conditions={conditions} onChanged={handleChanged} />
+        <AlarmConditionForm
+          conditions={conditions}
+          onChanged={handleTriggerCondtionChanged}
+        />
       </div>
 
-      <Button htmlType="submit"> 確定 </Button>
+      <div className="form-group">
+        <label htmlFor="userkey">{t("alarm.releaseCondition")} </label>
+
+        <AlarmConditionForm
+          conditions={releaseConditions}
+          onChanged={handleReleaseCondtionChanged}
+        />
+      </div>
+
+      <div className="row">
+        <div className="form-group col-md-4">
+          <label htmlFor="triggerDeviceStatus">
+            {t("alarm.triggerDeviceStatus")}{" "}
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            name="triggerDeviceStatus"
+            ref={register}
+          />
+        </div>
+        <div className="form-group col-md-4">
+          <label htmlFor="releaseDeviceStatus">
+            {t("alarm.releaseDeviceStatus")}{" "}
+          </label>
+          <input
+            className="form-control"
+            type="text"
+            name="releaseDeviceStatus"
+            ref={register}
+          />
+        </div>
+      </div>
+
+      <Button htmlType="submit"> {t("submit")} </Button>
     </form>
   );
 };

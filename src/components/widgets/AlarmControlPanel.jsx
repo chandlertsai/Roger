@@ -34,7 +34,7 @@ const alarmControlPanel = props => {
         break;
     }
     axios
-      .get(url, { params: { alarmKey: alarm.alarmKey } })
+      .get(url, { params: { alarmKey: alarm.key } })
       .then(res => console.log(res.data));
     onClose();
   };

@@ -18,6 +18,10 @@
   "systemSettings": "Settings",
   "selectLicenseFile": "Select license file",
 
+  "inputField": "Input Field",
+  "condition": "Condition",
+  "compareTo": "Comapre to",
+
   "error": {
     "ipFormat": "Wrong IP address format"
   },
@@ -42,7 +46,8 @@
     "log": "Log"
   },
   "alarm": {
-    "alarm": "Alarm",
+    "name": "Alarm",
+    "alarmCount": "# of Alarm ",
     "read": "Readed Alarm",
     "ack": "Acknowledged Alarm",
     "close": "Closed Alarm",
@@ -50,7 +55,23 @@
     "readContext": "Total readed alarm: ",
     "ackContext": "Total acknowledged alarm: ",
     "closeContext": "Total closed alarm: ",
-    "alarmVoiceTitle": "Alarm Voice"
+    "alarmVoiceTitle": "Alarm Voice",
+    "devStatusActionTip": "New device status",
+    "triggerDeviceStatus": "Alarm trigger device state: ",
+    "releaseDeviceStatus": "Alarm release device state: ",
+    "source": "Source",
+    "customSource": "Customized",
+    "pollingInterval": "Interval (sec) ",
+    "message": "Message",
+    "triggerCondition": "Trigger condition",
+    "releaseCondition": "Release condition",
+    "conditionHas": "Has",
+    "conditionHasnot": "Hasn't",
+    "conditionLimitWarnning": "Conditions couldn't over 5 ",
+    "conditionInputWarnning": "Input field means JSON property name.",
+    "add": "Add alarm",
+    "removeSelected": "Remove selected alarms",
+    "edit": "Edit alarm"
   },
   "currentAlarmTable": {
     "message": "Message",

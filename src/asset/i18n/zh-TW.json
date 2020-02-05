@@ -18,6 +18,10 @@
   "systemSettings": "系統設定",
   "selectLicenseFile": "選擇License檔案",
 
+  "inputField": "輸入欄位",
+  "condition": "執行條件",
+  "compareTo": "比較對象",
+
   "error": {
     "ipFormat": "錯誤的IP格式"
   },
@@ -42,7 +46,8 @@
     "log": "Log"
   },
   "alarm": {
-    "alarm": "警報數目",
+    "name": "報警",
+    "alarmCount": "警報數目",
     "read": "已讀取警報",
     "ack": "處理中警報",
     "close": "已修復警報",
@@ -50,7 +55,23 @@
     "readContext": "全部已讀取警報數目: ",
     "ackContext": "全部處理中警報數目: ",
     "closeContext": "全部處理完成警報數目: ",
-    "alarmVoiceTitle": "語音警報"
+    "alarmVoiceTitle": "語音警報",
+    "devStatusActionTip": "裝置新狀態",
+    "triggerDeviceStatus": "報警觸發後裝置狀態:",
+    "releaseDeviceStatus": "報警解除後裝置狀態:",
+    "source": "來源",
+    "customSource": "客製化來源",
+    "pollingInterval": "輪詢間隔時間 (秒) ",
+    "message": "警報訊息",
+    "triggerCondition": "觸發條件",
+    "releaseCondition": "解除條件",
+    "conditionHas": "包含",
+    "conditionHasnot": "不包含",
+    "conditionLimitWarnning": "觸發條件最多5個",
+    "conditionInputWarnning": "輸入欄位是JSON欄位名稱，如希望處理cacti欄位action就輸入action(請注意大小寫)",
+    "add": "新增",
+    "removeSelected": "移除選取項目",
+    "edit": "編輯報警"
   },
   "currentAlarmTable": {
     "message": "警報訊息",

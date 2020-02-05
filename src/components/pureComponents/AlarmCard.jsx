@@ -36,7 +36,7 @@ const alarmCard = (props: tProps) => {
   const getTitle = type => {
     switch (type) {
       case "alarm":
-        return t("alarm.alarm");
+        return t("alarm.alarmCount");
       case "read":
         return t("alarm.read");
       case "ack":
