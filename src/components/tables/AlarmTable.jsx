@@ -72,7 +72,13 @@ const alarmTable = props => {
       key: "message"
     },
     {
-      title: "Release Status",
+      title: t("alarm.triggerDevState"),
+      dataIndex: "triggerDeviceStatus",
+      key: "triggerDeviceStatus"
+    },
+
+    {
+      title: t("alarm.releaseDevState"),
       dataIndex: "releaseDeviceStatus",
       key: "releaseDeviceStatus"
     },
@@ -122,7 +128,6 @@ const alarmTable = props => {
         size="small"
         rowSelection={rowSelection}
         columns={columns}
-        expandedRowRender={AlarmConditionTable}
         dataSource={tableData}
       />
     </div>

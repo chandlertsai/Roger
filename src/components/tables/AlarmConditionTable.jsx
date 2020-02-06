@@ -10,8 +10,6 @@ const alarmConditionTable = record => {
   //       codition: "",
   //         not: false
   let columns = [
-    { title: "反向", key: "not", dataIndex: "not" },
-
     { title: "輸入欄位", key: "input", dataIndex: "input" },
     { title: "執行條件", key: "condition", dataIndex: "condition" },
     { title: "比較對象", key: "operator", dataIndex: "operator" }

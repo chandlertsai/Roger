@@ -71,7 +71,9 @@
     "conditionInputWarnning": "Input field means JSON property name.",
     "add": "Add alarm",
     "removeSelected": "Remove selected alarms",
-    "edit": "Edit alarm"
+    "edit": "Edit alarm",
+    "triggerDevState": "Trigger state",
+    "releaseDevState": "Release state"
   },
   "currentAlarmTable": {
     "message": "Message",

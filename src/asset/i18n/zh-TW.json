@@ -71,7 +71,9 @@
     "conditionInputWarnning": "輸入欄位是JSON欄位名稱，如希望處理cacti欄位action就輸入action(請注意大小寫)",
     "add": "新增",
     "removeSelected": "移除選取項目",
-    "edit": "編輯報警"
+    "edit": "編輯報警",
+    "triggerDevState": "觸發裝置狀態",
+    "releaseDevState": "解除裝置狀態"
   },
   "currentAlarmTable": {
     "message": "警報訊息",
