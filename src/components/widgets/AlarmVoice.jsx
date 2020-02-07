@@ -100,6 +100,7 @@ const alarmVoice = (props: tProps) => {
           payload: alarm
         });
         const msg = "ip " + alarm.ip + " " + alarm.message;
+        setCurrentVoiceMessage(msg);
         var words = new SpeechSynthesisUtterance(msg);
         words.addEventListener("start", () => setOnVoice(true));
         words.addEventListener("end", () => setOnVoice(false));
@@ -144,29 +145,6 @@ const alarmVoice = (props: tProps) => {
       <div className="card-body">
         <h3 className="text-white">{t("alarm.alarmVoiceTitle")}</h3>
         <div className="card-text">{currentVoiceMessage}</div>
-        <pre className="bg-danger">
-          {JSON.stringify(currentAlarms, null, 2)}
-        </pre>
-        <pre className="bg-primary">{JSON.stringify(voiceQueue, null, 2)}</pre>
-        <pre className="bg-dark text-white">
-          {JSON.stringify(blackList, null, 2)}
-        </pre>
-        <button
-          onClick={() =>
-            dispatchVoiceQueue({
-              type: "ADD",
-              payload: [
-                {
-                  message: "test message",
-                  ip: "testIP",
-                  interval: 6
-                }
-              ]
-            })
-          }
-        >
-          add
-        </button>
       </div>
     </div>
   );
