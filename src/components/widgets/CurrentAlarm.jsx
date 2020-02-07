@@ -6,6 +6,7 @@ import AlarmCard from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
 import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
+import R from "ramda";
 import { Button, Row, Col, Drawer } from "antd";
 
 export default () => {
@@ -68,7 +69,9 @@ export default () => {
       </Row>
       <Row>
         <Col span={24}>
-          <AlarmVoice currentAlarms={alarms} />
+          <AlarmVoice
+            currentAlarms={R.filter(R.propEq("state", "alarm"), alarms)}
+          />
         </Col>
       </Row>
     </div>
