@@ -43,7 +43,8 @@
   },
   "normalRoutes": {
     "dashboard": "Dashboard",
-    "log": "Log"
+    "log": "Log",
+    "license": "License"
   },
   "alarm": {
     "name": "Alarm",
@@ -131,5 +132,12 @@
     "maintainLog": "Maintain log",
     "errorReport": "Error report",
     "alarm": "Alarm"
+  },
+  "licenseMessage": {
+    "title": "License status",
+    "company": "Authorized company",
+    "expire": "Expire date",
+    "count": "Limit of device",
+    "contact": "Contact"
   }
 }

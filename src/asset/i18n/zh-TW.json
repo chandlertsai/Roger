@@ -43,7 +43,8 @@
   },
   "normalRoutes": {
     "dashboard": "即時監控",
-    "log": "Log"
+    "log": "Log",
+    "license": "授權狀態"
   },
   "alarm": {
     "name": "報警",
@@ -131,5 +132,12 @@
     "maintainLog": "設備維修紀錄",
     "errorReport": "設備損壞記錄表",
     "alarm": "報警資料管理"
+  },
+  "licenseMessage": {
+    "title": "授權狀態",
+    "company": "授權對象",
+    "expire": "到期日",
+    "count": "授權數量",
+    "contact": "客服"
   }
 }
