@@ -79,7 +79,11 @@
   "currentAlarmTable": {
     "message": "Message",
     "time": "Modify time",
-    "state": "State"
+    "state": "State",
+    "lastAlarmTS": "Trigger time",
+    "lastCloseTS": "Close time",
+    "lastAckTS": "Ack time",
+    "lastAckUser": "Who Ack"
   },
   "usersTable": {
     "duplicateError": "User name duplicate!",

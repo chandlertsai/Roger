@@ -40,12 +40,12 @@ const usersTable = () => {
   };
 
   const onSubmit = user => {
-    const idx = R.findIndex(R.propEq("name", user.name))(tableData);
-    if (idx !== -1) {
-      dispatch(setError(true, t("usersTable.duplicateError")));
-      setShowUserForm(false);
-      return;
-    }
+    // const idx = R.findIndex(R.propEq("name", user.name))(tableData);
+    // if (idx !== -1) {
+    //   dispatch(setError(true, t("usersTable.duplicateError")));
+    //   setShowUserForm(false);
+    //   return;
+    // }
     update(user);
     setShowUserForm(false);
   };
@@ -59,8 +59,8 @@ const usersTable = () => {
     const key = uniqueKey("user");
     onEditing({
       key: key,
-      name: t("usersTable.inputName"),
-      email: t("usersTable.inputEmail"),
+      name: "",
+      email: "",
       password: ""
     });
   };

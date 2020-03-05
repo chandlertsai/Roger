@@ -3,9 +3,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Tag } from "antd";
 import classNames from "classnames";
+import { auth } from "reducers/storeUtils";
+import { useSelector } from "react-redux";
 
 const alarmControlPanel = props => {
   const { alarm, onClose } = props;
+  const authObj = useSelector(auth);
 
   const getColor = state => {
     switch (state) {
@@ -20,22 +23,14 @@ const alarmControlPanel = props => {
     }
   };
   const createTag = state => <Tag color={getColor(state)}>{state}</Tag>;
-  const setState = state => {
-    var url = "/webapi/api/";
-    switch (state) {
-      case "ack":
-        url += "ackAlarm";
-        break;
-      case "read":
-        url += "readAlarm";
-        break;
-      case "close":
-        url += "closeAlarm";
-        break;
-    }
-    axios
-      .get(url, { params: { alarmKey: alarm.key } })
-      .then(res => console.log(res.data));
+  const ack = () => {
+    var url = "/webapi/api/ackAlarm";
+    let body = {
+      alarmKey: alarm.key,
+      userKey: authObj.key
+    };
+    axios.post(url, body).then(res => console.log(res.data));
+
     onClose();
   };
 
@@ -49,16 +44,8 @@ const alarmControlPanel = props => {
 
       <span className="mx-1">設定狀態: </span>
 
-      <div className="btn btn-info mx-1" onClick={() => setState("ack")}>
+      <div className="btn btn-info mx-1" onClick={() => ack()}>
         Ack
-      </div>
-
-      <div className="btn btn-secondary mx-1" onClick={() => setState("read")}>
-        Read
-      </div>
-
-      <div className="btn btn-success mx-1" onClick={() => setState("close")}>
-        Close
       </div>
     </div>
   );

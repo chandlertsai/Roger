@@ -27,4 +27,23 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-export { uniqueKey, useDebounce };
+//2020/02/01-12:44:01
+function ISODateToString(text) {
+  if (!text) return "";
+  let date = new Date(text);
+  let year = date.getFullYear() || "";
+  let month = date.getMonth() || "";
+  let day = date.getDay() || "";
+  let hour = date.getHours() || "";
+  let min = date.getMinutes() || "";
+  let sec = date.getSeconds() || "";
+  return (
+    "" + year + "/" + month + "/" + day + "-" + hour + ":" + min + ":" + sec
+  );
+}
+
+function renderTimeCell(text, record, index) {
+  return <span>{ISODateToString(text)}</span>;
+}
+
+export { uniqueKey, useDebounce, ISODateToString, renderTimeCell };

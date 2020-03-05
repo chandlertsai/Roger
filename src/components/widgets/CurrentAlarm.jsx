@@ -52,9 +52,7 @@ export default () => {
         <Col span={6}>
           <AlarmCard alarms={alarms} type="alarm" />
         </Col>
-        <Col span={6}>
-          <AlarmCard alarms={alarms} type="read" />
-        </Col>
+
         <Col span={6}>
           <AlarmCard alarms={alarms} type="ack" />
         </Col>

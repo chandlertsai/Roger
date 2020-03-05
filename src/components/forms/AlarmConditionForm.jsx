@@ -115,7 +115,7 @@ export default props => {
   ));
 
   return (
-    <div className="form=group">
+    <div className="form-group">
       <Button onClick={addConditions}>Add</Button>{" "}
       <span className="float-right">{cond.length}/5</span>
       {createConditions(cond)}

@@ -128,7 +128,8 @@ const permissionRoleForm = (props: Props) => {
       .catch(error => {
         dispatch(setLoading(false));
         dispatch(setError(error.message));
-      });
+      })
+      .finally(() => dispatch(setLoading(false)));
   };
 
   const onChanged = key => name => v =>
@@ -156,8 +157,11 @@ const permissionRoleForm = (props: Props) => {
         fetchPermission();
       })
       .catch(error => {
-        console.log("delete permission role error ", error.message);
-      });
+        console.log("delete error", error);
+        dispatch(setLoading(false));
+        dispatch(setError(error.message));
+      })
+      .finally(() => dispatch(setLoading(false)));
   };
 
   const onSubmit = values => {
@@ -179,7 +183,8 @@ const permissionRoleForm = (props: Props) => {
         console.log("updated psermission ERROR: ", error);
         dispatch(setLoading(false));
         dispatch(setError(error.message));
-      });
+      })
+      .finally(() => dispatch(setLoading(false)));
   };
 
   const createFields = R.map(role => {
