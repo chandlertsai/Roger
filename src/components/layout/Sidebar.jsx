@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Icon } from "antd";
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Menu } from "antd";
 import { t } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const SubMenu = Menu.SubMenu;
@@ -19,7 +20,7 @@ const sidebar = ({ submenus }) => {
       title={
         <span>
           {typeof submenu.icon === "string" ? (
-            <Icon type={submenu.icon} />
+            <LegacyIcon type={submenu.icon} />
           ) : (
             submenu.icon
           )}

@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { Form, Input, Button } from "antd";
+import { SearchOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button } from "antd";
 import { useTranslation } from "react-i18next";
 import Hide from "components/utils/Hide";
 
@@ -32,7 +35,7 @@ export const EditOperationCell = ({
         <Button
           type="secondary"
           shape="circle"
-          icon="search"
+          icon={<SearchOutlined />}
           onClick={() => handleDetail(record)}
         />
       </Hide>

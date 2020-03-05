@@ -1,6 +1,6 @@
 // @flow
 import React from "react";
-import { Dropdown, Icon, Menu, Button } from "antd";
+import { Dropdown, Menu, Button } from "antd";
 import { Link } from "react-router-dom";
 //
 type tProps = { onChanged: Function, lang: string };

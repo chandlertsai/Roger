@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
-import { Dropdown, Icon, Menu, Button } from "antd";
+import { UserOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Button } from "antd";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 //
@@ -34,7 +35,7 @@ const avatorDropdown = (props: {
       {alreadyLogin ? (
         <Dropdown trigger={["click"]} overlay={menu}>
           <div>
-            <Icon type="user" style={{ color: "white" }} />
+            <UserOutlined style={{ color: "white" }} />
             <Button type="link" ghost>
               {username}
             </Button>

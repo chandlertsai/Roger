@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDebounce } from "apis/utils";
-import { Button, Input, Dropdown, Menu, Icon, Row, Col } from "antd";
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Input, Dropdown, Menu, Row, Col } from "antd";
 
 type Handlers = {
   addItem: Function,
@@ -54,13 +55,13 @@ const tableToolBar = (props: Props) => {
           />
         ) : null}
 
-        <Button type='default' icon='plus' onClick={addItem}>
+        <Button type='default' icon={<PlusOutlined />} onClick={addItem}>
           {componentsText.add}
         </Button>
 
         <Button
           type='danger'
-          icon='delete'
+          icon={<DeleteOutlined />}
           onClick={() => removeSelectedItems(selectedRowKeys)}
           className='ml-1'
         >
