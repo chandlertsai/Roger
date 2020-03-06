@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 import { usePollingAlarm } from "apis/alarm";
-import AlarmCard from "components/pureComponents/AlarmCard";
+import { AckAlarmCard, AlarmCard } from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
 import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
@@ -54,10 +54,7 @@ export default () => {
         </Col>
 
         <Col span={6}>
-          <AlarmCard alarms={alarms} type="ack" />
-        </Col>
-        <Col span={6}>
-          <AlarmCard alarms={alarms} type="close" />
+          <AckAlarmCard alarms={alarms} />
         </Col>
       </Row>
       <Row>
