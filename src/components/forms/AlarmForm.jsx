@@ -96,6 +96,17 @@ const alarmForm = props => {
 
       <div className="form-group">
         <label htmlFor="message">{t("alarm.message")} </label>
+        <div className="form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            name="enableVoice"
+            ref={register}
+          />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+            {t("alarm.voiceEnable")}
+          </label>
+        </div>
         <div className="d-flex">
           <input
             className="form-control"

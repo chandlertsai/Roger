@@ -77,7 +77,8 @@
     "edit": "編輯報警",
     "triggerDevState": "觸發裝置狀態",
     "releaseDevState": "解除裝置狀態",
-    "simpleLogTip": "選擇simpleLog將不會發警報改成訊息"
+    "simpleLogTip": "選擇simpleLog將不會發警報改成訊息",
+    "voiceEnable": "語音開關"
   },
   "currentAlarmTable": {
     "message": "警報訊息",

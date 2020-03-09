@@ -91,7 +91,8 @@ const alarmVoice = (props: tProps) => {
 
     if (!onVoice) {
       var alarm = R.head(voiceQueue);
-      if (alarm) {
+      console.log(alarm);
+      if (alarm && alarm.enableVoice) {
         dispatchVoiceQueue({
           type: "TAIL"
         });
@@ -108,37 +109,6 @@ const alarmVoice = (props: tProps) => {
       }
     }
   }, 1000);
-
-  // useEffect(() => {
-  //   if (elapse == 0) return;
-  //   const speakList = R.filter(a => elapse % a.pollingInterval == 0)(
-  //     voiceAlarms
-  //   );
-
-  //   if (speakList.length > 0) {
-  //     setCurrentVoiceMessage(R.prop("message", R.head(speakList)));
-  //   }
-  // }, [voiceAlarms]);
-
-  // useEffect(() => {
-  //   if (currentVoiceMessage.length <= 0) return;
-  //   var words = new SpeechSynthesisUtterance(currentVoiceMessage);
-  //   window.speechSynthesis.speak(words);
-  //   //setCurrentVoiceMessage("");
-  // }, [currentVoiceMessage]);
-
-  // useDeepCompareEffect(() => {
-  //   console.log("deep compare ", currentAlarms);
-  //   const n = R.map(a => {
-  //     const alarmInfo = getAlarm(a.alarmKey);
-  //     return R.assoc(
-  //       "pollingInterval",
-  //       R.prop("pollingInterval", alarmInfo)
-  //     )(a);
-  //   }, currentAlarms);
-  //   console.log("combine ", n);
-  //   setVoiceAlarms(n);
-  // }, [currentAlarms]);
 
   return (
     <div className="card text-white bg-danger">

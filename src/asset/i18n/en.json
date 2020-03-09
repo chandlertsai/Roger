@@ -77,7 +77,8 @@
     "edit": "Edit alarm",
     "triggerDevState": "Trigger state",
     "releaseDevState": "Release state",
-    "simpleLogTip": "Type simpleLog will trigger message..."
+    "simpleLogTip": "Type simpleLog will trigger message...",
+    "voiceEnable": "Enable voice"
   },
   "currentAlarmTable": {
     "message": "Message",
