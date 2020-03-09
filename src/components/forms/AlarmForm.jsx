@@ -122,6 +122,7 @@ const alarmForm = props => {
           }
           name="triggerLogic"
           onChange={([v]) => v.target.value}
+          value={alarm.triggerLogic}
           control={control}
         />
 
@@ -143,6 +144,7 @@ const alarmForm = props => {
           }
           name="releaseLogic"
           onChange={([v]) => v.target.value}
+          value={alarm.releaseLogic}
           control={control}
         />
         <AlarmConditionForm

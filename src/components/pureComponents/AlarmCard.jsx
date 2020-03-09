@@ -80,21 +80,13 @@ export const AlarmCard = (props: tProps) => {
 };
 
 export const NormalDeviceCard = (props: tProps) => {
-  const { alarms = [] } = props;
   const { t } = useTranslation();
 
   const [count, setCount] = useState(0);
 
-  // title t("alarm.ack")
-  // context t("alarm.ackContext")
-  // color : bg-info
-
   const matchType = type => R.filter(i => i.state == type);
 
-  useDeepCompareEffect(() => {
-    const _matchAlarms = matchType("alarm")(alarms) || [];
-    setCount(_matchAlarms.length);
-  }, [alarms]);
+  useEffect(() => {}, []);
 
   // const mainClass = classNames("card", "text-white", getColor());
 
