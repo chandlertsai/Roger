@@ -1,5 +1,5 @@
 // @flow
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useFetch } from "apis/crud";
 import { Table, Drawer, Tag, Button } from "antd";
 import { useTranslation } from "react-i18next";
@@ -7,8 +7,14 @@ import R from "ramda";
 
 import { renderTimeCell } from "apis/utils";
 
+const matchType = type => R.filter(i => i.state == type);
 const currentAlarmTable = props => {
-  const { alarms, onRowClick } = props;
+  const { alarms, onRowClick, filter } = props;
+
+  const data = useMemo(() => {
+    return filter ? matchType(filter)(alarms) : alarms;
+  }, [alarms, filter]);
+
   const { t } = useTranslation();
 
   const columns = [
@@ -63,7 +69,7 @@ const currentAlarmTable = props => {
       <Table
         size="small"
         columns={columns}
-        dataSource={alarms}
+        dataSource={data}
         onRow={record => {
           return {
             onClick: event => {

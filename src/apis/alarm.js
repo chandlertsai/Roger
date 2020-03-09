@@ -81,4 +81,45 @@ const usePollingAlarm = (opt: Option) => {
   return [startPolling, stopPolling, isPolling, alarm];
 };
 
-export { usePollingAlarm, useAlarm };
+/**
+ * polling alarm status
+ * @param opt options
+ * @param {number} [opt.interval=1000] interval ms
+ * @param {Function} [opt.onError] callback function when error happen.
+ */
+const usePollingNormalDevice = (opt: Option) => {
+  const { interval = 1000, onError = err => {} } = opt;
+  const [isPolling, setPolling] = useState(false);
+  const [normalDevices, setNormalDevices] = useState([]);
+
+  const timerID = useRef();
+
+  const stopPolling = () => {
+    //console.log("into stopPolling", isPolling);
+    //if (!isPolling) return;
+
+    if (timerID.current) {
+      clearInterval(timerID.current);
+      timerID.current = null;
+    }
+    setPolling(false);
+  };
+
+  const startPolling = () => {
+    setPolling(true);
+    runPolling();
+  };
+
+  const runPolling = () => {
+    const timeoutID = setInterval(() => {
+      axios
+        .get("/webapi/api/normalDevices")
+        .then(R.pipe(R.prop("data"), setNormalDevices))
+        .catch(err => console.log("polling normal devices error ", err));
+    }, interval);
+    timerID.current = timeoutID;
+  };
+
+  return [startPolling, stopPolling, isPolling, normalDevices];
+};
+export { usePollingAlarm, usePollingNormalDevice, useAlarm };

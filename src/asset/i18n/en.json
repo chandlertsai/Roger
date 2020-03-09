@@ -49,6 +49,8 @@
   "alarm": {
     "name": "Alarm",
     "alarmCount": "# of Alarm ",
+    "normalDevicesCount": "# of Normal Devices",
+    "normalDevicesContext": "Total devices: ",
     "read": "Readed Alarm",
     "ack": "Acknowledged Alarm",
     "close": "Closed Alarm",

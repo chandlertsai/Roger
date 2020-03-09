@@ -49,6 +49,8 @@
   "alarm": {
     "name": "報警",
     "alarmCount": "警報數目",
+    "normalDevicesCount": "正常裝置",
+    "normalDevicesContext": "正常裝置數目:  ",
     "read": "已讀取警報",
     "ack": "處理中警報",
     "close": "已修復警報",
