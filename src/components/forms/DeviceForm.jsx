@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import R from "ramda";

@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from "react";
-import { Button } from "antd";
-import useForm from "react-hook-form";
+import { Button, Group, Radio } from "antd";
+import { useForm, Controller } from "react-hook-form";
 import { useList } from "react-use";
 import R from "ramda";
 import { useTranslation } from "react-i18next";
@@ -23,7 +23,8 @@ const alarmForm = props => {
     setValue,
     getValues,
     errors,
-    reset
+    reset,
+    control
   } = useForm({
     defaultValues: alarm
   });
@@ -35,6 +36,7 @@ const alarmForm = props => {
   }, [alarm]);
 
   useEffect(() => {
+    register();
     register({ name: "conditions" });
     register({ name: "releaseConditions" });
   }, [register]);
@@ -75,6 +77,9 @@ const alarmForm = props => {
           <option value="simpleLog">Simple Log</option>
           <option value="customSource">{t("alarm.customSource")}</option>
         </select>
+        <small id="inputHelp" className="form-text text-muted">
+          {t("alarm.simpleLogTip")}
+        </small>
       </div>
 
       <div className="form-group">
@@ -88,14 +93,6 @@ const alarmForm = props => {
           ref={register}
         />
       </div>
-
-      {/* <div className="form-group">
-        <label htmlFor="triggerType">觸發類型: </label>
-        <select name="triggerType" className="custom-select" ref={register}>
-          <option value="once">僅一次</option>
-          <option value="always">每次輪詢</option>
-        </select>
-      </div> */}
 
       <div className="form-group">
         <label htmlFor="message">{t("alarm.message")} </label>
@@ -115,6 +112,19 @@ const alarmForm = props => {
       <div className="form-group">
         <label htmlFor="userkey">{t("alarm.triggerCondition")} </label>
 
+        <Controller
+          className="ml-2"
+          as={
+            <Radio.Group>
+              <Radio value="all">All</Radio>
+              <Radio value="any">Any</Radio>
+            </Radio.Group>
+          }
+          name="triggerLogic"
+          onChange={([v]) => v.target.value}
+          control={control}
+        />
+
         <AlarmConditionForm
           conditions={conditions}
           onChanged={handleTriggerCondtionChanged}
@@ -123,7 +133,18 @@ const alarmForm = props => {
 
       <div className="form-group">
         <label htmlFor="userkey">{t("alarm.releaseCondition")} </label>
-
+        <Controller
+          className="ml-2"
+          as={
+            <Radio.Group>
+              <Radio value="all">All</Radio>
+              <Radio value="any">Any</Radio>
+            </Radio.Group>
+          }
+          name="releaseLogic"
+          onChange={([v]) => v.target.value}
+          control={control}
+        />
         <AlarmConditionForm
           conditions={releaseConditions}
           onChanged={handleReleaseCondtionChanged}

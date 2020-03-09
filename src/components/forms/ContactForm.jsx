@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import ContactTable from "components/tables/ContactTable";
 import R from "ramda";
 import { default as ErrorDiv } from "./ErrorTip";

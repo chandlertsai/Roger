@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { Button, Input } from "antd";
 import * as yup from "yup";
@@ -26,18 +26,18 @@ const forgetPasswordForm = () => {
   }, [response]);
 
   return (
-    <form className='container_col' onSubmit={handleSubmit(onSubmit)}>
-      <div className='form-row'>
-        <label htmlFor='email'>登入 Email: </label>
-        <input name='email' ref={register({ required: true })} />
+    <form className="container_col" onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-row">
+        <label htmlFor="email">登入 Email: </label>
+        <input name="email" ref={register({ required: true })} />
       </div>
-      <div className='form-row'>
+      <div className="form-row">
         {errors.email && <p>This field is required</p>}
       </div>
-      <div className='form-row'>
+      <div className="form-row">
         {response ? <span>{response}</span> : null}
       </div>
-      <Button htmlType='submit'> submit</Button>
+      <Button htmlType="submit"> submit</Button>
     </form>
   );
 };

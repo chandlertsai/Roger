@@ -74,7 +74,8 @@
     "removeSelected": "Remove selected alarms",
     "edit": "Edit alarm",
     "triggerDevState": "Trigger state",
-    "releaseDevState": "Release state"
+    "releaseDevState": "Release state",
+    "simpleLogTip": "Type simpleLog will trigger message..."
   },
   "currentAlarmTable": {
     "message": "Message",

@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from "react";
 import { Button } from "antd";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import R from "ramda";
 
 import { default as ErrorDiv } from "./ErrorTip";
@@ -75,7 +75,6 @@ const alarmTestForm = props => {
 
       <div className="form-group">
         <label htmlFor="userkey">觸發條件: </label>
-
         <AlarmConditionForm conditions={conditions} onChanged={handleChanged} />
       </div>
 

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button, message } from "antd";
 import { useList } from "react-use";
 import R from "ramda";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { uniqueKey } from "apis/utils";
@@ -116,7 +116,8 @@ export default props => {
 
   return (
     <div className="form-group">
-      <Button onClick={addConditions}>Add</Button>{" "}
+      <Button onClick={addConditions}>Add</Button>
+
       <span className="float-right">{cond.length}/5</span>
       {createConditions(cond)}
     </div>
