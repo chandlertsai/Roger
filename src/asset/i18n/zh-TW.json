@@ -44,7 +44,8 @@
   "normalRoutes": {
     "dashboard": "即時監控",
     "log": "Log",
-    "license": "授權狀態"
+    "license": "授權狀態",
+    "device": "裝置狀態"
   },
   "alarm": {
     "name": "報警",

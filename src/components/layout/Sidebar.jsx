@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { Icon as LegacyIcon } from "@ant-design/compatible";
 import { Menu } from "antd";
 import { t } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

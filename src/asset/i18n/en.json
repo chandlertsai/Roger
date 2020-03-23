@@ -44,7 +44,8 @@
   "normalRoutes": {
     "dashboard": "Dashboard",
     "log": "Log",
-    "license": "License"
+    "license": "License",
+    "device": "Device"
   },
   "alarm": {
     "name": "Alarm",

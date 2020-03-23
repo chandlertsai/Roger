@@ -65,7 +65,7 @@ const groupForm = (props: tProps) => {
   return (
     <div>
       <Row>
-        <Col>
+        <Col span={24}>
           <div className="form-group w-25">
             <label htmlFor="name">群組名稱: </label>
             <input
