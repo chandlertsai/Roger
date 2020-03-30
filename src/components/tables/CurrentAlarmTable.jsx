@@ -35,7 +35,7 @@ const currentAlarmTable = props => {
     },
 
     {
-      title: t("currentAlarmTable.state"),
+      title: t("state"),
       dataIndex: "state",
       key: "state"
     },

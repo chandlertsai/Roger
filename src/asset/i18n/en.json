@@ -9,6 +9,7 @@
   "cancel": "Cancel",
   "upload": "Upload",
   "type": "Type",
+  "state": "State",
 
   "password": "Password",
   "passwordTip": "Password Tip",
@@ -84,7 +85,7 @@
   "currentAlarmTable": {
     "message": "Message",
     "time": "Modify time",
-    "state": "State",
+
     "lastAlarmTS": "Trigger time",
     "lastCloseTS": "Close time",
     "lastAckTS": "Ack time",

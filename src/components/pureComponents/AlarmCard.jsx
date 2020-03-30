@@ -80,7 +80,7 @@ export const AlarmCard = (props: tProps) => {
 };
 
 export const NormalDeviceCard = (props: {
-  count: Number,
+  count: number,
   onClick: Function
 }) => {
   const { t } = useTranslation();
@@ -99,7 +99,7 @@ export const NormalDeviceCard = (props: {
 };
 
 export const AlarmDeviceCard = (props: {
-  count: Number,
+  count: number,
   onClick: Function
 }) => {
   const { t } = useTranslation();

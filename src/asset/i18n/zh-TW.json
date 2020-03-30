@@ -9,7 +9,7 @@
   "cancel": "取消",
   "upload": "上傳",
   "type": "類別",
-
+  "state": "State",
   "password": "密碼",
   "passwordTip": "密碼提示",
   "permission": "權限",
@@ -84,7 +84,7 @@
   "currentAlarmTable": {
     "message": "警報訊息",
     "time": "修改時間",
-    "state": "狀態",
+
     "lastAlarmTS": "警報發生時間",
     "lastCloseTS": "警報恢復時間",
     "lastAckTS": "開始處理時間",

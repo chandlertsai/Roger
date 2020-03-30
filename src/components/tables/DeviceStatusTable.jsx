@@ -1,39 +1,37 @@
 // @flow
 
 import React, { useState, useEffect } from "react";
+import useDeepCompareEffect from "use-deep-compare-effect";
 import { useFetch, useNameList, getName } from "apis/crud";
 import { useDevices } from "apis/device";
 import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Row, Col, Popover } from "antd";
+import { Table, Row, Col, Popover, Button } from "antd";
 import TableToolbar from "components/pureComponents/TableToolbar";
-import { useLicense } from "apis/license";
+import { renderTimeCell } from "apis/utils";
 import "./table.css";
 import R from "ramda";
 
 // props type
 type Props = {
-  dispatch: Function,
-  data: mixed
+  data: mixed,
+  totalDevices: number
 };
 
 export default (props: Props) => {
-  const { data } = props;
-  const [selectDevice, setSelectDevice] = useState({});
-  const [selectIndex, setSelectIndex] = useState(-1);
-  const license = useLicense();
+  const { data, totalDevices } = props;
+  const [currentAlarm, setCurrentAlarm] = useState(undefined);
+
   const { t } = useTranslation();
-  const [licenseInfo, setLicenseInfo] = useState("");
+
   const usersNameList = useNameList("users");
   const [vendorList, rv, uv] = useFetch("vendors");
 
-  useEffect(() => {
-    const length = data ? data.length : 0;
-
-    setLicenseInfo(t("device.avialable") + length + "/" + license.permitCount);
-  }, [license, data]);
+  useDeepCompareEffect(() => {
+    setCurrentAlarm(undefined);
+  }, [data]);
 
   const alarmColumns = [
     {
@@ -42,9 +40,20 @@ export default (props: Props) => {
       key: "name"
     },
     {
-      title: "state",
+      title: t("state"),
       dataIndex: "state",
       key: "state"
+    },
+    {
+      title: t("currentAlarmTable.message"),
+      dataIndex: "message",
+      key: "message"
+    },
+    {
+      title: t("currentAlarmTable.lastAlarmTS"),
+      dataIndex: "lastAlarmTS",
+      key: "lastAlarmTS",
+      render: renderTimeCell
     }
   ];
   const columns = [
@@ -92,8 +101,19 @@ export default (props: Props) => {
       dataIndex: "alarms",
 
       render: (text, record) => {
-        const stateCount = R.countBy(R.prop("state"))(text || []);
-        return <span>{stateCount["alarm"]}</span>;
+        //const alarmCount = R.length(text || []);
+        return <span>{R.length(text || [])}</span>;
+      }
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (text, record) => {
+        return (
+          <Button size="small" onClick={() => setCurrentAlarm(record.alarms)}>
+            detail..
+          </Button>
+        );
       }
     }
   ];
@@ -101,32 +121,26 @@ export default (props: Props) => {
   return (
     <div>
       <Row gutter={[16, 16]}>
-        <Col sx={24} span={12}>
-          <Table
-            size="small"
-            columns={columns}
-            dataSource={data}
-            rowClassName={(record, index) => {
-              if (index == selectIndex) return "bg-blue";
-            }}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: event => {
-                  setSelectDevice(record);
-                  setSelectIndex(rowIndex);
-                } // click row
-              };
-            }}
-          />
-        </Col>
-        <Col sx={24} span={12}>
-          <Table
-            size="small"
-            columns={alarmColumns}
-            dataSource={R.prop("alarms")(selectDevice)}
-          />
+        <Col span={24}>
+          <Table size="small" columns={columns} dataSource={data} />
         </Col>
       </Row>
+      {currentAlarm ? (
+        <div>
+          <Row>
+            <Button onClick={() => setCurrentAlarm(undefined)}>Close</Button>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col span={24}>
+              <Table
+                size="small"
+                columns={alarmColumns}
+                dataSource={currentAlarm}
+              />
+            </Col>
+          </Row>
+        </div>
+      ) : null}
     </div>
   );
 };
