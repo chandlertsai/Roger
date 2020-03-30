@@ -117,7 +117,13 @@
     "NormalNetwork": "一般網路設備",
     "Monitor": "數據監控設備",
     "SimpleDevice": "簡易資料設備",
-    "nameCantBlank": "設備名稱為必要欄位"
+    "nameCantBlank": "設備名稱為必要欄位",
+    "normalDeviceCount": "正常裝置",
+    "alarmDeviceCount": "發生警報裝置",
+    "ackDeviceCount": "維修中裝置",
+    "normalDeviceCountContext": "正常裝置總數: ",
+    "alarmDeviceCountCoontext": "發生警報裝置總數: ",
+    "ackDeviceCountContext": "維修中裝置總數: "
   },
   "inputPermissionName": "請輸入新的權限名稱...",
   "userPermission": {

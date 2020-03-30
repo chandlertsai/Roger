@@ -117,7 +117,13 @@
     "NormalNetwork": "Normal device",
     "Monitor": "Monitor device",
     "SimpleDevice": "Simple device",
-    "nameCantBlank": "設備名稱為必要欄位"
+    "nameCantBlank": "Device name can not be empty",
+    "normalDeviceCount": "Normal Devices",
+    "alarmDeviceCount": "Devices have alarm",
+    "ackDeviceCount": "Devices are acknowledged",
+    "normalDeviceCountContext": "Total normal devices: ",
+    "alarmDeviceCountContext": "Total devices have alarm: ",
+    "ackDeviceCountContext": "Total devices are acknowledged: "
   },
   "inputPermissionName": "Please input permission name here...",
   "userPermission": {
@@ -128,7 +134,7 @@
   },
   "alarmPermission": {
     "title": "Alarm permissions",
-    "tts": "語音告警設定",
+    "tts": "voice setting",
     "errorMessage": "異常訊息對應設定",
     "specialMonitor": "溫濕度監控參數設定"
   },

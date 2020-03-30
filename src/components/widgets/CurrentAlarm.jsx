@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 import { usePollingAlarm, usePollingNormalDevice } from "apis/alarm";
+import { Link } from "react-router-dom";
 import {
   AckAlarmCard,
   AlarmCard,
@@ -17,24 +18,16 @@ export default () => {
   const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm({
     interval: 1000
   });
-  const [
-    startPollingND,
-    stopPollingND,
-    isPollingND,
-    normalDevices
-  ] = usePollingNormalDevice({
-    interval: 1000
-  });
+
   const [currentRow, setCurrentRow] = useState({});
   const [tableFilter, setTableFilter] = useState("alarm");
   const [showAlarmControl, setShowAlarmControl] = useState(false);
 
   useEffect(() => {
     startPolling();
-    startPollingND();
+
     return () => {
       stopPolling();
-      stopPollingND();
     };
   }, []);
 
@@ -64,7 +57,7 @@ export default () => {
         />
       </Drawer>
       <Row gutter={[8, 8]}>
-        <Col span={8}>
+        <Col span={12}>
           <AlarmCard
             alarms={alarms}
             type="alarm"
@@ -72,25 +65,26 @@ export default () => {
           />
         </Col>
 
-        <Col span={8}>
+        <Col span={12}>
           <AckAlarmCard alarms={alarms} onClick={() => setTableFilter("ack")} />
-        </Col>
-
-        <Col span={8}>
-          <NormalDeviceCard devices={normalDevices} />
         </Col>
       </Row>
 
       <Row className="mt-3">
-        <Radio.Group
-          onChange={e => setTableFilter(e.target.value)}
-          value={tableFilter}
-        >
-          <Radio value="">ALL</Radio>
-          <Radio value="alarm">Alarm</Radio>
-          <Radio value="ack">Ack</Radio>
-          <Radio value="close">Close</Radio>
-        </Radio.Group>
+        <Col span={18}>
+          <Radio.Group
+            onChange={e => setTableFilter(e.target.value)}
+            value={tableFilter}
+          >
+            <Radio value="">ALL</Radio>
+            <Radio value="alarm">Alarm</Radio>
+            <Radio value="ack">Ack</Radio>
+            <Radio value="close">Close</Radio>
+          </Radio.Group>
+        </Col>
+        <Col span={6}>
+          <Link to="/deviceReport">Device</Link>
+        </Col>
       </Row>
       <Row>
         <Col span={24}>

@@ -31,10 +31,6 @@ export const AckAlarmCard = (props: tProps) => {
 
   const [count, setCount] = useState(0);
 
-  // title t("alarm.ack")
-  // context t("alarm.ackContext")
-  // color : bg-info
-
   const matchType = type => R.filter(i => i.state == type);
 
   useDeepCompareEffect(() => {
@@ -83,23 +79,56 @@ export const AlarmCard = (props: tProps) => {
   );
 };
 
-export const NormalDeviceCard = (props: tProps) => {
+export const NormalDeviceCard = (props: {
+  count: Number,
+  onClick: Function
+}) => {
   const { t } = useTranslation();
-  const { devices = [] } = props;
-
-  const [count, setCount] = useState(0);
-
-  useDeepCompareEffect(() => {
-    setCount(R.length(devices));
-  }, [devices]);
+  const { count, onClick } = props;
 
   // const mainClass = classNames("card", "text-white", getColor());
 
   return (
     <AlarmCardEssential
+      onClick={onClick}
       style="card text-white bg-primary "
-      title={t("alarm.normalDevicesCount")}
-      context={t("alarm.normalDevicesContext") + count}
+      title={t("device.normalDeviceCount")}
+      context={t("device.normalDeviceCountContext") + count}
+    />
+  );
+};
+
+export const AlarmDeviceCard = (props: {
+  count: Number,
+  onClick: Function
+}) => {
+  const { t } = useTranslation();
+  const { count, onClick } = props;
+
+  // const mainClass = classNames("card", "text-white", getColor());
+
+  return (
+    <AlarmCardEssential
+      onClick={onClick}
+      style="card text-white bg-danger "
+      title={t("device.alarmDeviceCount")}
+      context={t("device.alarmDeviceCountContext") + count}
+    />
+  );
+};
+
+export const AckDeviceCard = (props: { count: Number, onClick: Function }) => {
+  const { t } = useTranslation();
+  const { count, onClick } = props;
+
+  // const mainClass = classNames("card", "text-white", getColor());
+
+  return (
+    <AlarmCardEssential
+      onClick={onClick}
+      style="card text-white bg-info "
+      title={t("device.ackDeviceCount")}
+      context={t("device.ackDeviceCountContext") + count}
     />
   );
 };
