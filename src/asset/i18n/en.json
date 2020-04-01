@@ -22,7 +22,11 @@
   "inputField": "Input Field",
   "condition": "Condition",
   "compareTo": "Comapre to",
-
+  "settings": {
+    "abuseTitle": "Abuse IP",
+    "abuseConfidenceScore": "Abuse Confidence Score",
+    "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP"
+  },
   "error": {
     "ipFormat": "Wrong IP address format"
   },
@@ -40,7 +44,8 @@
     "uploadLicence": "Upload License",
     "device": "Device Settings",
     "alarm": "Alarm Settings",
-    "vendor": "Vendor Settings"
+    "vendor": "Vendor Settings",
+    "settings": "Misc Settings"
   },
   "normalRoutes": {
     "dashboard": "Dashboard",

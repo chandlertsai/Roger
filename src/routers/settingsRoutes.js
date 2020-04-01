@@ -6,6 +6,7 @@ import PermissionRoleForm from "components/forms/PermissionRoleForm";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
 import VendorTable from "components/tables/VendorTable";
+import SettingsForm from "components/forms/SettingsForm";
 import i18n from "src/i18n";
 
 export const getSettingsRoutes = () => [
@@ -59,11 +60,10 @@ export const getSettingsRoutes = () => [
   },
 
   {
-    name: i18n.t("settingsRoutes.vendor"),
-    to: "/vendortable",
-    icon: "account-book",
-    component: VendorTable,
-    permission: "permission",
-    permissionGroup: PermissionGroup.device.vendor
+    name: i18n.t("settingsRoutes.settings"),
+    to: "/miscsettings",
+    icon: "SettingOutlined",
+    component: SettingsForm,
+    permission: "private"
   }
 ];
