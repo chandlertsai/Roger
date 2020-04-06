@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Popover, Row, Col, Input } from "antd";
+import { Table, Drawer, Tag, Popover, Row, Col, Input, Checkbox } from "antd";
 import { useDebounce } from "apis/utils";
 
 import R from "ramda";
@@ -14,13 +14,19 @@ type Props = {
 };
 
 const logTable = (props: Props) => {
-  const [tableData, _remove, _update, query] = useFetch("cacti");
+  const [data, _remove, _update, query] = useFetch("cacti");
   const [search, setSearch] = useState("");
+  const [tableData, setTableData] = useState([]);
   const debounceSearchTerm = useDebounce(search, 500);
 
   useEffect(() => {
     query(debounceSearchTerm);
   }, [debounceSearchTerm]);
+
+  const sort = R.sortBy(R.prop("time"));
+  useEffect(() => {
+    setTableData(sort(data));
+  }, [data]);
   /*
 {"id":"192.168.10.100",
 		"target": "Ping", 
