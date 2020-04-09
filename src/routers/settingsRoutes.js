@@ -16,7 +16,7 @@ export const getSettingsRoutes = () => [
     icon: "user",
     component: UsersTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.users
+    permissionGroup: PermissionGroup.users,
   },
   {
     name: i18n.t("settingsRoutes.group"),
@@ -24,7 +24,7 @@ export const getSettingsRoutes = () => [
     icon: "block",
     component: GroupsTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.group
+    permissionGroup: PermissionGroup.group,
   },
   {
     name: i18n.t("settingsRoutes.permission"),
@@ -32,7 +32,7 @@ export const getSettingsRoutes = () => [
     icon: "lock",
     component: PermissionRoleForm,
     permission: "permission",
-    permissionGroup: PermissionGroup.group
+    permissionGroup: PermissionGroup.group,
   },
   {
     name: i18n.t("settingsRoutes.uploadLicence"),
@@ -40,7 +40,15 @@ export const getSettingsRoutes = () => [
     icon: "uplaod",
     component: UploadLicense,
     permission: "permission",
-    permissionGroup: PermissionGroup.license
+    permissionGroup: PermissionGroup.license,
+  },
+  {
+    name: i18n.t("settingsRoutes.vendor"),
+    to: "/vendortable",
+    icon: "uplaod",
+    component: VendorTable,
+    permission: "permission",
+    permissionGroup: PermissionGroup.device.vendor,
   },
   {
     name: i18n.t("settingsRoutes.device"),
@@ -48,7 +56,7 @@ export const getSettingsRoutes = () => [
     icon: "cluster",
     component: DevicesTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.device.information
+    permissionGroup: PermissionGroup.device.information,
   },
   {
     name: i18n.t("settingsRoutes.alarm"),
@@ -56,7 +64,7 @@ export const getSettingsRoutes = () => [
     icon: "warning",
     component: AlarmTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.device.alarm
+    permissionGroup: PermissionGroup.device.alarm,
   },
 
   {
@@ -64,6 +72,6 @@ export const getSettingsRoutes = () => [
     to: "/miscsettings",
     icon: "SettingOutlined",
     component: SettingsForm,
-    permission: "private"
-  }
+    permission: "private",
+  },
 ];
