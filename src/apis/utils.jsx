@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-const uniqueKey = pre => {
+const uniqueKey = (pre) => {
   const _pre = pre || "";
-  return (
-    _pre +
-    "-" +
-    Math.random()
-      .toString(36)
-      .substr(2, 16)
-  );
+  return _pre + "-" + Math.random().toString(36).substr(2, 16);
 };
 
 function useDebounce(value, delay) {
@@ -32,8 +26,8 @@ function ISODateToString(text) {
   if (!text) return "";
   let date = new Date(text);
   let year = date.getFullYear() || "";
-  let month = date.getMonth() || "";
-  let day = date.getDay() || "";
+  let month = date.getMonth() + 1 || "";
+  let day = date.getDate() || "";
   let hour = date.getHours() || "";
   let min = date.getMinutes() || "";
   let sec = date.getSeconds() || "";
@@ -44,6 +38,7 @@ function ISODateToString(text) {
 
 function renderTimeCell(text, record, index) {
   return <span>{ISODateToString(text)}</span>;
+  //return <span>{text}</span>;
 }
 
 export { uniqueKey, useDebounce, ISODateToString, renderTimeCell };
