@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 import { uniqueKey } from "apis/utils";
 
-export default props => {
+export default (props) => {
   const { conditions, onChanged } = props;
   const [cond, conditionsAciton] = useList(conditions);
   const { t } = useTranslation();
@@ -18,8 +18,9 @@ export default props => {
     { key: "=", text: "=" },
     { key: ">=", text: ">=" },
     { key: "<=", text: "<=" },
+    { key: "equal", text: "equal" },
     { key: "has", text: t("alarm.conditionHas") },
-    { key: "hasnot", text: t("alarm.conditionHasnot") }
+    { key: "hasnot", text: t("alarm.conditionHasnot") },
   ];
 
   const mapIndex = R.addIndex(R.map);
@@ -35,7 +36,7 @@ export default props => {
       input: "",
       condition: ">",
       operator: "",
-      not: false
+      not: false,
     });
   };
 
@@ -56,10 +57,10 @@ export default props => {
         name="condition"
         className="custom-select"
         value={cond.condition}
-        onChange={e => handleChanged(idx, e)}
+        onChange={(e) => handleChanged(idx, e)}
       >
         {R.map(
-          v => (
+          (v) => (
             <option key={v.key} value={v.key}>
               {v.text}
             </option>
@@ -92,7 +93,7 @@ export default props => {
               type="text"
               value={cond.input}
               name="input"
-              onChange={e => handleChanged(idx, e)}
+              onChange={(e) => handleChanged(idx, e)}
             />
           </div>
         </div>
@@ -104,7 +105,7 @@ export default props => {
             type="text"
             value={cond.operator}
             name="operator"
-            onChange={e => handleChanged(idx, e)}
+            onChange={(e) => handleChanged(idx, e)}
           />
         </div>
       </div>

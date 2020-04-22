@@ -17,12 +17,12 @@ import R from "ramda";
 // props type
 type Props = {
   data: mixed,
-  totalDevices: number
+  totalDevices: number,
 };
 
 export default (props: Props) => {
   const { data, totalDevices } = props;
-  const [currentAlarm, setCurrentAlarm] = useState(undefined);
+  const [currentDevice, setCurrentDevice] = useState(undefined);
 
   const { t } = useTranslation();
 
@@ -30,55 +30,55 @@ export default (props: Props) => {
   const [vendorList, rv, uv] = useFetch("vendors");
 
   useDeepCompareEffect(() => {
-    setCurrentAlarm(undefined);
+    setCurrentDevice(undefined);
   }, [data]);
 
   const alarmColumns = [
     {
       title: t("alarm.name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: t("state"),
       dataIndex: "state",
-      key: "state"
+      key: "state",
     },
     {
       title: t("currentAlarmTable.message"),
       dataIndex: "message",
-      key: "message"
+      key: "message",
     },
     {
       title: t("currentAlarmTable.lastAlarmTS"),
       dataIndex: "lastAlarmTS",
       key: "lastAlarmTS",
-      render: renderTimeCell
-    }
+      render: renderTimeCell,
+    },
   ];
   const columns = [
     {
       title: t("device.name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
 
     {
       title: t("ip"),
       dataIndex: "ip",
-      key: "ip"
+      key: "ip",
     },
     {
       title: t("device.contact"),
       dataIndex: "userkey",
       key: "userkey",
-      render: userkey => getName(userkey)(usersNameList)
+      render: (userkey) => getName(userkey)(usersNameList),
     },
     {
       title: t("device.vendor"),
       dataIndex: "vendorkey",
       key: "vendorkey",
-      render: vkey => {
+      render: (vkey) => {
         const vendor = R.find(R.propEq("key", vkey))(vendorList) || {};
 
         const content = (
@@ -92,7 +92,7 @@ export default (props: Props) => {
             {vendor.name}
           </Popover>
         );
-      }
+      },
     },
 
     {
@@ -103,19 +103,19 @@ export default (props: Props) => {
       render: (text, record) => {
         //const alarmCount = R.length(text || []);
         return <span>{R.length(text || [])}</span>;
-      }
+      },
     },
     {
       title: "Action",
       key: "action",
       render: (text, record) => {
         return (
-          <Button size="small" onClick={() => setCurrentAlarm(record.alarms)}>
+          <Button size="small" onClick={() => setCurrentDevice(record.alarms)}>
             detail..
           </Button>
         );
-      }
-    }
+      },
+    },
   ];
 
   return (
@@ -125,17 +125,17 @@ export default (props: Props) => {
           <Table size="small" columns={columns} dataSource={data} />
         </Col>
       </Row>
-      {currentAlarm ? (
+      {currentDevice ? (
         <div>
           <Row>
-            <Button onClick={() => setCurrentAlarm(undefined)}>Close</Button>
+            <Button onClick={() => setCurrentDevice(undefined)}>Close</Button>
           </Row>
           <Row gutter={[16, 16]}>
             <Col span={24}>
               <Table
                 size="small"
                 columns={alarmColumns}
-                dataSource={currentAlarm}
+                dataSource={currentDevice}
               />
             </Col>
           </Row>

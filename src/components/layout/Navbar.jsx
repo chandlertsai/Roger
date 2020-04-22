@@ -13,7 +13,7 @@ import { webVersion, useServerVersion } from "src/version";
 
 type Props = {
   showSidebar: boolean,
-  toggleSidebar: Function
+  toggleSidebar: Function,
 };
 
 //  const _hasError = useSelector(errorState);
@@ -34,7 +34,7 @@ const Navbar = (props: Props) => {
   //   i18n.changeLanguage(currentLanguage);
   // }, []);
 
-  const handleLanguageChange = lang => {
+  const handleLanguageChange = (lang) => {
     console.log("change language ", lang);
     i18n.changeLanguage(lang);
     //dispatch(setLanguage(lang));
