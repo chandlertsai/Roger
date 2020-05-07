@@ -51,7 +51,8 @@
     "dashboard": "Dashboard",
     "log": "Log",
     "license": "License",
-    "device": "Device"
+    "device": "Device",
+    "report": "Report"
   },
   "alarm": {
     "name": "Alarm",
@@ -96,6 +97,19 @@
     "lastAckTS": "Ack time",
     "lastAckUser": "Who Ack"
   },
+  "alarmHistoryTable": {
+    "totalAlarmElapse": "Alarm time",
+    "totalAckElapse": "Ack time",
+    "totalCloseElapse": "Normal time",
+    "index": "Index",
+    "ackUser": "Who Fix",
+    "lastTS": "Time",
+    "deviceResult": "Device summary",
+    "totalAlarm": "Total alarm",
+    "alarm": "Alarm",
+    "ack": "Fix",
+    "close": "Normal"
+  },
   "usersTable": {
     "duplicateError": "User name duplicate!",
     "inputName": "Input Name",
@@ -114,6 +128,7 @@
   },
   "device": {
     "name": "Device name",
+    "selectDevice": "Select device",
     "tableTitle": "Device",
     "add": "Add device",
     "removeSelected": "Remove selected devices",

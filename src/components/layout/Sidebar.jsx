@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 // };
 
 const sidebar = ({ submenus }) => {
-  const createSubMenu = submenu => (
+  const createSubMenu = (submenu) => (
     <SubMenu
       key={submenu.key}
       title={
@@ -28,7 +28,7 @@ const sidebar = ({ submenus }) => {
         </span>
       }
     >
-      {submenu.items.map(submenuItem => (
+      {submenu.items.map((submenuItem) => (
         <Menu.Item key={submenuItem.to}>
           <Link to={submenuItem.to}> {submenuItem.name} </Link>
         </Menu.Item>
@@ -45,7 +45,7 @@ const sidebar = ({ submenus }) => {
         // defaultOpenKeys={[defaultOpenKey(submenus)]}
         className="menu"
       >
-        {submenus.map(item => createSubMenu(item))}
+        {submenus.map((item) => createSubMenu(item))}
       </Menu>
     </div>
   );

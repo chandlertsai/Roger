@@ -48,7 +48,7 @@ const Navbar = (props: Props) => {
         onClick={toggleSidebar}
         style={{ color: "white", flex: "1 0 200px", marginLeft: "0.5rem" }}
       >
-        Eyesfree
+        Atop IOT server
       </Typography.Title>
       <AvatorDropdown
         alreadyLogin={alreadyLogin}

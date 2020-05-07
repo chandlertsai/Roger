@@ -2,17 +2,17 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDebounce } from "apis/utils";
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Input, Dropdown, Menu, Row, Col } from "antd";
 
 type Handlers = {
   addItem: Function,
-  removeSelectedItems: Function
+  removeSelectedItems: Function,
 };
 type ComponentText = {
   scan?: string,
   add?: string,
-  remove?: string
+  remove?: string,
 };
 type Props = {
   handlers: Handlers,
@@ -20,7 +20,7 @@ type Props = {
   selectedRowKeys: Array<string>,
   title: string,
   info?: string,
-  onSearch?: Function
+  onSearch?: Function,
 };
 
 const tableToolBar = (props: Props) => {
@@ -30,7 +30,7 @@ const tableToolBar = (props: Props) => {
     selectedRowKeys,
     title,
     info,
-    onSearch
+    onSearch,
   } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const { addItem, removeSelectedItems } = handlers;
@@ -43,27 +43,26 @@ const tableToolBar = (props: Props) => {
   }, [debounceSearchTerm]);
 
   return (
-    <div className='navbar navbar-light bg-light'>
-      <div className='navbar-brand'>{title}</div>
-      <span className='navbar-text'>{info}</span>
-      <form className='form-inline'>
+    <div className="navbar navbar-light bg-light">
+      <div className="navbar-brand">{title}</div>
+      <span className="navbar-text">{info}</span>
+      <form className="form-inline">
         {onSearch ? (
           <Input
-            className='form-control mr-2'
-            allowClear
-            onChange={e => setSearchTerm(e.target.value)}
+            className="form-control mr-2"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         ) : null}
 
-        <Button type='default' icon={<PlusOutlined />} onClick={addItem}>
+        <Button type="default" icon={<PlusOutlined />} onClick={addItem}>
           {componentsText.add}
         </Button>
 
         <Button
-          type='danger'
+          type="danger"
           icon={<DeleteOutlined />}
           onClick={() => removeSelectedItems(selectedRowKeys)}
-          className='ml-1'
+          className="ml-1"
         >
           {componentsText.remove}
         </Button>
@@ -75,7 +74,7 @@ const tableToolBar = (props: Props) => {
 tableToolBar.propTypes = {
   handlers: PropTypes.object,
   componentsText: PropTypes.object,
-  tableInformation: PropTypes.object
+  tableInformation: PropTypes.object,
 };
 
 tableToolBar.defaultProps = {
@@ -83,8 +82,8 @@ tableToolBar.defaultProps = {
   componentsText: {
     add: "",
     remove: "",
-    scan: ""
+    scan: "",
   },
-  tableInformation: {}
+  tableInformation: {},
 };
 export default tableToolBar;

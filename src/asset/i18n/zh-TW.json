@@ -50,7 +50,8 @@
     "dashboard": "即時監控",
     "log": "Log",
     "license": "授權狀態",
-    "device": "裝置狀態"
+    "device": "裝置狀態",
+    "report": "裝置報表"
   },
   "alarm": {
     "name": "報警",
@@ -95,6 +96,19 @@
     "lastAckTS": "開始處理時間",
     "lastAckUser": "處理人員"
   },
+  "alarmHistoryTable": {
+    "totalAlarmElapse": "報警總時間",
+    "totalAckElapse": "維修總時間",
+    "totalCloseElapse": "正常時間",
+    "index": "編號",
+    "ackUser": "維修人員",
+    "lastTS": "紀錄時間",
+    "deviceResult": "裝置摘要",
+    "totalAlarm": "警報總數",
+    "alarm": "警報",
+    "ack": "維修",
+    "close": "正常"
+  },
   "usersTable": {
     "duplicateError": "使用者名稱重複",
     "inputName": "請輸入名稱",
@@ -113,6 +127,7 @@
   },
   "device": {
     "name": "Device name",
+    "selectDevice": "選擇裝置",
     "tableTitle": "裝置管理",
     "add": "新增裝置",
     "removeSelected": "移除選取裝置",
