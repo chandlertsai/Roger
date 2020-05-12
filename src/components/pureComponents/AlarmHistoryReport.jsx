@@ -5,7 +5,7 @@ import { Row, Col, Typography, Table, Button, Descriptions } from "antd";
 import { useTranslation } from "react-i18next";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import DoughnutChart from "components/pureComponents/DoughnutChart";
-import { ISODateToString } from "apis/utils";
+import { ISODateToString, renderTimeCell } from "apis/utils";
 import R from "ramda";
 
 type tProp = {
@@ -67,6 +67,7 @@ export default (props: tProp) => {
       title: t("alarmHistoryTable.lastTS"),
       dataIndex: "lastTS",
       key: "lastTS",
+      render: renderTimeCell,
     },
 
     {
@@ -87,6 +88,11 @@ export default (props: tProp) => {
       title: t("alarm.message"),
       dataIndex: "message",
       key: "message",
+    },
+    {
+      title: t("alarmHistoryTable.alarmTimes"),
+      dataIndex: "alarmTimes",
+      key: "alarmTimes",
     },
     {
       title: t("alarmHistoryTable.totalAlarmElapse"),
@@ -161,12 +167,14 @@ export default (props: tProp) => {
       </Row>
       {showHistory ? (
         <Row gutter={[16, 16]}>
-          <Table
-            dataSource={currentHistory}
-            columns={historyColumns}
-            size="small"
-            pagination={false}
-          />
+          <Col>
+            <Table
+              dataSource={currentHistory}
+              columns={historyColumns}
+              size="small"
+              pagination={false}
+            />
+          </Col>
         </Row>
       ) : null}
     </div>

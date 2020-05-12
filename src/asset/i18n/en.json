@@ -52,7 +52,8 @@
     "log": "Log",
     "license": "License",
     "device": "Device",
-    "report": "Report"
+    "report": "Report",
+    "deviceSummary": "Device Summary"
   },
   "alarm": {
     "name": "Alarm",
@@ -108,7 +109,10 @@
     "totalAlarm": "Total alarm",
     "alarm": "Alarm",
     "ack": "Fix",
-    "close": "Normal"
+    "close": "Normal",
+    "report": "Create Report",
+    "allDevices": "All devices summary",
+    "alarmTimes": "Alarm count"
   },
   "usersTable": {
     "duplicateError": "User name duplicate!",

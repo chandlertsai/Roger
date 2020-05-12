@@ -126,6 +126,7 @@ const devicesTable = (props: Props) => {
           <Popover title={vendor.name} content={content}>
             {vendor.name}
           </Popover>
+          
         );
       }
     },

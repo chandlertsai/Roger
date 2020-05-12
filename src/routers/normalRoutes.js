@@ -1,6 +1,7 @@
 import AlarmPage from "components/pages/Dashboard";
 import DeviceReport from "components/pages/DeviceReport";
 import HistoryReport from "components/pages/HistoryReport";
+import AllDevicesSummaryReport from "components/pages/AllDevicesSummaryReport";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import LogTable from "components/tables/LogTable";
 import LicenseMessage from "components/pureComponents/licenseMessage";
@@ -25,6 +26,13 @@ export const getNormalRoutes = () => [
     to: "/historyReport",
     icon: "login",
     component: HistoryReport,
+    permission: "private",
+  },
+  {
+    name: i18n.t("normalRoutes.deviceSummary"),
+    to: "/deviceSummary",
+    icon: "login",
+    component: AllDevicesSummaryReport,
     permission: "private",
   },
   {

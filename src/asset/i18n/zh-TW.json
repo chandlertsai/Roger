@@ -51,7 +51,8 @@
     "log": "Log",
     "license": "授權狀態",
     "device": "裝置狀態",
-    "report": "裝置報表"
+    "report": "裝置報表",
+    "deviceSummary": "裝置簡報"
   },
   "alarm": {
     "name": "報警",
@@ -107,7 +108,10 @@
     "totalAlarm": "警報總數",
     "alarm": "警報",
     "ack": "維修",
-    "close": "正常"
+    "close": "正常",
+    "report": "建立報告",
+    "allDevices": "產生所有裝置報告",
+    "alarmTimes": "報警發生次數"
   },
   "usersTable": {
     "duplicateError": "使用者名稱重複",

@@ -22,33 +22,30 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
     axios({
       method: "GET",
       url: "/apis/v1/read/permission",
-      params: { key: pKey }
+      params: { key: pKey },
     })
-      .then(res => {
+      .then((res) => {
         if (notArray(res.data)) {
           setReason(`無法取得正確的權限...`);
           setCurState(FAILURE);
           return false;
         }
-        const getAbilies = R.pipe(
-          R.head,
-          R.prop("abilities")
-        );
+        const getAbilies = R.pipe(R.head, R.prop("abilities"));
         const permission = getAbilies(res.data);
 
         if (matchGroup(permission)) {
-          console.log("PASS");
+          // console.log("PASS");
 
           setCurState(PASS);
         } else {
-          console.log("FAILURE");
+          // console.log("FAILURE");
 
           setReason("權限錯誤，請確認登入權限...");
           setCurState(FAILURE);
         }
         return true;
       })
-      .catch(error => {
+      .catch((error) => {
         setReason(error.message);
         setCurState(FAILURE);
       });
@@ -57,7 +54,7 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         curState === PASS ? (
           <Component {...props} />
         ) : (
