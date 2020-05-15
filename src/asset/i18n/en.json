@@ -10,7 +10,7 @@
   "upload": "Upload",
   "type": "Type",
   "state": "State",
-
+  "back": "Back",
   "password": "Password",
   "passwordTip": "Password Tip",
   "permission": "Permission",
