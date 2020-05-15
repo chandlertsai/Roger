@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import {
   NormalDeviceCard,
   AlarmDeviceCard,
-  AckDeviceCard
+  AckDeviceCard,
 } from "components/pureComponents/AlarmCard";
 
 import DeviceStatusTable from "components/tables/DeviceStatusTable";
@@ -22,9 +22,9 @@ export default () => {
     stopPolling,
     isPolling,
     alarmDevices,
-    ackDevices
+    ackDevices,
   ] = usePollingDevice({
-    interval: 1000
+    interval: 1000,
   });
   const { t } = useTranslation();
   const license = useLicense();
@@ -36,9 +36,9 @@ export default () => {
 
   useEffect(() => {
     startPolling();
-    axios
-      .get("/apis/v1/count/devices")
-      .then(R.pipe(R.prop("data"), R.prop("total"), setTotalDevices));
+    // axios
+    //   .get("/apis/v1/count/devices")
+    //   .then(R.pipe(R.prop("data"), R.prop("total"), setTotalDevices));
 
     return () => {
       stopPolling();
@@ -51,7 +51,7 @@ export default () => {
     );
   }, [license, totalDevices]);
 
-  const handleRowClick = record => {
+  const handleRowClick = (record) => {
     setShowAlarmControl(true);
     setCurrentRow(record);
   };
@@ -74,7 +74,7 @@ export default () => {
   return (
     <div>
       <Row gutter={[8, 8]}>
-        <Col span={8}>
+        <Col span={12}>
           <AlarmDeviceCard
             count={R.length(alarmDevices)}
             type="alarm"
@@ -82,25 +82,25 @@ export default () => {
           />
         </Col>
 
-        <Col span={8}>
+        <Col span={12}>
           <AckDeviceCard
             count={R.length(ackDevices)}
             onClick={() => setTableFilter("ack")}
           />
         </Col>
 
-        <Col span={8}>
+        {/* <Col span={8}>
           <NormalDeviceCard
             count={totalDevices - R.length(alarmDevices) - R.length(ackDevices)}
             onClick={() => {}}
           />
-        </Col>
+        </Col> */}
       </Row>
 
       <Row className="mt-3">
         <Col span={12}>
           <Radio.Group
-            onChange={e => setTableFilter(e.target.value)}
+            onChange={(e) => setTableFilter(e.target.value)}
             value={tableFilter}
           >
             <Radio value="alarm">Alarm</Radio>

@@ -2,13 +2,14 @@
 import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 import { setLoading, setError } from "actions/appState";
+import { useDispatch, useSelector } from "react-redux";
+import { userKey } from "reducers/storeUtils";
 
-import { useDispatch } from "react-redux";
 import R from "ramda";
 
 type Option = {
   interval: number,
-  onError?: Function
+  onError?: Function,
 };
 /**
  * @returns devices:Array<device>
@@ -20,9 +21,9 @@ export const useDevices = (): Array<mixed> => {
     dispatch(setLoading(true));
     axios
       .get("/webapi/api/devices")
-      .then(res => setDevices(res.data))
+      .then((res) => setDevices(res.data))
 
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch((error) => dispatch(setError(true, error.message)))
       .finally(dispatch(setLoading(false)));
   }, []);
 
@@ -31,13 +32,13 @@ export const useDevices = (): Array<mixed> => {
 
 // ()=> {alarm: [devices] ,ack:[devices]}
 export const usePollingDevice = (opt: Option) => {
-  const { interval = 1000, onError = err => {} } = opt;
+  const { interval = 1000, onError = (err) => {} } = opt;
   const [isPolling, setPolling] = useState(false);
   const [alarmDevices, setAlarmDevices] = useState([]);
   const [ackDevices, setAckDevices] = useState([]);
 
   const timerID = useRef();
-
+  const _userKey = useSelector(userKey);
   const stopPolling = () => {
     //console.log("into stopPolling", isPolling);
     //if (!isPolling) return;
@@ -57,13 +58,17 @@ export const usePollingDevice = (opt: Option) => {
   const runPolling = () => {
     const timeoutID = setInterval(() => {
       axios
-        .get("/webapi/api/devices", { params: { state: "alarm" } })
+        .get("/webapi/api/devices", {
+          params: { state: "alarm", userKey: _userKey },
+        })
         .then(R.pipe(R.prop("data"), setAlarmDevices))
-        .catch(err => console.log("polling alarms devices error ", err));
+        .catch((err) => console.log("polling alarms devices error ", err));
       axios
-        .get("/webapi/api/devices", { params: { state: "ack" } })
+        .get("/webapi/api/devices", {
+          params: { state: "ack", userKey: _userKey },
+        })
         .then(R.pipe(R.prop("data"), setAckDevices))
-        .catch(err => console.log("polling alarms devices error ", err));
+        .catch((err) => console.log("polling alarms devices error ", err));
     }, interval);
     timerID.current = timeoutID;
   };
