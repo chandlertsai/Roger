@@ -46,11 +46,12 @@ const tableToolBar = (props: Props) => {
     <div className="navbar navbar-light bg-light">
       <div className="navbar-brand">{title}</div>
       <span className="navbar-text">{info}</span>
-      <form className="form-inline">
+      <div className="form-inline">
         {onSearch ? (
           <Input
             className="form-control mr-2"
             onChange={(e) => setSearchTerm(e.target.value)}
+            onPressEnter={(e) => setSearchTerm(e.target.value)}
           />
         ) : null}
 
@@ -66,7 +67,7 @@ const tableToolBar = (props: Props) => {
         >
           {componentsText.remove}
         </Button>
-      </form>
+      </div>
     </div>
   );
 };
