@@ -8,7 +8,7 @@ import { Button, Row, Col } from "antd";
 import { useFetchFields } from "apis/crud";
 import {
   UsersSimpleTable,
-  DevicesSimpleTable
+  DevicesSimpleTable,
 } from "components/tables/SimpleTables";
 
 // $FlowFixMe
@@ -16,7 +16,7 @@ import "./form.less";
 
 type tProps = {
   group: mixed,
-  doSubmit: Function
+  doSubmit: Function,
 };
 
 const groupForm = (props: tProps) => {
@@ -32,18 +32,18 @@ const groupForm = (props: tProps) => {
   useEffect(() => {
     console.log("GroupForm props.group ", group);
     setFormData(group);
-    setUsersSelectedRowKeys(group.userKeys);
-    setDevicesSelectedRowKeys(group.deviceKeys);
+    setUsersSelectedRowKeys(group.userKeys || []);
+    setDevicesSelectedRowKeys(group.deviceKeys || []);
   }, [group]);
 
   const usersRowSelection = {
     selectedRowKeys: usersSelectedRowKeys,
-    onChange: selectKeys => setUsersSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setUsersSelectedRowKeys(selectKeys),
   };
 
   const devicesRowSelection = {
     selectedRowKeys: devicesSelectedRowKeys,
-    onChange: selectKeys => setDevicesSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setDevicesSelectedRowKeys(selectKeys),
   };
 
   const onSubmit = () => {
@@ -57,7 +57,7 @@ const groupForm = (props: tProps) => {
     doSubmit(newData);
   };
 
-  const handleNameChange = e => {
+  const handleNameChange = (e) => {
     const newData = R.assoc("name", R.path(["target", "value"], e))(formData);
     setFormData(newData);
   };

@@ -13,7 +13,7 @@ import TableToolbar from "components/pureComponents/TableToolbar";
 import Hide from "components/utils/Hide";
 import {
   UsersSimpleTable,
-  DevicesSimpleTable
+  DevicesSimpleTable,
 } from "components/tables/SimpleTables";
 import GroupForm from "components/forms/GroupForm";
 
@@ -21,10 +21,10 @@ import R from "ramda";
 
 // props type
 type Props = {
-  dispatch: Function
+  dispatch: Function,
 };
 
-const getKeyIncludes = keys => R.filter(i => R.includes(i.key, keys || []));
+const getKeyIncludes = (keys) => R.filter((i) => R.includes(i.key, keys || []));
 
 const groupsTable = (props: Props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -40,32 +40,33 @@ const groupsTable = (props: Props) => {
   useEffect(() => {
     setShowDetail(false);
   }, [groupsData]);
-  const onEditing = record => {
+  const onEditing = (record) => {
     setEditingGroup(record);
     setShowGroupForm(true);
   };
 
-  const onDetail = record => {
+  const onDetail = (record) => {
     setDetailGroup(record);
     setShowDetail(true);
   };
 
-  const onSubmit = group => {
+  const onSubmit = (group) => {
     console.log("Group table onSubmit ", group);
     update(group);
     setShowGroupForm(false);
+    setEditingGroup({});
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: selectKeys => setSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setSelectedRowKeys(selectKeys),
   };
 
   const addDefaultGroup = () => {
     const key = uniqueKey("group");
     onEditing({
       key: key,
-      name: "輸入名稱"
+      name: "輸入名稱",
     });
   };
 
@@ -73,14 +74,14 @@ const groupsTable = (props: Props) => {
     {
       title: "群組名稱",
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      onCell: record => ({
-        style: { paddingTop: 0, paddingBottom: 0 }
+      onCell: (record) => ({
+        style: { paddingTop: 0, paddingBottom: 0 },
       }),
       render: (text, record) => (
         <EditOperationCell
@@ -88,8 +89,8 @@ const groupsTable = (props: Props) => {
           record={record}
           handleDetail={onDetail}
         />
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -100,12 +101,12 @@ const groupsTable = (props: Props) => {
         onSearch={query}
         handlers={{
           addItem: addDefaultGroup,
-          removeSelectedItems: remove
+          removeSelectedItems: remove,
           // onSearch: searchUser
         }}
         componentsText={{
           add: "新增群組",
-          remove: "移除選取群組"
+          remove: "移除選取群組",
         }}
       />
       <Drawer
