@@ -5,7 +5,7 @@ import { Row, Col, Typography, Table, Button, Descriptions } from "antd";
 import { useTranslation } from "react-i18next";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import DoughnutChart from "components/pureComponents/DoughnutChart";
-import { ISODateToString, renderTimeCell } from "apis/utils";
+import { ISODateToString, renderTimeCell, dateCompare } from "apis/utils";
 import R from "ramda";
 
 type tProp = {
@@ -83,7 +83,12 @@ export default (props: tProp) => {
   ];
 
   const columns = [
-    { title: t("alarm.name"), dataIndex: "name", key: "name" },
+    {
+      title: t("alarm.name"),
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
     {
       title: t("alarm.message"),
       dataIndex: "message",
@@ -93,11 +98,13 @@ export default (props: tProp) => {
       title: t("alarmHistoryTable.alarmTimes"),
       dataIndex: "alarmTimes",
       key: "alarmTimes",
+      sorter: (a, b) => a.alarmTimes - b.alarmTimes,
     },
     {
       title: t("alarmHistoryTable.totalAlarmElapse"),
       dataIndex: "alarmElapse",
       key: "alarmElapse",
+      sorter: (a, b) => dateCompare(a.alarmElapse, b.alarmElapse),
       render: renderElapsedTimeCell,
     },
 
@@ -105,12 +112,14 @@ export default (props: tProp) => {
       title: t("alarmHistoryTable.totalAckElapse"),
       dataIndex: "ackElapse",
       key: "ackElapse",
+      sorter: (a, b) => dateCompare(a.ackElapse, b.ackElapse),
       render: renderElapsedTimeCell,
     },
     {
       title: t("alarmHistoryTable.totalCloseElapse"),
       dataIndex: "closeElapse",
       key: "closeElapse",
+      sorter: (a, b) => dateCompare(a.closeElapse, b.closeElapse),
       render: renderElapsedTimeCell,
     },
     {

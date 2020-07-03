@@ -41,4 +41,12 @@ function renderTimeCell(text, record, index) {
   //return <span>{text}</span>;
 }
 
-export { uniqueKey, useDebounce, ISODateToString, renderTimeCell };
+function dateCompare(a, b) {
+  let dateA = new Date(a);
+  let dateB = new Date(b);
+  return isFinite(dateA) && isFinite(dateB)
+    ? (dateA > dateB) - (dateA < dateB)
+    : NaN;
+}
+
+export { uniqueKey, useDebounce, ISODateToString, renderTimeCell, dateCompare };

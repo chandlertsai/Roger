@@ -10,7 +10,7 @@ import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
 import { Table, Row, Col, Popover, Button } from "antd";
 import TableToolbar from "components/pureComponents/TableToolbar";
-import { renderTimeCell } from "apis/utils";
+import { renderTimeCell, dateCompare } from "apis/utils";
 import "./table.css";
 import R from "ramda";
 
@@ -38,6 +38,7 @@ export default (props: Props) => {
       title: t("alarm.name"),
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t("state"),
@@ -54,6 +55,7 @@ export default (props: Props) => {
       dataIndex: "lastAlarmTS",
       key: "lastAlarmTS",
       render: renderTimeCell,
+      sorter: (a, b) => dateCompare(a.lastAlarmTS, b.lastAlarmTS),
     },
   ];
   const columns = [
@@ -61,12 +63,14 @@ export default (props: Props) => {
       title: t("device.name"),
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: t("ip"),
       dataIndex: "ip",
       key: "ip",
+      sorter: (a, b) => a.ip.localeCompare(b.ip),
     },
     {
       title: t("device.contact"),
@@ -99,7 +103,7 @@ export default (props: Props) => {
       title: "#Alarm",
       key: "alarms",
       dataIndex: "alarms",
-
+      sorter: (a, b) => a.alarms - b.alarms,
       render: (text, record) => {
         //const alarmCount = R.length(text || []);
         return <span>{R.length(text || [])}</span>;

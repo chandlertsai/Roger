@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { setLoading, setError } from "actions/appState";
 import { Table, Drawer, Tag, Popover, Row, Col, Input, Checkbox } from "antd";
-import { useDebounce } from "apis/utils";
+import { useDebounce, dateCompare } from "apis/utils";
 
 import R from "ramda";
 const { Search } = Input;
 // props type
 type Props = {
-  dispatch: Function
+  dispatch: Function,
 };
 
 const logTable = (props: Props) => {
@@ -38,30 +38,31 @@ const logTable = (props: Props) => {
     {
       title: "ID",
       dataIndex: "id",
-      key: "id"
+      key: "id",
     },
 
     {
       title: "Target",
       dataIndex: "target",
-      key: "trget"
+      key: "trget",
     },
 
     {
       title: "Action",
       dataIndex: "action",
-      key: "action"
+      key: "action",
     },
     {
       title: "Info",
       dataIndex: "info",
-      key: "info"
+      key: "info",
     },
     {
       title: "Time",
       dataIndex: "time",
-      key: "time"
-    }
+      key: "time",
+      sorter: (a, b) => dateCompare(a.time, b.time),
+    },
   ];
 
   return (
@@ -71,7 +72,7 @@ const logTable = (props: Props) => {
           <Search
             placeholder="input search text"
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             enterButton
           />
         </Col>

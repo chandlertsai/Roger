@@ -5,10 +5,10 @@ import { Table, Drawer, Tag, Button } from "antd";
 import { useTranslation } from "react-i18next";
 import R from "ramda";
 
-import { renderTimeCell } from "apis/utils";
+import { renderTimeCell, dateCompare } from "apis/utils";
 
-const matchType = type => R.filter(i => i.state == type);
-const currentAlarmTable = props => {
+const matchType = (type) => R.filter((i) => i.state == type);
+const currentAlarmTable = (props) => {
   const { alarms, onRowClick, filter } = props;
 
   const data = useMemo(() => {
@@ -21,47 +21,52 @@ const currentAlarmTable = props => {
     {
       title: t("name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: t("ip"),
       dataIndex: "ip",
-      key: "ip"
+      key: "ip",
+      sorter: (a, b) => a.ip.localeCompare(b.ip),
     },
     {
       title: t("currentAlarmTable.message"),
       dataIndex: "message",
-      key: "message"
+      key: "message",
     },
 
     {
       title: t("state"),
       dataIndex: "state",
-      key: "state"
+      key: "state",
     },
     {
       title: t("currentAlarmTable.lastAlarmTS"),
       dataIndex: "lastAlarmTS",
       key: "lastAlarmTS",
-      render: renderTimeCell
+      render: renderTimeCell,
+      sorter: (a, b) => dateCompare(a.lastAlarmTS, b.lastAlarmTS),
     },
     {
       title: t("currentAlarmTable.lastCloseTS"),
       dataIndex: "lastCloseTS",
       key: "lastCloseTS",
-      render: renderTimeCell
+      render: renderTimeCell,
+      sorter: (a, b) => dateCompare(a.lastCloseTS, b.lastCloseTS),
     },
     {
       title: t("currentAlarmTable.lastAckTS"),
       dataIndex: "lastAckTS",
       key: "lastAckTS",
-      render: renderTimeCell
+      render: renderTimeCell,
+      sorter: (a, b) => dateCompare(a.lastAckTS, b.lastAckTS),
     },
     {
       title: t("currentAlarmTable.lastAckUser"),
       dataIndex: "lastAckUser",
-      key: "lastAckUser"
-    }
+      key: "lastAckUser",
+    },
   ];
 
   return (
@@ -70,11 +75,11 @@ const currentAlarmTable = props => {
         size="small"
         columns={columns}
         dataSource={data}
-        onRow={record => {
+        onRow={(record) => {
           return {
-            onClick: event => {
+            onClick: (event) => {
               onRowClick(record);
-            }
+            },
           };
         }}
       />

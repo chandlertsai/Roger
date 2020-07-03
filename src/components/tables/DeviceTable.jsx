@@ -15,7 +15,7 @@ import R from "ramda";
 
 // props type
 type Props = {
-  dispatch: Function
+  dispatch: Function,
 };
 
 // "device": {
@@ -47,12 +47,12 @@ const devicesTable = (props: Props) => {
     setLicenseInfo(t("device.avialable") + length + "/" + license.permitCount);
   }, [license, tableData]);
 
-  const onEditing = record => {
+  const onEditing = (record) => {
     setEditingDevice(record);
     setShowUserForm(true);
   };
 
-  const onSubmit = device => {
+  const onSubmit = (device) => {
     update(device);
     setShowUserForm(false);
     console.log(device);
@@ -60,7 +60,7 @@ const devicesTable = (props: Props) => {
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: selectKeys => setSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setSelectedRowKeys(selectKeys),
   };
 
   const addDefaultDevice = () => {
@@ -68,52 +68,56 @@ const devicesTable = (props: Props) => {
     onEditing({
       key: key,
       name: "",
-      ip: ""
+      ip: "",
     });
   };
 
   const deviceType = {
     NormalNetwork: t("device.NormalNetwork"),
     Monitor: t("device.Monitor"),
-    SimpleDevice: t("device.SimpleDevice")
+    SimpleDevice: t("device.SimpleDevice"),
   };
 
   const columns = [
     {
       title: t("name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
 
     {
       title: t("type"),
       dataIndex: "type",
       key: "type",
-      render: t => (
+      render: (t) => (
         <span>
           <Tag color="geekblue" key="t">
             {deviceType[t] || "None"}
           </Tag>
         </span>
-      )
+      ),
     },
 
     {
       title: t("ip"),
       dataIndex: "ip",
-      key: "ip"
+      key: "ip",
+      sorter: (a, b) => a.ip.localeCompare(b.ip),
     },
     {
       title: t("device.contact"),
       dataIndex: "userkey",
       key: "userkey",
-      render: userkey => getName(userkey)(usersNameList)
+      render: (userkey) => getName(userkey)(usersNameList),
+      sorter: (a, b) => a.userkey.localeCompare(b.userkey),
     },
     {
       title: t("device.vendor"),
       dataIndex: "vendorkey",
       key: "vendorkey",
-      render: vkey => {
+      sorter: (a, b) => a.vendorkey.localeCompare(b.vendorkey),
+      render: (vkey) => {
         const vendor = R.find(R.propEq("key", vkey))(vendorList) || {};
 
         const content = (
@@ -126,22 +130,21 @@ const devicesTable = (props: Props) => {
           <Popover title={vendor.name} content={content}>
             {vendor.name}
           </Popover>
-          
         );
-      }
+      },
     },
 
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      onCell: record => ({
-        style: { paddingTop: 0, paddingBottom: 0 }
+      onCell: (record) => ({
+        style: { paddingTop: 0, paddingBottom: 0 },
       }),
       render: (text, record) => (
         <EditOperationCell handlerSetEditing={onEditing} record={record} />
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -153,12 +156,12 @@ const devicesTable = (props: Props) => {
         onSearch={query}
         handlers={{
           addItem: addDefaultDevice,
-          removeSelectedItems: remove
+          removeSelectedItems: remove,
           // onSearch: searchUser
         }}
         componentsText={{
           add: t("device.add"),
-          remove: t("device.removeSelected")
+          remove: t("device.removeSelected"),
         }}
       />
       <Drawer
