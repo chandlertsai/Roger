@@ -2,7 +2,14 @@
   "login": "Log in",
   "test": "Test",
   "name": "Name",
+  "sex": "Sex",
+  "male": "Male",
+  "female": "Female",
   "ip": "IP",
+  "email": "Email",
+  "phone": "Phone",
+  "mobile": "Mobile phone",
+  "fax": "Fax",
   "edit": "Edit",
   "submit": "Submit",
   "delete": "Delete",
@@ -29,7 +36,8 @@
   },
   "error": {
     "ipFormat": "Wrong IP address format",
-    "requrieName": "Name field can not be empty"
+    "requrieName": "Name field can not be empty",
+    "emailFormat": "Wrong email format"
   },
 
   "loginForm": {
@@ -130,6 +138,21 @@
   },
   "group": {
     "name": "Group name"
+  },
+  "vendor": {
+    "name": "Vendor",
+    "add": "Add vendor",
+    "remove": "Remove selected vendors",
+    "editVendor": "Edit vendor information",
+    "editContact": "Edit contact information"
+  },
+  "contact": {
+    "name": "Contact",
+    "inputName": "Input name",
+    "inputTitle": "Input title",
+    "title": "Title",
+    "add": "Add contact",
+    "remove": "Remove selected contacts"
   },
   "device": {
     "name": "Device name",

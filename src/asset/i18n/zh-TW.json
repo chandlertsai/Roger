@@ -2,7 +2,14 @@
   "login": "登入",
   "test": "測試",
   "name": "名稱",
+  "sex": "性別",
+  "male": "男",
+  "female": "女",
   "ip": "IP",
+  "email": "Email",
+  "phone": "電話",
+  "mobile": "手機",
+  "fax": "傳真",
   "edit": "編輯",
   "submit": "確定",
   "delete": "刪除",
@@ -29,7 +36,8 @@
   },
   "error": {
     "ipFormat": "錯誤的IP格式",
-    "requrieName": "名稱不可以為空白"
+    "requrieName": "名稱不可以為空白",
+    "emailFormat": "Wrong email format"
   },
 
   "loginForm": {
@@ -130,6 +138,21 @@
   },
   "group": {
     "name": "Group name"
+  },
+  "vendor": {
+    "name": "經銷商",
+    "add": "新增 vendor",
+    "remove": "移除 selected vendors",
+    "editVendor": "編輯 vendor information",
+    "editContact": "編輯 contact information"
+  },
+  "contact": {
+    "name": "聯絡人",
+    "inputName": "輸入 name",
+    "inputTitle": "輸入 title",
+    "title": "職稱",
+    "add": "新增 contact",
+    "remove": "移除 selected contacts"
   },
   "device": {
     "name": "Device name",

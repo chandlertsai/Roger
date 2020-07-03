@@ -10,35 +10,37 @@ import VendorForm from "components/forms/VendorForm";
 import ContactForm from "components/forms/ContactForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import ContactTable from "components/tables/ContactTable";
+import { useTranslation } from "react-i18next";
 import R from "ramda";
 
-const vendorTable = props => {
+const vendorTable = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update] = useFetch("vendors");
   const [isShowVendorForm, setShowVendorForm] = useState(false);
   const [isShowContactForm, setShowContactForm] = useState(false);
   const [editingVendor, setEditingVendor] = useState({});
+  const [showContact, setShowContact] = useState(false);
+  const { t } = useTranslation();
 
-  const onEditing = record => {
+  const onEditing = (record) => {
     setEditingVendor(record);
     setShowVendorForm(true);
   };
 
-  const onEditingContact = record => {
+  const onEditingContact = (record) => {
     setShowContactForm(true);
   };
 
-  const onSubmit = vendor => {
+  const onSubmit = (vendor) => {
     const newData = R.omit(["_id"], vendor);
     update(newData);
     setShowVendorForm(false);
     setShowContactForm(false);
-    console.log("vendortable onsubmit update ", newData);
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: selectKeys => setSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setSelectedRowKeys(selectKeys),
   };
 
   const addDefaultVendor = () => {
@@ -48,59 +50,59 @@ const vendorTable = props => {
       name: "",
       phone: "",
       email: "",
-      contacts: []
+      contacts: [],
     });
   };
 
+  const handleDetail = (r) => {
+    setEditingVendor(r);
+    setShowContact(true);
+  };
   const columns = [
     {
-      title: "名稱",
+      title: t("name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
 
     {
-      title: "電話",
+      title: t("phone"),
       dataIndex: "phone",
-      key: "phone"
+      key: "phone",
+    },
+    {
+      title: t("fax"),
+      dataIndex: "fax",
+      key: "fax",
     },
 
     {
-      title: "Email",
+      title: t("email"),
       dataIndex: "email",
-      key: "email"
+      key: "email",
     },
 
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      onCell: record => ({
-        style: { paddingTop: 0, paddingBottom: 0 }
+      onCell: (record) => ({
+        style: { paddingTop: 0, paddingBottom: 0 },
       }),
       render: (text, record) => (
-        <EditOperationCell handlerSetEditing={onEditing} record={record} />
-      )
-    }
+        <EditOperationCell
+          handlerSetEditing={onEditing}
+          record={record}
+          handleDetail={handleDetail}
+        />
+      ),
+    },
   ];
 
   return (
     <div>
-      <TableToolbar
-        title="供應商"
-        selectedRowKeys={selectedRowKeys}
-        handlers={{
-          addItem: addDefaultVendor,
-          removeSelectedItems: remove
-          // onSearch: searchUser
-        }}
-        componentsText={{
-          add: "新增",
-          remove: "移除選取項目"
-        }}
-      />
       <Drawer
-        title="編輯供應商資料"
+        title={t("vendor.editVendor")}
         visible={isShowVendorForm}
         placement="bottom"
         footer={null}
@@ -108,12 +110,12 @@ const vendorTable = props => {
         onClose={() => setShowVendorForm(false)}
       >
         <Button type="primary" className="my-2" onClick={onEditingContact}>
-          編輯聯絡人
+          {t("vendor.editContact")}
         </Button>
         <VendorForm doSubmit={onSubmit} vendor={editingVendor} />
       </Drawer>
       <Drawer
-        title="編輯聯絡人資料"
+        title={t("vendor.editContact")}
         visible={isShowContactForm}
         placement="bottom"
         footer={null}
@@ -123,13 +125,27 @@ const vendorTable = props => {
       >
         <ContactForm doSubmit={onSubmit} vendor={editingVendor} />
       </Drawer>
+      <TableToolbar
+        title={t("vendor.name")}
+        selectedRowKeys={selectedRowKeys}
+        handlers={{
+          addItem: addDefaultVendor,
+          removeSelectedItems: remove,
+          // onSearch: searchUser
+        }}
+        componentsText={{
+          add: t("vendor.add"),
+          remove: t("vendor.remove"),
+        }}
+      />
+
       <Table
         size="small"
         rowSelection={rowSelection}
         columns={columns}
-        expandedRowRender={ContactTable}
         dataSource={tableData}
       />
+      {showContact ? <ContactTable {...editingVendor} /> : null}
     </div>
   );
 };

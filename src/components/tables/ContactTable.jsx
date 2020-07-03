@@ -2,16 +2,18 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "antd";
 import { EditOperationCell } from "components/pureComponents/TableCells";
+import { useTranslation } from "react-i18next";
 import R from "ramda";
-const contactTable = record => {
+const contactTable = (record) => {
+  const { t } = useTranslation();
   let columns = [
-    { title: "姓名", key: "name", dataIndex: "name" },
-    { title: "職稱", key: "title", dataIndex: "title" },
-    { title: "性別 ", key: "sex", dataIndex: "sex" },
-    { title: "Email", key: "email", dataIndex: "email" },
-    { title: "電話", key: "phone", dataIndex: "phone" },
-    { title: "行動電話", key: "mobile", dataIndex: "mobile" },
-    { title: "傳真", key: "fax", dataIndex: "fax" }
+    { title: t("name"), key: "name", dataIndex: "name" },
+    { title: t("title"), key: "title", dataIndex: "title" },
+    { title: t("sex"), key: "sex", dataIndex: "sex" },
+    { title: t("email"), key: "email", dataIndex: "email" },
+    { title: t("phone"), key: "phone", dataIndex: "phone" },
+    { title: t("mobile"), key: "mobile", dataIndex: "mobile" },
+    { title: t("fax"), key: "fax", dataIndex: "fax" },
   ];
 
   console.log("contacttable props ", record);
@@ -22,12 +24,12 @@ const contactTable = record => {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      onCell: record => ({
-        style: { paddingTop: 0, paddingBottom: 0 }
+      onCell: (record) => ({
+        style: { paddingTop: 0, paddingBottom: 0 },
       }),
       render: (text, record) => (
         <EditOperationCell handlerSetEditing={onEditing} record={record} />
-      )
+      ),
     });
   }
 
@@ -37,7 +39,7 @@ const contactTable = record => {
     <Table
       dataSource={contacts}
       columns={columns}
-      size='small'
+      size="small"
       rowSelection={rowSelection}
     />
   );

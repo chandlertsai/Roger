@@ -8,35 +8,35 @@ import ContactItemForm from "components/forms/ContactItemForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import { useList } from "react-use";
 import { uniqueKey } from "apis/utils";
+import { useTranslation } from "react-i18next";
+const itemIndex = (key) => R.findIndex(R.propEq("key", key));
 
-const itemIndex = key => R.findIndex(R.propEq("key", key));
-
-const contactForm = props => {
+const contactForm = (props) => {
   const [editingItem, setEditingItem] = useState({});
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState();
   const { vendor, doSubmit } = props;
-
+  const { t } = useTranslation();
   useEffect(() => {
     setData(vendor);
   }, [vendor]);
 
-  const onEditing = data => {
+  const onEditing = (data) => {
     setEditingItem(data);
     setShowForm(true);
   };
   const rowSelection = {
     selectedRowKeys,
-    onChange: selectKeys => setSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setSelectedRowKeys(selectKeys),
   };
   const addDefaultContact = () => {
     const key = uniqueKey("contact");
     const newContact = {
       key: key,
-      name: "請輸入名稱",
-      title: "請輸入職稱",
-      sex: "male"
+      name: t("contact.inputName"),
+      title: t("contact.inputTitle"),
+      sex: "male",
     };
     onEditing(newContact);
   };
@@ -46,14 +46,14 @@ const contactForm = props => {
 
     doSubmit(data);
   };
-  const onSubmit = newItem => {
+  const onSubmit = (newItem) => {
     const idx = itemIndex(newItem.key)(data.contacts);
     console.log("contactForm modify idx ", idx);
     if (idx < 0) {
       const newContacts = R.pipe(R.prop("contacts"), R.append(newItem));
       const addContact = R.useWith(R.assoc("contacts"), [
         newContacts,
-        R.identity
+        R.identity,
       ]);
 
       R.pipe(addContact, setData)(data);
@@ -63,7 +63,7 @@ const contactForm = props => {
 
       const setContact = R.useWith(R.assoc("contacts"), [
         updateContact,
-        R.identity
+        R.identity,
       ]);
       R.pipe(setContact, setData)(data);
     }
@@ -73,16 +73,16 @@ const contactForm = props => {
   return (
     <div className="container">
       <TableToolbar
-        title="聯絡人"
+        title={t("contact.name")}
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultContact,
-          removeSelectedItems: removeContact
+          removeSelectedItems: removeContact,
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增聯絡人",
-          remove: "移除選取聯絡人"
+          add: t("contact.add"),
+          remove: t("contact.remove"),
         }}
       />
       <ContactTable
@@ -98,7 +98,7 @@ const contactForm = props => {
         />
       ) : (
         <Button type="primary" onClick={onFinish}>
-          確定
+          {t("submit")}
         </Button>
       )}
     </div>
