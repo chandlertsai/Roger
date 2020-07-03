@@ -1,6 +1,6 @@
 // @flow
 import React, { useState, useEffect } from "react";
-import { Checkbox, Card, Button, Row, Col, Input } from "antd";
+import { Checkbox, Card, Button, Row, Col, Input, message } from "antd";
 import { useTranslation } from "react-i18next";
 import { PermissionGroup } from "apis/auth";
 import i18n from "src/i18n";
@@ -13,7 +13,7 @@ type Props = {
   loading: boolean,
   submit: Function,
   del: Function,
-  roleKey: string
+  roleKey: string,
 };
 
 // const onChange = v => console.log(v);
@@ -24,62 +24,62 @@ const abilityField = (props: Props) => {
   const { roleName, value, onChange, loading, submit, roleKey, del } = props;
   const [name, setName] = useState("");
   const [isCollapsing, setCollapsing] = useState(true);
-  const checkChanged = name => fields => onChange(name)(fields);
-  const onNameChanged = v => setName(v.target.value);
+  const checkChanged = (name) => (fields) => onChange(name)(fields);
+  const onNameChanged = (v) => setName(v.target.value);
   const { t } = useTranslation();
 
   const optionsUser = [
     { label: t("userPermission.license"), value: PermissionGroup.license },
     { label: t("userPermission.users"), value: PermissionGroup.users },
-    { label: t("userPermission.group"), value: PermissionGroup.group }
+    { label: t("userPermission.group"), value: PermissionGroup.group },
   ];
 
   const optionsWarnning = [
     {
       label: t("alarmPermission.tts"),
-      value: PermissionGroup.settings.tts
+      value: PermissionGroup.settings.tts,
     },
     {
       label: t("alarmPermission.errorMessage"),
-      value: PermissionGroup.settings.errorMessage
+      value: PermissionGroup.settings.errorMessage,
     },
     {
       label: t("alarmPermission.specialMonitor"),
-      value: PermissionGroup.settings.specialMonitor
-    }
+      value: PermissionGroup.settings.specialMonitor,
+    },
   ];
   const optionsDevice = [
     {
       label: t("devicePermission.information"),
-      value: PermissionGroup.device.information
+      value: PermissionGroup.device.information,
     },
     {
       label: t("devicePermission.vendor"),
-      value: PermissionGroup.device.vendor
+      value: PermissionGroup.device.vendor,
     },
     {
       label: t("devicePermission.monitor"),
-      value: PermissionGroup.device.monitor
+      value: PermissionGroup.device.monitor,
     },
     {
       label: t("devicePermission.errorLog"),
-      value: PermissionGroup.device.errorLog
+      value: PermissionGroup.device.errorLog,
     },
     {
       label: t("devicePermission.maintainLog"),
-      value: PermissionGroup.device.maintainLog
+      value: PermissionGroup.device.maintainLog,
     },
     {
       label: t("devicePermission.errorReport"),
-      value: PermissionGroup.device.errorReport
+      value: PermissionGroup.device.errorReport,
     },
     {
       label: t("devicePermission.alarm"),
-      value: PermissionGroup.device.alarm
-    }
+      value: PermissionGroup.device.alarm,
+    },
   ];
 
-  const nameNode = name => (
+  const nameNode = (name) => (
     <Input
       value={name}
       onChange={onNameChanged}
@@ -101,9 +101,13 @@ const abilityField = (props: Props) => {
           title={nameNode(name)}
           actions={[
             <Button
-              onClick={e => {
-                setCollapsing(true);
-                submit({ name, key: roleKey, abilities: value });
+              onClick={(e) => {
+                if (name) {
+                  setCollapsing(true);
+                  submit({ name, key: roleKey, abilities: value });
+                  return;
+                }
+                message.error(t("error.requrieName"));
               }}
               type="primary"
               loading={loading}
@@ -111,19 +115,19 @@ const abilityField = (props: Props) => {
               {t("submit")}
             </Button>,
             <Button
-              onClick={e => setCollapsing(true)}
+              onClick={(e) => setCollapsing(true)}
               loading={loading}
               type="secondary"
             >
               {t("cancel")}
             </Button>,
             <Button
-              onClick={e => del({ key: roleKey })}
+              onClick={(e) => del({ key: roleKey })}
               loading={loading}
               type="danger"
             >
               {t("delete")}
-            </Button>
+            </Button>,
           ]}
         >
           <Card type="inner" title={t("userPermission.title")}>
@@ -154,7 +158,7 @@ const abilityField = (props: Props) => {
 };
 
 abilityField.defaultProps = {
-  value: []
+  value: [],
 };
 
 export default abilityField;

@@ -28,7 +28,8 @@
     "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP"
   },
   "error": {
-    "ipFormat": "Wrong IP address format"
+    "ipFormat": "Wrong IP address format",
+    "requrieName": "Name field can not be empty"
   },
 
   "loginForm": {
