@@ -84,7 +84,7 @@ export const updatePasssword = (password: {
       },
     })
       .then((res) => {
-        console.log("update password done ", res.data);
+        dispatch(setError(true, "Done"));
         dispatch(setLoading(false));
       })
 
