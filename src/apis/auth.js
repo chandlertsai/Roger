@@ -8,13 +8,13 @@ import { logout, refreshToken } from "actions/auth";
 import {
   authToken,
   authRefreshToken,
-  authTokenTimeStamp
+  authTokenTimeStamp,
 } from "reducers/storeUtils";
 
 // intercepte jwt authentication token in to request
 const intercepteAuthRequest = (store: any) => {
   axios.interceptors.request.use(
-    config => {
+    (config) => {
       const token = authToken(store.getState());
       if (!token) return config;
       const authPath = ["headers", "Authorization"];
@@ -25,15 +25,16 @@ const intercepteAuthRequest = (store: any) => {
       }
       return config;
     },
-    err => Promise.reject(err)
+    (err) => Promise.reject(err)
   );
 };
 // intercepte refresh in to response when error happen
 const intercepteRefreshAxios = (store: any) => {
   axios.interceptors.response.use(
-    res => res,
-    err => {
+    (res) => res,
+    (err) => {
       const state = store.getState();
+
       if (err.response.status !== 401) {
         return new Promise((resolve, reject) => reject(err));
       }
@@ -50,20 +51,20 @@ const intercepteRefreshAxios = (store: any) => {
 
       return axios
         .get("/apis/token/refresh", {
-          headers: { Authorization: "Bearer " + token }
+          headers: { Authorization: "Bearer " + token },
         })
-        .then(res => {
+        .then((res) => {
           store.dispatch(refreshToken(res.data));
           const config = err.config;
           config.headers["Authorization"] = `Bearer ${res.data.token}`;
           return new Promise((resolve, reject) => {
             axios
               .request(config)
-              .then(response => resolve(response))
-              .catch(err => reject(err));
+              .then((response) => resolve(response))
+              .catch((err) => reject(err));
           });
         })
-        .catch(err => Promise.reject(err));
+        .catch((err) => Promise.reject(err));
     }
   );
 };
@@ -75,7 +76,7 @@ const PermissionGroup = {
   settings: {
     tts: "TTS",
     errorMessage: "ErrorMessage",
-    specialMonitor: "Monitor1"
+    specialMonitor: "Monitor1",
   },
   device: {
     information: "Device",
@@ -84,8 +85,8 @@ const PermissionGroup = {
     errorLog: "DeviceErrorLog",
     maintainLog: "DeviceManintainLog",
     errorReport: "DeviceErrorReport",
-    alarm: "DevcieAlarm"
-  }
+    alarm: "DevcieAlarm",
+  },
 };
 
 /**
@@ -98,9 +99,9 @@ const usePermission = (): Array<mixed> => {
     dispatch(setLoading(true));
     axios
       .get("/apis/v1/read/permission")
-      .then(res => res.data)
+      .then((res) => res.data)
       .then(setPermissions)
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch((error) => dispatch(setError(true, error.message)))
       .finally(dispatch(setLoading(false)));
   }, []);
 
@@ -111,5 +112,5 @@ export {
   intercepteRefreshAxios,
   intercepteAuthRequest,
   PermissionGroup,
-  usePermission
+  usePermission,
 };

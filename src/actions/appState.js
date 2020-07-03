@@ -9,7 +9,7 @@ const SET_LOADING = "SET_LOADING";
 const setLoading = (loading: boolean) => {
   return {
     type: SET_LOADING,
-    payload: loading
+    payload: loading,
   };
 };
 
@@ -20,13 +20,13 @@ const haveError = R.has("error");
 const getResponseErrorMessage = R.cond([
   [isString, R.identity],
   [haveError, R.prop("error")],
-  [R.T, R.identity]
+  [R.T, R.identity],
 ]);
 
 const getErrorMessage = R.cond([
   [isString, R.identity],
   [R.has("message"), R.prop("message")],
-  [R.T, R.identity]
+  [R.T, R.identity],
 ]);
 
 // {type, state: true|false, message: axios error object}
@@ -48,21 +48,21 @@ const setError = (error: boolean, err: mixed | string) => {
     type: SET_ERROR,
     payload: {
       hasError: error,
-      errorMessage: text
-    }
+      errorMessage: text,
+    },
   };
 };
 
 const SET_LAST_RESPONSE = "SET_LAST_RESPONSE";
 const setLastResponse = (lastResponse: mixed) => ({
   type: SET_LAST_RESPONSE,
-  payload: JSON.stringify(lastResponse)
+  payload: JSON.stringify(lastResponse),
 });
 
 const SET_LANGUAGE = "SET_LANGUAGE";
 const setLanguage = (lang: string) => ({
   type: SET_LANGUAGE,
-  payload: lang
+  payload: lang,
 });
 
 const defaultOption = {
@@ -70,8 +70,8 @@ const defaultOption = {
   method: "GET",
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
   //body: JSON.stringify(body)
 };
 // fetch with auth information (JWT)
@@ -85,9 +85,9 @@ const authFetch = (config: mixed) => (
   dispatch(setLoading(true));
   // console.log(_opt);
   axios({
-    ..._opt
+    ..._opt,
   })
-    .then(res => {
+    .then((res) => {
       if (res.data === "AuthError") {
         dispatch(logout());
         dispatch(setError(true, "認証過期或是錯誤"));
@@ -95,12 +95,17 @@ const authFetch = (config: mixed) => (
       dispatch(setLoading(false));
       dispatch(setLastResponse(res.data));
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       dispatch(setLoading(false));
       dispatch(setError(true, err.message));
     });
 };
+
+const PURGE = "PURGE";
+const purge = () => ({
+  type: PURGE,
+});
 
 export {
   SET_LOADING,
@@ -110,6 +115,8 @@ export {
   SET_LAST_RESPONSE,
   setLastResponse,
   SET_LANGUAGE,
+  PURGE,
+  purge,
   setLanguage,
-  authFetch
+  authFetch,
 };

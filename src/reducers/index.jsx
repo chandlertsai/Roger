@@ -2,9 +2,15 @@ import { combineReducers } from "redux";
 import authReducer from "./auth";
 import appState from "./appState";
 
-const RootReducer = combineReducers({
+const RootReducer = (state, action) => {
+  if (action.type === "PURGE") {
+    return {};
+  }
+  return appReducer(state, action);
+};
+const appReducer = combineReducers({
   auth: authReducer,
-  appState: appState
+  appState: appState,
 });
 
 export default RootReducer;
