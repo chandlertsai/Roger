@@ -46,7 +46,7 @@ export default () => {
   return (
     <div>
       <Drawer
-        title="設定 Alarm"
+        title="設定 Message"
         visible={showAlarmControl}
         placement="right"
         footer={null}
@@ -88,9 +88,6 @@ export default () => {
             <Radio value="ack">Ack</Radio>
             <Radio value="close">Close</Radio>
           </Radio.Group>
-        </Col>
-        <Col span={6}>
-          <Link to="/deviceReport">Device</Link>
         </Col>
       </Row>
       <Row>

@@ -1,4 +1,5 @@
-import AlarmPage from "components/pages/Dashboard";
+import AlarmPage, { MessageDashboard } from "components/pages/AlarmDashboard";
+
 import DeviceReport from "components/pages/DeviceReport";
 import HistoryReport from "components/pages/HistoryReport";
 import AllDevicesSummaryReport from "components/pages/AllDevicesSummaryReport";
@@ -12,6 +13,13 @@ export const getNormalRoutes = () => [
     to: "/alarmReport",
     icon: "login",
     component: AlarmPage,
+    permission: "private",
+  },
+  {
+    name: i18n.t("simplelog.name"),
+    to: "/messageReport",
+    icon: "login",
+    component: MessageDashboard,
     permission: "private",
   },
   {
