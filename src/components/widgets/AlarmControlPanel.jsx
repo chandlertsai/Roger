@@ -5,12 +5,14 @@ import { Tag } from "antd";
 import classNames from "classnames";
 import { auth } from "reducers/storeUtils";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
-const alarmControlPanel = props => {
+const alarmControlPanel = (props) => {
+  const { t } = useTranslation();
   const { alarm, onClose } = props;
   const authObj = useSelector(auth);
 
-  const getColor = state => {
+  const getColor = (state) => {
     switch (state) {
       case "alarm":
         return "red";
@@ -22,14 +24,24 @@ const alarmControlPanel = props => {
         return "geekblue";
     }
   };
-  const createTag = state => <Tag color={getColor(state)}>{state}</Tag>;
+  const createTag = (state) => <Tag color={getColor(state)}>{state}</Tag>;
   const ack = () => {
     var url = "/webapi/api/ackAlarm";
     let body = {
       alarmKey: alarm.key,
-      userKey: authObj.key
+      userKey: authObj.key,
     };
-    axios.post(url, body).then(res => console.log(res.data));
+    axios.post(url, body).then((res) => console.log(res.data));
+
+    onClose();
+  };
+
+  const close = () => {
+    var url = "/webapi/api/closeAlarm";
+
+    axios
+      .get(url, { params: { alarmKey: alarm.key } })
+      .then((res) => console.log(res.data));
 
     onClose();
   };
@@ -38,14 +50,19 @@ const alarmControlPanel = props => {
     <div className="pl-2">
       <h3>{alarm.name}</h3>
       <p>{alarm.ip}</p>
-      <p>訊息: {alarm.message}</p>
+      <p>
+        {t("alarm.message")} : {alarm.message}
+      </p>
       <span>State: </span>
       {createTag(alarm.state)}
 
-      <span className="mx-1">設定狀態: </span>
+      <span className="mx-1">{t("setting")} :</span>
 
       <div className="btn btn-info mx-1" onClick={() => ack()}>
         Ack
+      </div>
+      <div className="btn btn-danger mx-1" onClick={() => close()}>
+        Close
       </div>
     </div>
   );
@@ -57,8 +74,8 @@ alarmControlPanel.defaultProps = {
     ip: "",
     message: "",
     time: "",
-    state: "close"
-  }
+    state: "close",
+  },
 };
 
 export default alarmControlPanel;

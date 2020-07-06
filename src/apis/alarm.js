@@ -8,7 +8,7 @@ import { setError, setLoading } from "actions/appState";
 
 type Option = {
   interval: number,
-  onError?: Function
+  onError?: Function,
 };
 
 /**
@@ -24,17 +24,17 @@ const useAlarm = () => {
     name: "",
     pollingInterval: "10",
     source: "",
-    triggerType: ""
+    triggerType: "",
   });
   const [alarms, setAlarms] = useState([]);
   useEffect(() => {
     axios
       .get("/apis/v1/read/alarms")
       .then(R.pipe(R.prop("data"), setAlarms))
-      .catch(err => setAlarms([defaultAlarm({})]));
+      .catch((err) => setAlarms([defaultAlarm({})]));
   });
 
-  const getAlarm = key => defaultAlarm(R.find(R.propEq("key", key))(alarms));
+  const getAlarm = (key) => defaultAlarm(R.find(R.propEq("key", key))(alarms));
 
   return [alarms, getAlarm];
 };
@@ -44,8 +44,8 @@ const useAlarm = () => {
  * @param {number} [opt.interval=1000] interval ms
  * @param {Function} [opt.onError] callback function when error happen.
  */
-const usePollingAlarm = (opt: Option) => {
-  const { interval = 1000, onError = err => {} } = opt;
+const usePollingAlarm = (opt: Option, source = "alarm") => {
+  const { interval = 1000, onError = (err) => {} } = opt;
   const [isPolling, setPolling] = useState(false);
   const [alarm, setAlarm] = useState([]);
 
@@ -71,9 +71,9 @@ const usePollingAlarm = (opt: Option) => {
   const runPolling = () => {
     const timeoutID = setInterval(() => {
       axios
-        .get("/webapi/api/alarm", { params: { userKey: _userKey } })
+        .get("/webapi/api/" + source, { params: { userKey: _userKey } })
         .then(R.pipe(R.prop("data"), setAlarm))
-        .catch(err => console.log("polling alarm error ", err));
+        .catch((err) => console.log("polling alarm error ", err));
     }, interval);
     timerID.current = timeoutID;
   };
@@ -88,7 +88,7 @@ const usePollingAlarm = (opt: Option) => {
  * @param {Function} [opt.onError] callback function when error happen.
  */
 const usePollingNormalDevice = (opt: Option) => {
-  const { interval = 1000, onError = err => {} } = opt;
+  const { interval = 1000, onError = (err) => {} } = opt;
   const [isPolling, setPolling] = useState(false);
   const [normalDevices, setNormalDevices] = useState([]);
 
@@ -115,7 +115,7 @@ const usePollingNormalDevice = (opt: Option) => {
       axios
         .get("/webapi/api/normalDevices")
         .then(R.pipe(R.prop("data"), setNormalDevices))
-        .catch(err => console.log("polling normal devices error ", err));
+        .catch((err) => console.log("polling normal devices error ", err));
     }, interval);
     timerID.current = timeoutID;
   };

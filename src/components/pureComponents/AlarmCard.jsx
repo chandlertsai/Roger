@@ -10,7 +10,7 @@ type tProps = {
   // LineChartCard parameters
   alarms: Array<mixed>,
   type: string,
-  onClick: Function
+  onClick: Function,
 };
 // type = alarm | close | ack | read
 
@@ -26,62 +26,61 @@ const AlarmCardEssential = ({ style, title, context, onClick }) => {
 };
 
 export const AckAlarmCard = (props: tProps) => {
-  const { alarms = [], onClick } = props;
+  const { alarms = [], onClick, isMessage = false } = props;
   const { t } = useTranslation();
 
   const [count, setCount] = useState(0);
 
-  const matchType = type => R.filter(i => i.state == type);
+  const matchType = (type) => R.filter((i) => i.state == type);
 
   useDeepCompareEffect(() => {
     const _matchAlarms = matchType("ack")(alarms) || [];
     setCount(_matchAlarms.length);
   }, [alarms]);
 
+  const title = isMessage ? t("simplelog.ackContext") : t("alarm.ackContext");
+  const context = isMessage ? t("simplelog.ackContext") : t("alarm.ackContext");
   // const mainClass = classNames("card", "text-white", getColor());
 
   return (
     <AlarmCardEssential
       onClick={onClick}
       style="card text-white bg-info "
-      title={t("alarm.ackContext")}
-      context={t("alarm.ackContext") + count}
+      title={title}
+      context={context + count}
     />
   );
 };
 
 export const AlarmCard = (props: tProps) => {
-  const { alarms = [], onClick } = props;
+  const { alarms = [], onClick, isMessage = false } = props;
   const { t } = useTranslation();
 
   const [count, setCount] = useState(0);
 
-  // title t("alarm.ack")
-  // context t("alarm.ackContext")
-  // color : bg-info
-
-  const matchType = type => R.filter(i => i.state == type);
+  const matchType = (type) => R.filter((i) => i.state == type);
 
   useDeepCompareEffect(() => {
     const _matchAlarms = matchType("alarm")(alarms) || [];
     setCount(_matchAlarms.length);
   }, [alarms]);
 
-  // const mainClass = classNames("card", "text-white", getColor());
+  const title = isMessage ? t("simplelog.alarmCount") : t("alarm.alarmCount");
+  const context = isMessage ? t("simplelog.alarmCount") : t("alarm.alarmCount");
 
   return (
     <AlarmCardEssential
       onClick={onClick}
       style="card text-white bg-danger "
-      title={t("alarm.alarmCount")}
-      context={t("alarm.alarmContext") + count}
+      title={title}
+      context={context + count}
     />
   );
 };
 
 export const NormalDeviceCard = (props: {
   count: number,
-  onClick: Function
+  onClick: Function,
 }) => {
   const { t } = useTranslation();
   const { count, onClick } = props;
@@ -100,7 +99,7 @@ export const NormalDeviceCard = (props: {
 
 export const AlarmDeviceCard = (props: {
   count: number,
-  onClick: Function
+  onClick: Function,
 }) => {
   const { t } = useTranslation();
   const { count, onClick } = props;

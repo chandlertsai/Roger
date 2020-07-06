@@ -16,6 +16,7 @@
   "cancel": "取消",
   "upload": "上傳",
   "type": "類別",
+  "setting": "設定",
   "state": "State",
   "back": "返回",
   "password": "密碼",
@@ -63,6 +64,11 @@
     "device": "裝置狀態",
     "report": "裝置報表",
     "deviceSummary": "裝置簡報"
+  },
+  "simplelog": {
+    "name": "訊息",
+    "alarmCount": "訊息數目",
+    "ackContext": "已讀取訊息數目"
   },
   "alarm": {
     "name": "報警",
