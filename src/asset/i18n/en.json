@@ -38,7 +38,9 @@
   "error": {
     "ipFormat": "Wrong IP address format",
     "requrieName": "Name field can not be empty",
-    "emailFormat": "Wrong email format"
+    "emailFormat": "Wrong email format",
+    "deletePermissionTitle": "Warning to delete used permission",
+    "deletePermission": "Some users had link this permission, please set other permission to users first."
   },
 
   "loginForm": {

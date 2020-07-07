@@ -38,7 +38,9 @@
   "error": {
     "ipFormat": "錯誤的IP格式",
     "requrieName": "名稱不可以為空白",
-    "emailFormat": "Wrong email format"
+    "emailFormat": "Wrong email format",
+    "deletePermissionTitle": "刪除使用中權限警告",
+    "deletePermission": "一些使用者和此權限連結，請先移除使用者權限"
   },
 
   "loginForm": {

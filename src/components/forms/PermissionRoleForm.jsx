@@ -2,7 +2,7 @@ import { message } from "antd";
 // @flow
 import React, { useState, useEffect } from "react";
 
-import { Button, Row, Col, Input } from "antd";
+import { Button, Row, Col, Input, Modal } from "antd";
 import { useTranslation } from "react-i18next";
 import ErrorTip from "components/forms/ErrorTip";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,12 +21,13 @@ const concatAll = R.unapply(R.reduce(R.concat, []));
 
 type Props = {
   loading: boolean,
-  dispatch: Function
+  dispatch: Function,
 };
 
-const AddPermissionRole = props => {
+const AddPermissionRole = (props) => {
   const { addRole } = props;
   const { t } = useTranslation();
+
   const [name, setRoleName] = useState("");
   return (
     <div>
@@ -36,7 +37,7 @@ const AddPermissionRole = props => {
             value={name}
             placeholder={t("inputPermissionName")}
             style={{ margin: "5px" }}
-            onChange={e => setRoleName(e.target.value)}
+            onChange={(e) => setRoleName(e.target.value)}
           />
         </Col>
         <Col span={4} offset={8}>
@@ -46,7 +47,7 @@ const AddPermissionRole = props => {
               addRole({
                 name,
                 key: uniqueKey("permission"),
-                abilities: []
+                abilities: [],
               })
             }
           >
@@ -61,12 +62,12 @@ const AddPermissionRole = props => {
 export const userArray = R.intersection([
   PermissionGroup.license,
   PermissionGroup.users,
-  PermissionGroup.group
+  PermissionGroup.group,
 ]);
 export const warnningArray = R.intersection([
   PermissionGroup.settings.tts,
   PermissionGroup.settings.errorMessage,
-  PermissionGroup.settings.specialMonitor
+  PermissionGroup.settings.specialMonitor,
 ]);
 export const deviceArray = R.intersection([
   PermissionGroup.device.information,
@@ -75,12 +76,16 @@ export const deviceArray = R.intersection([
   PermissionGroup.device.errorLog,
   PermissionGroup.device.maintainLog,
   PermissionGroup.device.errorReport,
-  PermissionGroup.device.alarm
+  PermissionGroup.device.alarm,
 ]);
 
 const permissionRoleForm = (props: Props) => {
   const loading = useSelector(loadingState);
   const [options, setOptions] = useState([]);
+  const [showDeleteWarning, setShowDeleteWarning] = useState({
+    show: false,
+    users: [],
+  });
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -88,24 +93,24 @@ const permissionRoleForm = (props: Props) => {
     dispatch(setLoading(true));
     axios
       .get("/apis/v1/read/permission")
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
-        const regroupArray = arr => ({
+        const regroupArray = (arr) => ({
           user: userArray(arr),
           alarm: warnningArray(arr),
-          device: deviceArray(arr)
+          device: deviceArray(arr),
         });
         const transformer = R.map(
           R.evolve({
             name: R.identity,
             abilities: regroupArray,
-            key: R.identity
+            key: R.identity,
           })
         );
         setOptions(transformer(res.data));
         dispatch(setLoading(false));
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(setError(true, "無法取得權限設定相關資料，請重新登入.."));
         dispatch(setLoading(false));
       });
@@ -115,25 +120,25 @@ const permissionRoleForm = (props: Props) => {
     fetchPermission();
   }, []);
 
-  const addRole = data => {
+  const addRole = (data) => {
     dispatch(setLoading(true));
     axios({
       url: "/apis/v1/create/permission",
       method: "POST",
-      data
+      data,
     })
-      .then(res => {
+      .then((res) => {
         fetchPermission();
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(setLoading(false));
         dispatch(setError(error.message));
       })
       .finally(() => dispatch(setLoading(false)));
   };
 
-  const onChanged = key => name => v =>
-    setOptions(pre =>
+  const onChanged = (key) => (name) => (v) =>
+    setOptions((pre) =>
       R.map(
         R.ifElse(
           R.propEq("key", key),
@@ -143,28 +148,65 @@ const permissionRoleForm = (props: Props) => {
       )(pre)
     );
 
-  const onDelete = keyValue => {
+  const onDelete = (keyValue) => {
     console.log("Permission role delete: ", keyValue);
+
     dispatch(setLoading(true));
     axios({
-      method: "DELETE",
-      url: "/apis/v1/delete/permission",
-      params: keyValue
+      method: "GET",
+      url: "/apis/v1/read/users",
+      params: { pkey: keyValue.key },
     })
-      .then(res => {
-        console.log("response delete permission ", res);
-
-        fetchPermission();
+      .then((res) => {
+        console.log("get users permission ", res.data);
+        const users = res.data || [];
+        if (users.length > 0) {
+          setShowDeleteWarning({ show: true, users });
+          return Promise.resolve();
+        }
+        console.log("DELETE");
+        return axios({
+          method: "DELETE",
+          url: "/apis/v1/delete/permission",
+          params: keyValue,
+        });
       })
-      .catch(error => {
-        console.log("delete error", error);
-        dispatch(setLoading(false));
-        dispatch(setError(error.message));
+      .then((res) => fetchPermission())
+      .catch((error) => {
+        if (error.response) {
+          axios({
+            method: "DELETE",
+            url: "/apis/v1/delete/permission",
+            params: keyValue,
+          })
+            .then((res) => fetchPermission())
+            .finally(() => dispatch(setLoading(false)));
+        } else {
+          console.log("delete error", error);
+          dispatch(setLoading(false));
+          dispatch(setError(error.message));
+        }
       })
       .finally(() => dispatch(setLoading(false)));
+    // axios({
+    //   method: "DELETE",
+    //   url: "/apis/v1/delete/permission",
+    //   params: keyValue,
+    // })
+    //   .then((res) => {
+    //     console.log("response delete permission ", res);
+
+    //     fetchPermission();
+    //   })
+    //   .catch((error) => {
+    //     console.log("delete error", error);
+    //     dispatch(setLoading(false));
+    //     dispatch(setError(error.message));
+    //   })
+    //   .finally(() => dispatch(setLoading(false)));
   };
 
-  const onSubmit = values => {
+  const onSubmit = (values) => {
     console.log("Permission role submit: ", values);
 
     const body = values;
@@ -173,13 +215,13 @@ const permissionRoleForm = (props: Props) => {
     axios({
       method: "PUT",
       url: "/apis/v1/update/permission",
-      data: body
+      data: body,
     })
-      .then(res => {
+      .then((res) => {
         console.log("updated psermission: ", res);
         dispatch(setLoading(false));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("updated psermission ERROR: ", error);
         dispatch(setLoading(false));
         dispatch(setError(error.message));
@@ -187,7 +229,12 @@ const permissionRoleForm = (props: Props) => {
       .finally(() => dispatch(setLoading(false)));
   };
 
-  const createFields = R.map(role => {
+  const handleModalOK = (e) => {
+    console.log("handleModalOk ", showDeleteWarning);
+    setShowDeleteWarning({ users: [], show: false });
+  };
+
+  const createFields = R.map((role) => {
     return (
       <AbilityField
         loading={loading}
@@ -208,6 +255,19 @@ const permissionRoleForm = (props: Props) => {
 
   return (
     <div>
+      <Modal
+        visible={showDeleteWarning.show}
+        title={t("error.deletePermissionTitle")}
+        onOk={handleModalOK}
+        onCancel={handleModalOK}
+      >
+        <p>{t("error.deletePermission")}</p>
+        <ul>
+          {showDeleteWarning.users.map((user) => (
+            <li key={user.key}>{user.name}</li>
+          ))}
+        </ul>
+      </Modal>
       <AddPermissionRole addRole={addRole} />
       {createFields(options)}
     </div>
