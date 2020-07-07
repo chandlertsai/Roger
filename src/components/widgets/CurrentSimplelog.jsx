@@ -13,6 +13,7 @@ import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
 import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
+import { useTranslation } from "react-i18next";
 
 export default () => {
   const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm(
@@ -21,6 +22,7 @@ export default () => {
     },
     "message"
   );
+  const { t } = useTranslation();
 
   const [currentRow, setCurrentRow] = useState({});
   const [tableFilter, setTableFilter] = useState("alarm");
@@ -46,7 +48,7 @@ export default () => {
   return (
     <div>
       <Drawer
-        title="設定 Message"
+        title={t("simplelog.name")}
         visible={showAlarmControl}
         placement="right"
         footer={null}
@@ -102,6 +104,7 @@ export default () => {
       <Row>
         <Col span={24}>
           <AlarmVoice
+            title={t("simplelog.voiceTitle")}
             currentAlarms={R.filter(R.propEq("state", "alarm"), alarms)}
           />
         </Col>

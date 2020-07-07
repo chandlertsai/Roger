@@ -1,4 +1,7 @@
-import AlarmPage, { MessageDashboard } from "components/pages/AlarmDashboard";
+import AlarmPage, {
+  MessageDashboard,
+  TotalDashboard,
+} from "components/pages/AlarmDashboard";
 
 import DeviceReport from "components/pages/DeviceReport";
 import HistoryReport from "components/pages/HistoryReport";
@@ -8,6 +11,13 @@ import LogTable from "components/tables/LogTable";
 import LicenseMessage from "components/pureComponents/licenseMessage";
 import i18n from "src/i18n";
 export const getNormalRoutes = () => [
+  {
+    name: i18n.t("normalRoutes.dashboard"),
+    to: "/dashboard",
+    icon: "login",
+    component: TotalDashboard,
+    permission: "private",
+  },
   {
     name: i18n.t("alarm.name"),
     to: "/alarmReport",

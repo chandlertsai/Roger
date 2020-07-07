@@ -68,7 +68,8 @@
   "simplelog": {
     "name": "訊息",
     "alarmCount": "訊息數目",
-    "ackContext": "已讀取訊息數目"
+    "ackContext": "已讀取訊息數目",
+    "voiceTitle": "訊息語音內容"
   },
   "alarm": {
     "name": "報警",

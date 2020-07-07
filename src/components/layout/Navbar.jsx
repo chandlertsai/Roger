@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { auth, authLogin, lang } from "reducers/storeUtils";
 import AvatorDropdown from "components/pureComponents/AvatorDropdown";
+import WarningDropdown from "components/pureComponents/WarningDropdown";
 import LanguageDropdown from "components/pureComponents/LanguageDropdown";
 import { logout } from "actions/auth";
 import { setLanguage } from "actions/appState";
@@ -50,6 +51,11 @@ const Navbar = (props: Props) => {
       >
         Atop IOT server
       </Typography.Title>
+      {/* <WarningDropdown
+        messageCount={1}
+        alarmCount={2}
+        onSetting={() => console.log("warning dropdown")}
+      /> */}
       <AvatorDropdown
         alreadyLogin={alreadyLogin}
         username={authObj.username}

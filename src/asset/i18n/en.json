@@ -68,7 +68,8 @@
   "simplelog": {
     "name": "Message",
     "alarmCount": "# of Message",
-    "ackContext": "Total acknowledged messages: "
+    "ackContext": "Total acknowledged messages: ",
+    "voiceTitle": "Message Voice"
   },
   "alarm": {
     "name": "Alarms ",

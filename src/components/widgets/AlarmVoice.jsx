@@ -4,7 +4,7 @@ import useDeepCompareEffect from "use-deep-compare-effect";
 import R from "ramda";
 import { useTranslation } from "react-i18next";
 type tProps = {
-  currentAlarms: mixed
+  currentAlarms: mixed,
 };
 
 function useInterval(callback, delay) {
@@ -28,10 +28,10 @@ function useInterval(callback, delay) {
 }
 
 // A -> string
-const compareKey = a => R.prop("ip")(a) + R.prop("message")(a);
+const compareKey = (a) => R.prop("ip")(a) + R.prop("message")(a);
 const eqByKey = R.eqBy(compareKey);
 const decInterval = R.compose(R.dec, R.prop("interval"));
-const countDown = R.map(i => ({ ...i, interval: decInterval(i) }));
+const countDown = R.map((i) => ({ ...i, interval: decInterval(i) }));
 const alarmIntervalGtZero = R.filter(R.pipe(R.prop("interval"), R.gt(R.__, 0)));
 
 const blackListReducer = (state, act) => {
@@ -72,21 +72,22 @@ const alarmVoice = (props: tProps) => {
 
   const { t } = useTranslation();
 
+  const title = props.title || t("alarm.alarmVoiceTitle");
   // Input Alarm changed
   useEffect(() => {
-    const inputAlarm = R.filter(i => !R.any(eqByKey(i), blackList))(
+    const inputAlarm = R.filter((i) => !R.any(eqByKey(i), blackList))(
       currentAlarms
     );
     dispatchVoiceQueue({
       type: "ADD",
-      payload: inputAlarm
+      payload: inputAlarm,
     });
   }, [currentAlarms]);
 
   useInterval(() => {
     // count down black list interval
     dispatchBlackList({
-      type: "COUNTDOWN"
+      type: "COUNTDOWN",
     });
 
     if (!onVoice) {
@@ -94,11 +95,11 @@ const alarmVoice = (props: tProps) => {
       console.log(alarm);
       if (alarm && alarm.enableVoice) {
         dispatchVoiceQueue({
-          type: "TAIL"
+          type: "TAIL",
         });
         dispatchBlackList({
           type: "ADD",
-          payload: alarm
+          payload: alarm,
         });
         const msg = "ip " + alarm.ip + " " + alarm.message;
         setCurrentVoiceMessage(msg);
@@ -113,7 +114,7 @@ const alarmVoice = (props: tProps) => {
   return (
     <div className="card text-white bg-danger">
       <div className="card-body">
-        <h3 className="text-white">{t("alarm.alarmVoiceTitle")}</h3>
+        <h3 className="text-white">{title}</h3>
         <div className="card-text">{currentVoiceMessage}</div>
       </div>
     </div>

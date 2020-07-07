@@ -6,22 +6,24 @@ import { Link } from "react-router-dom";
 import {
   AckAlarmCard,
   AlarmCard,
-  NormalDeviceCard
+  NormalDeviceCard,
 } from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
 import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
 import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
+import { useTranslation } from "react-i18next";
 
 export default () => {
   const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm({
-    interval: 1000
+    interval: 1000,
   });
 
   const [currentRow, setCurrentRow] = useState({});
   const [tableFilter, setTableFilter] = useState("alarm");
   const [showAlarmControl, setShowAlarmControl] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     startPolling();
@@ -31,7 +33,7 @@ export default () => {
     };
   }, []);
 
-  const handleRowClick = record => {
+  const handleRowClick = (record) => {
     setShowAlarmControl(true);
     setCurrentRow(record);
   };
@@ -43,7 +45,7 @@ export default () => {
   return (
     <div>
       <Drawer
-        title="設定 Alarm"
+        title={t("alarm.name")}
         visible={showAlarmControl}
         placement="right"
         footer={null}
@@ -73,7 +75,7 @@ export default () => {
       <Row className="mt-3">
         <Col span={18}>
           <Radio.Group
-            onChange={e => setTableFilter(e.target.value)}
+            onChange={(e) => setTableFilter(e.target.value)}
             value={tableFilter}
           >
             <Radio value="">ALL</Radio>
