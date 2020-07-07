@@ -13,14 +13,14 @@ export const useSendPasswordEmail = (collection: string): [mixed, Function] => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
 
-  const get = param => {
+  const get = (param) => {
     dispatch(setLoading(true));
     axios
       .get("/api/sendpassword", { params: param })
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error.response.data)))
+      .catch((error) => dispatch(setError(true, error.response.data)))
       .finally(() => dispatch(setLoading(false)));
   };
 
@@ -43,14 +43,14 @@ export const useFetch = (
     dispatch(setLoading(true));
     axios
       .get(readUrl)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error)))
+      .catch((error) => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   }, []);
 
-  const query = search => {
+  const query = (search) => {
     dispatch(setLoading(true));
 
     const getText = R.ifElse(
@@ -64,36 +64,40 @@ export const useFetch = (
     const url = s ? "/api/fuzzysearch/" + collection + "/" + s : readUrl;
     axios
       .get(url)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error)))
+      .catch((error) => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   };
 
   const removeurl = "/apis/removes/" + collection;
-  const post = url => body => {
+  const post = (url) => (body) => {
     dispatch(setLoading(true));
     axios
       .post(url, body)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error)))
+      .catch((error) => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   };
 
   const updateUrl = "/apis/v1/update/" + collection;
-  const put = url => body => {
+  const put = (url) => (body) => {
     dispatch(setLoading(true));
     axios
       .put(url, body)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error)))
+      .catch((error) => dispatch(setError(true, error)))
       .finally(() => dispatch(setLoading(false)));
   };
+
+  // const read = (params) => {
+  //   return axios.get("/apis/v1/read/" + collection, { params });
+  // };
 
   return [data, post(removeurl), put(updateUrl), query];
 };
@@ -110,7 +114,7 @@ export const useFetchFields = (collection: string) => (
     axios
       .get("/apis/v1/read/" + collection)
       .then(R.pipe(R.prop("data"), R.map(R.pick(names)), setData))
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch((error) => dispatch(setError(true, error.message)))
       .finally(() => dispatch(setLoading(false)));
   }, []);
   return data;
@@ -129,7 +133,7 @@ export const useNameList = (collection: string) => {
     dispatch(setLoading(true));
     axios
       .get(readUrl)
-      .then(res => {
+      .then((res) => {
         const namelist = R.ifElse(
           Array.isArray,
           R.map(R.pick(["name", "key"])),
@@ -138,7 +142,7 @@ export const useNameList = (collection: string) => {
 
         setData(namelist);
       })
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch((error) => dispatch(setError(true, error.message)))
       .finally(() => dispatch(setLoading(false)));
   }, []);
 

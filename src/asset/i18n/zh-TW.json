@@ -40,7 +40,9 @@
     "requrieName": "名稱不可以為空白",
     "emailFormat": "Wrong email format",
     "deletePermissionTitle": "刪除使用中權限警告",
-    "deletePermission": "一些使用者和此權限連結，請先移除使用者權限"
+    "deletePermission": "一些使用者和此權限連結，請先移除使用者權限",
+    "deleteUserDeviceTitle": "警告！刪除項目已存在群組中",
+    "deleteUserDevice": "下面群組有包含欲刪除項目，請先從群組移除"
   },
 
   "loginForm": {

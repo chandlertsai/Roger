@@ -6,12 +6,13 @@ import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Popover } from "antd";
+import { Table, Drawer, Tag, Popover, Modal } from "antd";
 import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import { useLicense } from "apis/license";
-
+import qs from "qs";
 import R from "ramda";
+import axios from "axios";
 
 // props type
 type Props = {
@@ -36,6 +37,10 @@ const devicesTable = (props: Props) => {
   const [tableData, remove, update, query] = useFetch("devices");
   const [isShowUserForm, setShowUserForm] = useState(false);
   const [editingDevice, setEditingDevice] = useState({});
+  const [deleteWarning, setDeleteWarning] = useState({
+    show: false,
+    groups: [],
+  });
   const license = useLicense();
   const { t } = useTranslation();
   const [licenseInfo, setLicenseInfo] = useState("");
@@ -70,6 +75,32 @@ const devicesTable = (props: Props) => {
       name: "",
       ip: "",
     });
+  };
+
+  const checkRemove = (body) => {
+    axios
+      .get("/apis/v1/read/groups", {
+        params: { deviceKeys: body },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { indices: false });
+        },
+      })
+      .then((res) => {
+        const groups = res.data || [];
+        if (groups.length > 0) {
+          setDeleteWarning({ show: true, groups });
+        }
+      })
+
+      .catch((err) => {
+        if (err.response) {
+          remove(body);
+        }
+      });
+  };
+
+  const handleModalOK = (e) => {
+    setDeleteWarning({ groups: [], show: false });
   };
 
   const deviceType = {
@@ -156,7 +187,7 @@ const devicesTable = (props: Props) => {
         onSearch={query}
         handlers={{
           addItem: addDefaultDevice,
-          removeSelectedItems: remove,
+          removeSelectedItems: checkRemove,
           // onSearch: searchUser
         }}
         componentsText={{
@@ -179,6 +210,19 @@ const devicesTable = (props: Props) => {
           vendors={vendorList}
         />
       </Drawer>
+      <Modal
+        visible={deleteWarning.show}
+        title={t("error.deleteUserDeviceTitle")}
+        onOk={handleModalOK}
+        onCancel={handleModalOK}
+      >
+        <p>{t("error.deleteUserDevice")}</p>
+        <ul>
+          {deleteWarning.groups.map((group) => (
+            <li key={group.key}>{group.name}</li>
+          ))}
+        </ul>
+      </Modal>
       <Table
         size="small"
         rowSelection={rowSelection}
