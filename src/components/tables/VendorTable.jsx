@@ -145,7 +145,13 @@ const vendorTable = (props) => {
         columns={columns}
         dataSource={tableData}
       />
-      {showContact ? <ContactTable {...editingVendor} /> : null}
+      {showContact ? (
+        <ContactForm
+          doSubmit={onSubmit}
+          vendor={editingVendor}
+          onClose={() => setShowContact(false)}
+        />
+      ) : null}
     </div>
   );
 };

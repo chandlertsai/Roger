@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "antd";
+import { Button, Divider } from "antd";
 import { useForm } from "react-hook-form";
 import ContactTable from "components/tables/ContactTable";
 import R from "ramda";
@@ -16,7 +16,7 @@ const contactForm = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState();
-  const { vendor, doSubmit } = props;
+  const { vendor, doSubmit, onClose } = props;
   const { t } = useTranslation();
   useEffect(() => {
     setData(vendor);
@@ -72,6 +72,11 @@ const contactForm = (props) => {
 
   return (
     <div className="container">
+      {onClose ? (
+        <Divider>
+          <Button onClick={onClose}>Close</Button>
+        </Divider>
+      ) : null}
       <TableToolbar
         title={t("contact.name")}
         selectedRowKeys={selectedRowKeys}
