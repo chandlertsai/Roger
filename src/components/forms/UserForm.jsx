@@ -15,16 +15,24 @@ import "./form.less";
 type Props = {
   userData: mixed,
   permissions: Array<mixed>,
-  doSubmit: Function
+  doSubmit: Function,
 };
 const userForm = (props: Props) => {
   const { doSubmit, userData, permissions } = props;
   const { t } = useTranslation();
-  const createOptions = R.map(p => (
+  const createOptions = R.map((p) => (
     <Select.Option value={p.key} key={p.key}>
       {p.name}
     </Select.Option>
   ));
+
+  function validateName(value) {
+    let error;
+    if (!value) {
+      error = t("error.requireName");
+    }
+    return error;
+  }
 
   return (
     <div>
@@ -42,7 +50,9 @@ const userForm = (props: Props) => {
               field="name"
               labelText={t("name")}
               fieldProp={{ type: "text" }}
+              validate={validateName}
             />
+            {errors.name && Touch.name && <span>{errors.name}</span>}
             <FormRow
               field="email"
               labelText="E-Mail"
@@ -65,7 +75,7 @@ const userForm = (props: Props) => {
               <Select
                 value={values["pkey"]}
                 name="pkey"
-                onChange={v => setFieldValue("pkey", v)}
+                onChange={(v) => setFieldValue("pkey", v)}
               >
                 {createOptions(permissions)}
               </Select>

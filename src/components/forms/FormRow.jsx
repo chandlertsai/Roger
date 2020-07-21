@@ -8,24 +8,24 @@ import "./form.less";
 type typeProp = {
   field: string,
   labelText: string,
-  fieldProp: mixed
+  fieldProp: mixed,
 };
 const formRow = (props: typeProp) => {
-  const { field, labelText, fieldProp } = props;
+  const { field, labelText, ...fieldProp } = props;
 
   return (
-    <div className='form-row'>
+    <div className="form-row">
       <label htmlFor={field}>{`${labelText} :`}</label>
-      <Field className='input' name={field} {...fieldProp} />
+      <Field className="input" name={field} {...fieldProp} />
     </div>
   );
 };
 
 formRow.defaultProps = {
-  fieldProp: { type: "text" }
+  fieldProp: { type: "text" },
 };
 
-export const InputRow = props => {
+export const InputRow = (props) => {
   const { values, setFieldValue, field } = props;
 };
 export default formRow;
