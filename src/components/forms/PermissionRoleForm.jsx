@@ -223,7 +223,6 @@ const permissionRoleForm = (props: Props) => {
       })
       .catch((error) => {
         console.log("updated psermission ERROR: ", error);
-        dispatch(setLoading(false));
         dispatch(setError(error.message));
       })
       .finally(() => dispatch(setLoading(false)));

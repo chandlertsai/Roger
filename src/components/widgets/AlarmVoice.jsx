@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef, useReducer } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import R from "ramda";
+import { Divider } from "antd";
 import { useTranslation } from "react-i18next";
 type tProps = {
   currentAlarms: mixed,
@@ -112,12 +113,13 @@ const alarmVoice = (props: tProps) => {
   }, 1000);
 
   return (
-    <div className="card text-white bg-danger">
-      <div className="card-body">
-        <h3 className="text-white">{title}</h3>
-        <div className="card-text">{currentVoiceMessage}</div>
-      </div>
-    </div>
+    // <div className="card text-white bg-danger">
+    //   <div className="card-body">
+    //     <h3 className="text-white">{title}</h3>
+    //     <div className="card-text">{currentVoiceMessage}</div>
+    //   </div>
+    // </div>
+    <Divider />
   );
 };
 

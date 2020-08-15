@@ -61,7 +61,7 @@ export default () => {
           onClose={closeAlarmControlPanel}
         />
       </Drawer>
-      <Row gutter={[8, 8]}>
+      {/* <Row gutter={[8, 8]}>
         <Col span={12}>
           <AlarmCard
             alarms={alarms}
@@ -77,9 +77,9 @@ export default () => {
             onClick={() => setTableFilter("ack")}
           />
         </Col>
-      </Row>
+      </Row> */}
 
-      <Row className="mt-3">
+      {/* <Row className="mt-3">
         <Col span={18}>
           <Radio.Group
             onChange={(e) => setTableFilter(e.target.value)}
@@ -91,7 +91,7 @@ export default () => {
             <Radio value="close">Close</Radio>
           </Radio.Group>
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col span={24}>
           <CurrentAlarmTable
