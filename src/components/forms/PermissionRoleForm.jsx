@@ -1,8 +1,7 @@
-import { message } from "antd";
 // @flow
 import React, { useState, useEffect } from "react";
 
-import { Button, Row, Col, Input, Modal } from "antd";
+import { Button, Row, Col, Input, Modal, message } from "antd";
 import { useTranslation } from "react-i18next";
 import ErrorTip from "components/forms/ErrorTip";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,7 +13,7 @@ import AbilityField from "components/forms/AbilityField";
 import { PermissionGroup } from "apis/auth";
 import { uniqueKey } from "apis/utils";
 import axios from "axios";
-import { setError, setLoading } from "actions/appState";
+import { setLoading } from "actions/appState";
 
 // transfer between backend and state
 const concatAll = R.unapply(R.reduce(R.concat, []));
@@ -45,7 +44,9 @@ const AddPermissionRole = (props) => {
             style={{ margin: "5px" }}
             onClick={() =>
               addRole({
-                name,
+                name:
+                  name ||
+                  "Default - " + Math.random().toString(36).substring(7),
                 key: uniqueKey("permission"),
                 abilities: [],
               })
@@ -110,8 +111,8 @@ const permissionRoleForm = (props: Props) => {
         setOptions(transformer(res.data));
         dispatch(setLoading(false));
       })
-      .catch((error) => {
-        dispatch(setError(true, "無法取得權限設定相關資料，請重新登入.."));
+      .catch((err) => {
+        message.error(err.message);
         dispatch(setLoading(false));
       });
   };
@@ -132,7 +133,7 @@ const permissionRoleForm = (props: Props) => {
       })
       .catch((error) => {
         dispatch(setLoading(false));
-        dispatch(setError(error.message));
+        message.error(error.message);
       })
       .finally(() => dispatch(setLoading(false)));
   };
@@ -182,28 +183,11 @@ const permissionRoleForm = (props: Props) => {
             .then((res) => fetchPermission())
             .finally(() => dispatch(setLoading(false)));
         } else {
-          console.log("delete error", error);
           dispatch(setLoading(false));
-          dispatch(setError(error.message));
+          message.error(error.message);
         }
       })
       .finally(() => dispatch(setLoading(false)));
-    // axios({
-    //   method: "DELETE",
-    //   url: "/apis/v1/delete/permission",
-    //   params: keyValue,
-    // })
-    //   .then((res) => {
-    //     console.log("response delete permission ", res);
-
-    //     fetchPermission();
-    //   })
-    //   .catch((error) => {
-    //     console.log("delete error", error);
-    //     dispatch(setLoading(false));
-    //     dispatch(setError(error.message));
-    //   })
-    //   .finally(() => dispatch(setLoading(false)));
   };
 
   const onSubmit = (values) => {
@@ -222,8 +206,7 @@ const permissionRoleForm = (props: Props) => {
         dispatch(setLoading(false));
       })
       .catch((error) => {
-        console.log("updated psermission ERROR: ", error);
-        dispatch(setError(error.message));
+        message.error(error.message);
       })
       .finally(() => dispatch(setLoading(false)));
   };
