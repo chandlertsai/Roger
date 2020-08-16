@@ -67,7 +67,6 @@ const usePollingAlarm = (opt: Option, source = "alarm") => {
     setPolling(true);
     runPolling();
   };
-  console.log(source);
   const runPolling = () => {
     const timeoutID = setInterval(() => {
       axios

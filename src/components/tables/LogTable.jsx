@@ -4,7 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { setLoading, setError } from "actions/appState";
 import { Table, Drawer, Tag, Popover, Row, Col, Input, Checkbox } from "antd";
-import { useDebounce, dateCompare } from "apis/utils";
+import {
+  useDebounce,
+  dateCompare,
+  ISODateToString,
+  renderTimeCell,
+} from "apis/utils";
+import { useTranslation } from "react-i18next";
 
 import R from "ramda";
 const { Search } = Input;
@@ -18,6 +24,7 @@ const logTable = (props: Props) => {
   const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
   const debounceSearchTerm = useDebounce(search, 500);
+  const { t } = useTranslation();
 
   useEffect(() => {
     query(debounceSearchTerm);
@@ -27,41 +34,27 @@ const logTable = (props: Props) => {
   useEffect(() => {
     setTableData(sort(data));
   }, [data]);
-  /*
-{"id":"192.168.10.100",
-		"target": "Ping", 
-		"action":"UP", 
-		"info":"Test",
-	"time":"2018/12/24 14:51:40" }
-*/
+
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: "IP",
+      dataIndex: "ip",
+      key: "ip",
     },
 
     {
-      title: "Target",
-      dataIndex: "target",
-      key: "trget",
+      title: t("logTable.ts"),
+      dataIndex: "ts",
+      sorter: (a, b) => dateCompare(a.ts, b.ts),
+      key: "ts",
+      render: renderTimeCell,
     },
 
     {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-    },
-    {
-      title: "Info",
-      dataIndex: "info",
-      key: "info",
-    },
-    {
-      title: "Time",
-      dataIndex: "time",
-      key: "time",
-      sorter: (a, b) => dateCompare(a.time, b.time),
+      title: t("logTable.rawData"),
+      dataIndex: "data",
+      key: "data",
+      render: (text, record, index) => <span>{JSON.stringify(text)}</span>,
     },
   ];
 

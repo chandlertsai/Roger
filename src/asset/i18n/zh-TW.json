@@ -214,5 +214,9 @@
     "expire": "到期日",
     "count": "授權數量",
     "contact": "客服"
+  },
+  "logTable": {
+    "rawData": "原始資料",
+    "ts": "記錄時間"
   }
 }

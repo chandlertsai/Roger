@@ -214,5 +214,9 @@
     "expire": "Expire date",
     "count": "Limit of device",
     "contact": "Contact"
+  },
+  "logTable": {
+    "rawData": "Raw Data",
+    "ts": "Time"
   }
 }

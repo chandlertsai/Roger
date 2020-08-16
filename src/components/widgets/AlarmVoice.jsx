@@ -93,7 +93,6 @@ const alarmVoice = (props: tProps) => {
 
     if (!onVoice) {
       var alarm = R.head(voiceQueue);
-      console.log(alarm);
       if (alarm && alarm.enableVoice) {
         dispatchVoiceQueue({
           type: "TAIL",
