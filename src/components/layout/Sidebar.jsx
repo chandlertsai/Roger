@@ -6,13 +6,6 @@ import { t } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const SubMenu = Menu.SubMenu;
 
-// const defaultOpenKey = menu => {
-//   if (menu[0]) {
-//     return menu[0].key.toString();
-//   }
-//   return "0";
-// };
-
 const sidebar = ({ submenus }) => {
   const createSubMenu = (submenu) => (
     <SubMenu
@@ -38,13 +31,7 @@ const sidebar = ({ submenus }) => {
 
   return (
     <div>
-      <Menu
-        theme="dark"
-        mode="inline"
-        // defaultSelectedKeys={["1"]}
-        // defaultOpenKeys={[defaultOpenKey(submenus)]}
-        className="menu"
-      >
+      <Menu theme="dark" mode="inline" className="menu">
         {submenus.map((item) => createSubMenu(item))}
       </Menu>
     </div>

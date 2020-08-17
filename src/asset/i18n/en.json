@@ -218,5 +218,27 @@
   "logTable": {
     "rawData": "Raw Data",
     "ts": "Time"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "report": "Report",
+    "deviceSetting": "Device Setting",
+    "userSetting": "User Setting",
+    "alarmsSetting": "Alarm Setting",
+    "miscSetting": "Misc Setting",
+    "systemManagement": "System Management",
+    "summary": "Summery",
+    "device": "Device",
+    "message": "Message",
+    "alarm": "Alarm",
+    "deviceSummary": "Device Summery",
+    "deviceDetail": "Device Detail",
+    "usersSetting": "User Setting",
+    "groupSetting": "Group Setting",
+    "permissionSetting": "Permission Setting",
+    "devicesSetting": "Device Setting",
+    "vendorsSetting": "Vendor Setting",
+    "uploadLicence": "Upload License",
+    "license": "License"
   }
 }

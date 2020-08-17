@@ -49,7 +49,7 @@ const Navbar = (props: Props) => {
         onClick={toggleSidebar}
         style={{ color: "white", flex: "1 0 200px", marginLeft: "0.5rem" }}
       >
-        Atop IOT server
+        Eyesfree
       </Typography.Title>
       {/* <WarningDropdown
         messageCount={1}
