@@ -2,7 +2,7 @@
 import R from "ramda";
 import { LOGIN, LOGOUT, REFRESH_TOKEN } from "actions/auth";
 import type { Action, State } from "apis/types";
-
+import history from "routers/history";
 const initialState = {
   username: "",
   password: "",
@@ -10,7 +10,7 @@ const initialState = {
   success: false,
   refreshToken: "",
   tokenTimeStamp: 0,
-  refreshTimeStamp: 0
+  refreshTimeStamp: 0,
 };
 // authentication reducer
 function auth(state: State = initialState, action: Action) {
@@ -23,6 +23,7 @@ function auth(state: State = initialState, action: Action) {
         timeStamp("tokenTimeStamp"),
         timeStamp("refreshTimeStamp")
       );
+
       return R.mergeLeft(addTimeStamp(payload), state);
     case REFRESH_TOKEN:
       return R.mergeLeft(payload, state);

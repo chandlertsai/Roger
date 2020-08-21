@@ -14,7 +14,7 @@ import {
   appStateHint,
   authText,
   authPasswordTip,
-  authLogin
+  authLogin,
 } from "reducers/storeUtils";
 import * as yup from "yup";
 import R from "ramda";
@@ -23,19 +23,19 @@ import "./form.less";
 
 const validator = yup.object().shape({
   username: yup.string().required(),
-  password: yup.string()
+  password: yup.string(),
 });
 
-const LForm = props => {
+const LForm = (props) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { register, handleSubmit, watch, errors } = useForm({
-    validationSchema: validator
+    validationSchema: validator,
   });
   const loading = useSelector(loadingState);
   const passwordTip = useSelector(authPasswordTip);
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     dispatch(loginUser(data));
   };
   return (
@@ -60,9 +60,9 @@ const LForm = props => {
   );
 };
 
-const loginForm = props => {
+const loginForm = (props) => {
   const hasLogin = useSelector(authLogin);
-  return <>{hasLogin ? <Redirect to="/welcome" /> : <LForm />}</>;
+  return <>{hasLogin ? <Redirect to="/summary" /> : <LForm />}</>;
 };
 
 export default loginForm;
