@@ -86,7 +86,7 @@ const usersTable = () => {
       key: key,
       name: "",
       email: "",
-      password: "",
+      password: "1234",
     });
   };
 

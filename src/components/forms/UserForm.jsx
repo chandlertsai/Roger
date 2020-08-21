@@ -58,11 +58,6 @@ const userForm = (props: Props) => {
               labelText="E-Mail"
               fieldProp={{ type: "email" }}
             />
-            <FormRow
-              field="password"
-              labelText={t("password")}
-              fieldProp={{ type: "password" }}
-            />
 
             <FormRow
               field="passwordTip"
