@@ -13,7 +13,7 @@ import * as yup from "yup";
 // $FlowFixMe
 import "./form.less";
 
-const alarmForm = props => {
+const alarmForm = (props) => {
   const { alarm, doSubmit } = props;
   const conditions = alarm.conditions || [];
   const releaseConditions = alarm.releaseConditions || [];
@@ -24,9 +24,9 @@ const alarmForm = props => {
     getValues,
     errors,
     reset,
-    control
+    control,
   } = useForm({
-    defaultValues: alarm
+    defaultValues: alarm,
   });
 
   const { t } = useTranslation();
@@ -47,17 +47,17 @@ const alarmForm = props => {
     window.speechSynthesis.speak(words);
   };
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     console.log("submit ", data);
     const newData = R.pipe(R.mergeRight(alarm), R.omit(["_id"]))(data);
 
     doSubmit(newData);
   };
 
-  const handleTriggerCondtionChanged = v => setValue("conditions", v);
-  const handleReleaseCondtionChanged = v => setValue("releaseConditions", v);
+  const handleTriggerCondtionChanged = (v) => setValue("conditions", v);
+  const handleReleaseCondtionChanged = (v) => setValue("releaseConditions", v);
 
-  const createOptions = R.map(p => <option value={p.key}>{p.name}</option>);
+  const createOptions = R.map((p) => <option value={p.key}>{p.name}</option>);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -162,31 +162,6 @@ const alarmForm = props => {
           conditions={releaseConditions}
           onChanged={handleReleaseCondtionChanged}
         />
-      </div>
-
-      <div className="row">
-        <div className="form-group col-md-4">
-          <label htmlFor="triggerDeviceStatus">
-            {t("alarm.triggerDeviceStatus")}{" "}
-          </label>
-          <input
-            className="form-control"
-            type="text"
-            name="triggerDeviceStatus"
-            ref={register}
-          />
-        </div>
-        <div className="form-group col-md-4">
-          <label htmlFor="releaseDeviceStatus">
-            {t("alarm.releaseDeviceStatus")}{" "}
-          </label>
-          <input
-            className="form-control"
-            type="text"
-            name="releaseDeviceStatus"
-            ref={register}
-          />
-        </div>
       </div>
 
       <Button htmlType="submit"> {t("submit")} </Button>
