@@ -39,7 +39,21 @@ const alarmControlPanel = (props) => {
         return "geekblue";
     }
   };
-  const createTag = (state) => <Tag color={getColor(state)}>{state}</Tag>;
+  const createTag = (state) => {
+    let stateText = "";
+    switch (state) {
+      case "alarm":
+        stateText = t("alarmState.alarm");
+        break;
+      case "ack":
+        stateText = t("alarmState.ack");
+        break;
+      case "close":
+        stateText = t("alarmState.close");
+        break;
+    }
+    return <Tag color={getColor(state)}>{stateText}</Tag>;
+  };
   const ack = () => {
     var url = "/webapi/api/ackAlarm";
     let body = {
@@ -76,15 +90,21 @@ const alarmControlPanel = (props) => {
       <p>
         {t("alarm.message")} : {alarm.message}
       </p>
-      <span>State: </span>
+      <span>{t("alarmState.state")} </span>
       {createTag(alarm.state)}
+
       <span className="mx-1">{t("setting")} :</span>
-      <div className="btn btn-info mx-1" onClick={() => ack()}>
-        Ack
-      </div>
-      <div className="btn btn-danger mx-1" onClick={() => close()}>
-        Close
-      </div>
+
+      {alarm.state == "alarm" && alarm.source != "simpleLog" ? (
+        <div className="btn btn-info mx-1" onClick={() => ack()}>
+          {t("alarmState.ack")}
+        </div>
+      ) : null}
+      {alarm.state != "close" && alarm.source != "simpleLog" ? (
+        <div className="btn btn-danger mx-1" onClick={() => close()}>
+          {t("alarmState.close")}
+        </div>
+      ) : null}
     </div>
   );
 };

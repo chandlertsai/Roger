@@ -79,7 +79,8 @@
     "ack": "Maintain",
     "alarm": "Alarm",
     "close": "Closed",
-    "all": "All"
+    "all": "All",
+    "state": "State"
   },
   "alarm": {
     "name": "報警",

@@ -88,13 +88,6 @@ export default () => {
             onClick={() => setTableFilter("ack")}
           />
         </Col>
-
-        {/* <Col span={8}>
-          <NormalDeviceCard
-            count={totalDevices - R.length(alarmDevices) - R.length(ackDevices)}
-            onClick={() => {}}
-          />
-        </Col> */}
       </Row>
 
       <Row className="mt-3">
@@ -109,9 +102,6 @@ export default () => {
         </Col>
         <Col span={8}>
           <span>{licenseInfo}</span>
-        </Col>
-        <Col span={4}>
-          <Link to="/alarmReport">Alarm</Link>
         </Col>
       </Row>
       <Row>
