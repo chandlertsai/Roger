@@ -16,32 +16,32 @@ const validator = yup.object().shape({
   name: yup.string().required(),
   ip: yup.string().matches(/(^(\d{1,3}\.){3}(\d{1,3})$)/, {
     message: "Invalid IP address",
-    excludeEmptyString: true
-  })
+    excludeEmptyString: true,
+  }),
 });
 
-const deviceForm = props => {
+const deviceForm = (props) => {
   const { users, vendors, device, doSubmit } = props;
   const { name, ip, userkey, vendorkey, key } = device;
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { register, handleSubmit, watch, errors, reset } = useForm({
     validationSchema: validator,
-    defaultValues: device
+    defaultValues: device,
   });
 
   useEffect(() => {
     reset(device);
   }, [device]);
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     const newData = R.pipe(R.mergeRight(device), R.omit(["_id"]))(data);
 
     console.log("device form submit ", newData);
     doSubmit(newData);
   };
 
-  const createOptions = R.map(p => (
+  const createOptions = R.map((p) => (
     <option value={p.key} key={p.key}>
       {p.name}
     </option>
@@ -60,14 +60,14 @@ const deviceForm = props => {
       </div>
       {errors.name && <p className="error">{t("device.nameCantBlank")}</p>}
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label htmlFor="type">{t("device.type")} </label>
         <select name="type" className="custom-select" ref={register}>
           <option value="NormalNetwork">{t("device.NormalNetwork")}</option>
           <option value="Monitor">{t("device.Monitor")}</option>
           <option value="SimpleDevice">{t("device.SimpleDevice")}</option>
         </select>
-      </div>
+      </div> */}
 
       <div className="form-group">
         <label htmlFor="ip">{t("ip")} </label>

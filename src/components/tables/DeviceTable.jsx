@@ -118,19 +118,6 @@ const devicesTable = (props: Props) => {
     },
 
     {
-      title: t("type"),
-      dataIndex: "type",
-      key: "type",
-      render: (t) => (
-        <span>
-          <Tag color="geekblue" key="t">
-            {deviceType[t] || "None"}
-          </Tag>
-        </span>
-      ),
-    },
-
-    {
       title: t("ip"),
       dataIndex: "ip",
       key: "ip",
