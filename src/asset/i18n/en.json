@@ -75,6 +75,12 @@
     "ackContext": "Total acknowledged messages: ",
     "voiceTitle": "Message Voice"
   },
+  "alarmState": {
+    "ack": "Maintain",
+    "alarm": "Alarm",
+    "close": "Closed",
+    "all": "All"
+  },
   "alarm": {
     "name": "Alarms ",
     "alarmCount": "# of Alarms ",
@@ -85,7 +91,7 @@
     "close": "Closed Alarms",
     "alarmContext": "Total alarms: ",
     "readContext": "Total readed alarms: ",
-    "ackContext": "Total acknowledged alarms: ",
+    "ackContext": "Total maintain alarms: ",
     "closeContext": "Total closed alarm: ",
     "alarmVoiceTitle": "Alarm Voice",
     "devStatusActionTip": "New device status",

@@ -75,6 +75,12 @@
     "ackContext": "已讀取訊息數目",
     "voiceTitle": "訊息語音內容"
   },
+  "alarmState": {
+    "ack": "Maintain",
+    "alarm": "Alarm",
+    "close": "Closed",
+    "all": "All"
+  },
   "alarm": {
     "name": "報警",
     "alarmCount": "警報數目",

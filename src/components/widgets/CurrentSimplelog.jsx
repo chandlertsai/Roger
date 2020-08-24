@@ -10,7 +10,7 @@ import {
 } from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
 import AlarmVoice from "components/widgets/AlarmVoice";
-import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
+import CurrentSimpleLogTable from "components/tables/CurrentSimpleLogTable";
 import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
 import { useTranslation } from "react-i18next";
@@ -94,7 +94,7 @@ export default () => {
       </Row> */}
       <Row>
         <Col span={24}>
-          <CurrentAlarmTable
+          <CurrentSimpleLogTable
             alarms={alarms}
             onRowClick={handleRowClick}
             filter={tableFilter}

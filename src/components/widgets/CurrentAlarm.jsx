@@ -78,14 +78,11 @@ export default () => {
             onChange={(e) => setTableFilter(e.target.value)}
             value={tableFilter}
           >
-            <Radio value="">ALL</Radio>
-            <Radio value="alarm">Alarm</Radio>
-            <Radio value="ack">Ack</Radio>
-            <Radio value="close">Close</Radio>
+            <Radio value="">{t("alarmState.all")}</Radio>
+            <Radio value="alarm">{t("alarmState.alarm")}</Radio>
+            <Radio value="ack">{t("alarmState.ack")}</Radio>
+            <Radio value="close">{t("alarmState.close")}</Radio>
           </Radio.Group>
-        </Col>
-        <Col span={6}>
-          <Link to="/deviceReport">Device</Link>
         </Col>
       </Row>
       <Row>
