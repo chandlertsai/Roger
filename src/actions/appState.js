@@ -107,6 +107,18 @@ const purge = () => ({
   type: PURGE,
 });
 
+const SET_SIMPLELOG_LAST_TIMESTAMP = "SET_SIMPLELOG_LAST_TIMESTAMP";
+const setSimplelogLastTS = (t) => ({
+  type: SET_SIMPLELOG_LAST_TIMESTAMP,
+  payload: t,
+});
+
+const SET_VOICE_ENABLE = "SET_VOICE_ENABLE";
+const setVoiceEnable = (enable) => ({
+  type: SET_VOICE_ENABLE,
+  payload: enable,
+});
+
 export {
   SET_LOADING,
   setLoading,
@@ -117,6 +129,10 @@ export {
   SET_LANGUAGE,
   PURGE,
   purge,
+  SET_SIMPLELOG_LAST_TIMESTAMP,
+  setSimplelogLastTS,
+  SET_VOICE_ENABLE,
+  setVoiceEnable,
   setLanguage,
   authFetch,
 };

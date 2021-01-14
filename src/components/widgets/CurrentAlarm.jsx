@@ -95,6 +95,7 @@ export default () => {
         </Col>
       </Row>
       <Row>
+
         <Col span={24}>
           <AlarmVoice
             currentAlarms={R.filter(R.propEq("state", "alarm"), alarms)}

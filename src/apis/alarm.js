@@ -3,9 +3,9 @@ import axios from "axios";
 import R from "ramda";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userKey } from "reducers/storeUtils";
-import { setError, setLoading } from "actions/appState";
-
+import { userKey, lastSimplelogTS, MINTIME } from "reducers/storeUtils";
+import { setSimplelogLastTS, setError, setLoading } from "actions/appState";
+var qs = require("qs");
 type Option = {
   interval: number,
   onError?: Function,
@@ -38,13 +38,55 @@ const useAlarm = () => {
 
   return [alarms, getAlarm];
 };
+
+/**
+ * Fetch simplelogs (message)
+ */
+const useFetchSimplelogs = () => {
+  const [lastTS, setLastTS] = useState();
+  const _userKey = useSelector(userKey);
+  const [messages, setMessages] = useState([]);
+  const dispatch = useDispatch();
+  const ts = useSelector(lastSimplelogTS);
+  const fetch = () => {
+    axios
+      .get("/webapi/api/message", {
+        params: {
+          count: 10,
+          lastTS: ts,
+        },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { indices: false });
+        },
+      })
+      .then((res) => {
+        let data = R.propOr([], "data")(res);
+
+        // get lastAlarmTS and transform to Date object
+        const getLastAlarmTS = R.propOr(MINTIME, "lastAlarmTS");
+        const tsList = R.map(getLastAlarmTS)(data);
+        const minumTime = new Date(MINTIME);
+        setMessages(data);
+
+        if (data.length <= 0) return;
+        // setting lastTS
+        const compareTime = (a, b) => (Date(a) > Date(b) ? a : b);
+        const last = R.reduce(compareTime, minumTime, tsList);
+        console.log("tslist ", tsList, "last ", last);
+        dispatch(setSimplelogLastTS(last));
+      })
+      .catch((err) => console.log("fetch message error ", err));
+  };
+  return [fetch, messages];
+};
+
 /**
  * polling alarm status
  * @param opt options
  * @param {number} [opt.interval=1000] interval ms
  * @param {Function} [opt.onError] callback function when error happen.
  */
-const usePollingAlarm = (opt: Option, source = "alarm") => {
+const usePollingAlarm = (opt: Option, source = "alarm", all = false) => {
   const { interval = 1000, onError = (err) => {} } = opt;
   const [isPolling, setPolling] = useState(false);
   const [alarm, setAlarm] = useState([]);
@@ -70,9 +112,18 @@ const usePollingAlarm = (opt: Option, source = "alarm") => {
   const runPolling = () => {
     const timeoutID = setInterval(() => {
       axios
-        .get("/webapi/api/" + source, { params: { userKey: _userKey } })
-        .then(R.pipe(R.prop("data"), setAlarm))
-        .catch((err) => console.log("polling alarm error ", err));
+        .get(
+          "/webapi/api/" + source,
+          all ? null : { params: { userKey: _userKey } }
+        )
+        .then((res) => {
+          let data = R.propOr([], "data")(res);
+          setAlarm(data);
+        })
+        .catch((err) => {
+          console.log("polling alarm error ", err);
+          setAlarm([]);
+        });
     }, interval);
     timerID.current = timeoutID;
   };
@@ -122,4 +173,9 @@ const usePollingNormalDevice = (opt: Option) => {
   return [startPolling, stopPolling, isPolling, normalDevices];
 };
 
-export { usePollingAlarm, usePollingNormalDevice, useAlarm };
+export {
+  usePollingAlarm,
+  usePollingNormalDevice,
+  useAlarm,
+  useFetchSimplelogs,
+};

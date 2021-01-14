@@ -33,7 +33,9 @@
   "settings": {
     "abuseTitle": "Abuse IP",
     "abuseConfidenceScore": "Abuse Confidence Score",
-    "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP"
+    "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP",
+    "abuseIPVoice":"Enable abuse message voice",
+    "rawTextVoice":"Enable raw text message voice"
   },
   "error": {
     "ipFormat": "Wrong IP address format",
@@ -106,8 +108,13 @@
     "releaseCondition": "Release condition",
     "conditionHas": "Has",
     "conditionHasnot": "Hasn't",
+    "conditionExist":"Exist",
     "conditionLimitWarnning": "Conditions couldn't over 5 ",
     "conditionInputWarnning": "Input field means JSON property name.",
+    "conditionInsertCameraSimplelog": "Insert camera message",
+    "conditionInsertTemperatureSimplelog": "Insert temperature message",
+    "conditionInsertRawTextSimplelog": "Insert raw text message",
+    "addDefaultSimplelog":"Add default message",
     "add": "Add alarm",
     "removeSelected": "Remove selected alarms",
     "edit": "Edit alarm",

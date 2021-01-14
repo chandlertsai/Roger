@@ -41,6 +41,7 @@ const currentAlarmTable = (props) => {
       dataIndex: "state",
       key: "state",
     },
+    {title:"voice", dataIndex:"enableVoice",key:"enableVoice"},
     {
       title: t("currentAlarmTable.lastAlarmTS"),
       dataIndex: "lastAlarmTS",

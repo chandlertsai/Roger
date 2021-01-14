@@ -33,7 +33,9 @@
   "settings": {
     "abuseTitle": "黑名單設定",
     "abuseConfidenceScore": "威脅分數",
-    "abuseScoreNote": "查詢分數大於等於設定值時發送警報，設定值為0時，代表不檢查分數"
+    "abuseScoreNote": "查詢分數大於等於設定值時發送警報，設定值為0時，代表不檢查分數",
+    "abuseIPVoice":"黑名單語音開關",
+    "rawTextVoice":"純文字資料語音開關"
   },
   "error": {
     "ipFormat": "錯誤的IP格式",
@@ -106,8 +108,13 @@
     "releaseCondition": "解除條件",
     "conditionHas": "包含",
     "conditionHasnot": "不包含",
+    "conditionExist":"存在",
     "conditionLimitWarnning": "觸發條件最多5個",
     "conditionInputWarnning": "輸入欄位是JSON欄位名稱，如希望處理cacti欄位action就輸入action(請注意大小寫)",
+     "conditionInsertCameraSimplelog": "增加camera條件",
+    "conditionInsertTemperatureSimplelog": "增加溫濕度條件",
+    "conditionInsertRawTextSimplelog": "增加純字串條件",
+    "addDefaultSimplelog":"新增預設訊息",
     "add": "新增",
     "removeSelected": "移除選取項目",
     "edit": "編輯報警",

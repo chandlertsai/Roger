@@ -1,11 +1,11 @@
 // @flow
 import React, { useState, useEffect } from "react";
-import { Button, message } from "antd";
+import { Button, message, Menu, Dropdown, Space } from "antd";
 import { useList } from "react-use";
 import R from "ramda";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-
+import { DownOutlined } from "@ant-design/icons";
 import { uniqueKey } from "apis/utils";
 
 export default (props) => {
@@ -21,7 +21,61 @@ export default (props) => {
     { key: "equal", text: "equal" },
     { key: "has", text: t("alarm.conditionHas") },
     { key: "hasnot", text: t("alarm.conditionHasnot") },
+    { key: "exist", text: t("alarm.conditionExist") },
   ];
+
+  // "conditionInsertCameraSimplelog": "增加camera條件",
+  //   "conditionInsertTemperatureSimplelog": "增加溫濕度條件",
+  //   "conditionInsertRawTextSimplelog": "增加純字串條件",
+
+  const addDefaultSimplelog = (key) => {
+    if (cond.length >= 5) {
+      message.warning(t("alarm.conditionLimitWarnning"));
+      return;
+    }
+
+    switch (key) {
+      case "camera":
+        conditionsAciton.push({
+          key: uniqueKey("condition"),
+
+          input: "EVENT_TYPE",
+          condition: "exist",
+          operator: "",
+          not: false,
+        });
+        break;
+      case "temperature":
+        conditionsAciton.push({
+          key: uniqueKey("condition"),
+
+          input: "temperature",
+          condition: ">=",
+          operator: "",
+          not: false,
+        });
+        conditionsAciton.push({
+          key: uniqueKey("condition"),
+
+          input: "humidityFiled",
+          condition: ">=",
+          operator: "",
+          not: false,
+        });
+        break;
+    }
+  };
+
+  const DefaultSimplelogMenu = (
+    <Menu onClick={({ key }) => addDefaultSimplelog(key)}>
+      <Menu.Item key="camera">
+        {t("alarm.conditionInsertCameraSimplelog")}
+      </Menu.Item>
+      <Menu.Item key="temperature">
+        {t("alarm.conditionInsertTemperatureSimplelog")}
+      </Menu.Item>
+    </Menu>
+  );
 
   const mapIndex = R.addIndex(R.map);
 
@@ -117,8 +171,22 @@ export default (props) => {
 
   return (
     <div className="form-group">
-      <Button onClick={addConditions}>Add</Button>
-
+      <div className="row">
+        <div className="col">
+          <Button onClick={addConditions}>Add</Button>
+        </div>
+        <div className="col">
+          <Dropdown overlay={DefaultSimplelogMenu}>
+            <a
+              className="ant-dropdown-link"
+              onClick={(e) => e.preventDefault()}
+            >
+              {t("alarm.addDefaultSimplelog")}
+              <DownOutlined />
+            </a>
+          </Dropdown>
+        </div>
+      </div>
       <span className="float-right">{cond.length}/5</span>
       {createConditions(cond)}
     </div>

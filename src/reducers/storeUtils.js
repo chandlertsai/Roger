@@ -4,6 +4,8 @@
  */
 import R from "ramda";
 
+export const MINTIME = "1970-01-01T00:00:00.358+08:00";
+
 //General
 // toggle: [path]
 export const toggle = (path: Array<string>) => R.over(R.lensPath(path), R.not);
@@ -18,6 +20,8 @@ export const appStateHint = R.pathEq(["appState", "hint"], false);
 export const errorState = R.path(["appState", "hasError"]);
 export const errorMessage = R.path(["appState", "errorMessage"]);
 export const lang = R.path(["appState", "lang"]);
+export const lastSimplelogTS = R.pathOr(MINTIME, ["appState", "lastTS"]);
+export const voiceEnable = R.pathOr(true, ["appState", "voiceEnable"]);
 // get auth.text
 export const auth = R.prop("auth");
 export const authText = R.path(["auth", "text"]);

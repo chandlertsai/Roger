@@ -1,7 +1,7 @@
 // @flow
 import React, { useState, useEffect } from "react";
 
-import { usePollingAlarm, usePollingNormalDevice } from "apis/alarm";
+import { usePollingAlarm } from "apis/alarm";
 import { Link } from "react-router-dom";
 import {
   AckAlarmCard,
@@ -15,18 +15,19 @@ import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
 import { useTranslation } from "react-i18next";
 
+// for testing
+import { useDispatch } from "react-redux";
+import { setSimplelogLastTS } from "actions/appState";
+import { MINTIME } from "reducers/storeUtils";
+
 export default () => {
   const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm(
     {
       interval: 1000,
     },
-    "message"
+    "message",
+    true
   );
-  const { t } = useTranslation();
-
-  const [currentRow, setCurrentRow] = useState({});
-  const [tableFilter, setTableFilter] = useState("alarm");
-  const [showAlarmControl, setShowAlarmControl] = useState(false);
 
   useEffect(() => {
     startPolling();
@@ -35,6 +36,12 @@ export default () => {
       stopPolling();
     };
   }, []);
+
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [currentRow, setCurrentRow] = useState({});
+  const [tableFilter, setTableFilter] = useState("alarm");
+  const [showAlarmControl, setShowAlarmControl] = useState(false);
 
   const handleRowClick = (record) => {
     setShowAlarmControl(true);
@@ -61,37 +68,11 @@ export default () => {
           onClose={closeAlarmControlPanel}
         />
       </Drawer>
-      {/* <Row gutter={[8, 8]}>
-        <Col span={12}>
-          <AlarmCard
-            alarms={alarms}
-            isMessage={true}
-            onClick={() => setTableFilter("alarm")}
-          />
-        </Col>
-
-        <Col span={12}>
-          <AckAlarmCard
-            alarms={alarms}
-            isMessage={true}
-            onClick={() => setTableFilter("ack")}
-          />
-        </Col>
-      </Row> */}
-
-      {/* <Row className="mt-3">
-        <Col span={18}>
-          <Radio.Group
-            onChange={(e) => setTableFilter(e.target.value)}
-            value={tableFilter}
-          >
-            <Radio value="">ALL</Radio>
-            <Radio value="alarm">Alarm</Radio>
-            <Radio value="ack">Ack</Radio>
-            <Radio value="close">Close</Radio>
-          </Radio.Group>
-        </Col>
-      </Row> */}
+      <Row>
+        <Button onClick={() => dispatch(setSimplelogLastTS(MINTIME))}>
+          Reset ts
+        </Button>
+      </Row>
       <Row>
         <Col span={24}>
           <CurrentSimpleLogTable
@@ -103,10 +84,7 @@ export default () => {
       </Row>
       <Row>
         <Col span={24}>
-          <AlarmVoice
-            title={t("simplelog.voiceTitle")}
-            currentAlarms={R.filter(R.propEq("state", "alarm"), alarms)}
-          />
+          <AlarmVoice title={t("simplelog.voiceTitle")} />
         </Col>
       </Row>
     </div>

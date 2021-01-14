@@ -3,9 +3,13 @@ import React, { useState, useEffect, useRef, useReducer } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import R from "ramda";
 import { Divider } from "antd";
+import { useFetchSimplelogs } from "apis/alarm";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { voiceEnable } from "reducers/storeUtils";
 type tProps = {
   currentAlarms: mixed,
+  enable: boolean,
 };
 
 function useInterval(callback, delay) {
@@ -64,18 +68,19 @@ const voiceQueueReducer = (state, act) => {
 };
 
 const alarmVoice = (props: tProps) => {
-  const { currentAlarms } = props;
+  const { currentAlarms = [] } = props;
 
   const [blackList, dispatchBlackList] = useReducer(blackListReducer, []);
   const [voiceQueue, dispatchVoiceQueue] = useReducer(voiceQueueReducer, []);
   const [onVoice, setOnVoice] = useState(false);
   const [currentVoiceMessage, setCurrentVoiceMessage] = useState("");
-
+  const enable = useSelector(voiceEnable);
+  const [fetchSimplelogs, simplelogs] = useFetchSimplelogs();
   const { t } = useTranslation();
 
   const title = props.title || t("alarm.alarmVoiceTitle");
   // Input Alarm changed
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const inputAlarm = R.filter((i) => !R.any(eqByKey(i), blackList))(
       currentAlarms
     );
@@ -85,14 +90,28 @@ const alarmVoice = (props: tProps) => {
     });
   }, [currentAlarms]);
 
+  // Interval
   useInterval(() => {
-    // count down black list interval
+    // count down
     dispatchBlackList({
       type: "COUNTDOWN",
     });
 
+    // Insert simplelogs into queue's head
+    if (simplelogs.length > 0) {
+      console.log("New message : ", simplelogs.length);
+      const isVoice = (i) => R.propOr(false, "enableVoice", i) === true;
+      const voiceSimplelogs = R.filter(isVoice, simplelogs);
+      console.log("logs need voice ", voiceSimplelogs);
+      dispatchVoiceQueue({ type: "ADD", payload: voiceSimplelogs });
+    }
+
+    // fetch simplelogs
+    fetchSimplelogs();
+
     if (!onVoice) {
       var alarm = R.head(voiceQueue);
+
       if (alarm && alarm.enableVoice) {
         dispatchVoiceQueue({
           type: "TAIL",
@@ -101,24 +120,30 @@ const alarmVoice = (props: tProps) => {
           type: "ADD",
           payload: alarm,
         });
+        // count down black list interval
+        if (!enable) return;
         const msg = "ip " + alarm.ip + " " + alarm.message;
         setCurrentVoiceMessage(msg);
         var words = new SpeechSynthesisUtterance(msg);
         words.addEventListener("start", () => setOnVoice(true));
         words.addEventListener("end", () => setOnVoice(false));
+
         window.speechSynthesis.speak(words);
       }
     }
   }, 1000);
 
   return (
-    // <div className="card text-white bg-danger">
-    //   <div className="card-body">
-    //     <h3 className="text-white">{title}</h3>
-    //     <div className="card-text">{currentVoiceMessage}</div>
-    //   </div>
-    // </div>
-    <Divider />
+    <div className="card text-white bg-danger">
+      <div className="card-body">
+        <h3 className="text-white">{title}</h3>
+
+        <p> enable : {enable ? "true" : "false"}</p>
+
+        <div className="card-text">{JSON.stringify(voiceQueue, null, 2)}</div>
+      </div>
+      <Divider />
+    </div>
   );
 };
 

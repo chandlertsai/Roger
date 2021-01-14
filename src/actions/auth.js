@@ -20,12 +20,10 @@ export function loginUser(auth: {
 }): ThunkAction {
   return (dispatch: Function) => {
     dispatch(setLoading(true));
-    console.log("loginUser 1", auth);
     axios
       .post("/api/login", auth)
       .then((res) => {
         const { data } = res;
-        console.log("loginUser 2");
         dispatch(setLoading(false));
 
         const login = R.ifElse(
@@ -38,7 +36,6 @@ export function loginUser(auth: {
         login(data);
       })
       .catch((err) => {
-        console.log("loginUser err", err);
         dispatch(setLoading(false));
         dispatch(setError(true, err.message));
       });
