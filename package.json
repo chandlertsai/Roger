@@ -60,6 +60,7 @@
     "qs": "^6.9.3",
     "ramda": "^0.26.1",
     "react-chartjs-2": "^2.8.0",
+    "react-csv": "^2.0.3",
     "react-hook-form": "^5.0.2",
     "react-i18next": "^11.2.7",
     "react-redux": "^7.1.1",

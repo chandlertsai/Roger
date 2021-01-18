@@ -197,7 +197,8 @@
     "ackDeviceCount": "維修中裝置",
     "normalDeviceCountContext": "正常裝置總數: ",
     "alarmDeviceCountCoontext": "發生警報裝置總數: ",
-    "ackDeviceCountContext": "維修中裝置總數: "
+    "ackDeviceCountContext": "維修中裝置總數: ",
+    "enableVoice":"語音"
   },
   "inputPermissionName": "請輸入新的權限名稱...",
   "userPermission": {
@@ -231,7 +232,8 @@
   },
   "logTable": {
     "rawData": "原始資料",
-    "ts": "記錄時間"
+    "ts": "記錄時間",
+     "exportCsv":"匯出 CSV"
   },
   "menu": {
     "dashboard": "Dashboard",

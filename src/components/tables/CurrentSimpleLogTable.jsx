@@ -42,6 +42,7 @@ const currentSimplelogTable = (props) => {
       key: "lastAlarmTS",
       render: renderTimeCell,
       sorter: (a, b) => dateCompare(a.lastAlarmTS, b.lastAlarmTS),
+      defaultSortOrder: "descend",
     },
   ];
 

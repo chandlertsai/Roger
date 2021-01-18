@@ -197,7 +197,8 @@
     "ackDeviceCount": "Devices are acknowledged",
     "normalDeviceCountContext": "Total normal devices: ",
     "alarmDeviceCountContext": "Total devices have alarm: ",
-    "ackDeviceCountContext": "Total devices are acknowledged: "
+    "ackDeviceCountContext": "Total devices are acknowledged: ",
+    "enableVoice":"Voice"
   },
   "inputPermissionName": "Please input permission name here...",
   "userPermission": {
@@ -231,7 +232,8 @@
   },
   "logTable": {
     "rawData": "Raw Data",
-    "ts": "Time"
+    "ts": "Time",
+    "exportCsv":"Export CSV"
   },
   "menu": {
     "dashboard": "Dashboard",

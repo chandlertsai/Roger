@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Popover, Modal } from "antd";
+import { Table, Drawer, Tag, Popover, Modal, Switch } from "antd";
 import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import { useLicense } from "apis/license";
@@ -60,7 +60,6 @@ const devicesTable = (props: Props) => {
   const onSubmit = (device) => {
     update(device);
     setShowUserForm(false);
-    console.log(device);
   };
 
   const rowSelection = {
@@ -151,7 +150,26 @@ const devicesTable = (props: Props) => {
         );
       },
     },
-
+    {
+      title: t("device.enableVoice"),
+      dataIndex: "enableVoice",
+      key: "enableVoice",
+      render: (text, record, index) => {
+        //<p>{JSON.stringify(record, null, 2)}</p>,
+        console.log("render switch column ", index);
+        const voiceEnable = R.propOr(false, "enableVoice", record);
+        return (
+          <Switch
+            checked={voiceEnable}
+            onChange={(checked) => {
+              const device = R.assoc("enableVoice", checked, record);
+              console.log("update ", device);
+              update(device);
+            }}
+          />
+        );
+      },
+    },
     {
       title: "Action",
       key: "action",

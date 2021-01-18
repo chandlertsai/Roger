@@ -103,7 +103,10 @@ const alarmVoice = (props: tProps) => {
       const isVoice = (i) => R.propOr(false, "enableVoice", i) === true;
       const voiceSimplelogs = R.filter(isVoice, simplelogs);
       console.log("logs need voice ", voiceSimplelogs);
-      dispatchVoiceQueue({ type: "ADD", payload: voiceSimplelogs });
+      dispatchVoiceQueue({
+        type: "ADD",
+        payload: voiceSimplelogs, // R.map((n) => (n.device.enableVoice = true), voiceSimplelogs),
+      });
     }
 
     // fetch simplelogs
@@ -112,7 +115,12 @@ const alarmVoice = (props: tProps) => {
     if (!onVoice) {
       var alarm = R.head(voiceQueue);
 
-      if (alarm && alarm.enableVoice) {
+      let deviceVoiceEnable = false;
+      if (R.hasPath(["device", "voiceEnable"], alarm || {})) {
+        deviceVoiceEnable = R.pathOr(false, ["device", "voiceEnable"], alarm);
+      }
+
+      if (alarm && alarm.enableVoice && deviceVoiceEnable) {
         dispatchVoiceQueue({
           type: "TAIL",
         });
@@ -139,8 +147,14 @@ const alarmVoice = (props: tProps) => {
         <h3 className="text-white">{title}</h3>
 
         <p> enable : {enable ? "true" : "false"}</p>
-
-        <div className="card-text">{JSON.stringify(voiceQueue, null, 2)}</div>
+        <p> queue length : {voiceQueue.lentgh}</p>
+        <div className="card-text">
+          {JSON.stringify(
+            R.pick(["name", "ip", "message"], voiceQueue),
+            null,
+            2
+          )}
+        </div>
       </div>
       <Divider />
     </div>

@@ -86,6 +86,7 @@ export const useFetch = (
   const updateUrl = "/apis/v1/update/" + collection;
   const put = (url) => (body) => {
     dispatch(setLoading(true));
+    delete body._id;
     axios
       .put(url, body)
       .then((res) => {
