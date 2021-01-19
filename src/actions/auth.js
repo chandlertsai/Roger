@@ -4,6 +4,7 @@ import { setLoading, setError } from "actions/appState";
 import qs from "qs";
 import axios from "axios";
 import history from "routers/history";
+import { message } from "antd";
 import type { ThunkAction } from "apis/types";
 
 // login action {type, user: from server}
@@ -81,7 +82,7 @@ export const updatePasssword = (password: {
       },
     })
       .then((res) => {
-        dispatch(setError(true, "Done"));
+        message.info("OK");
         dispatch(setLoading(false));
       })
 

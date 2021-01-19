@@ -22,7 +22,7 @@
   "password": "Password",
   "passwordTip": "Password Tip",
   "permission": "Permission",
-
+  "enable":"Enable",
   "systemInformation": "Informations",
   "systemSettings": "Settings",
   "selectLicenseFile": "Select license file",

@@ -1,7 +1,6 @@
 // @flow
 import React, { useState, useEffect } from "react";
 
-import { usePollingAlarm, usePollingNormalDevice } from "apis/alarm";
 import { Link } from "react-router-dom";
 import {
   AckAlarmCard,
@@ -9,29 +8,17 @@ import {
   NormalDeviceCard,
 } from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
-import AlarmVoice from "components/widgets/AlarmVoice";
 import CurrentAlarmTable from "components/tables/CurrentAlarmTable";
 import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
 import { useTranslation } from "react-i18next";
 
-export default () => {
-  const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm({
-    interval: 1000,
-  });
-
+export default (props) => {
+  const { alarms = [] } = props;
   const [currentRow, setCurrentRow] = useState({});
   const [tableFilter, setTableFilter] = useState("alarm");
   const [showAlarmControl, setShowAlarmControl] = useState(false);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    startPolling();
-
-    return () => {
-      stopPolling();
-    };
-  }, []);
 
   const handleRowClick = (record) => {
     setShowAlarmControl(true);
@@ -91,14 +78,6 @@ export default () => {
             alarms={alarms}
             onRowClick={handleRowClick}
             filter={tableFilter}
-          />
-        </Col>
-      </Row>
-      <Row>
-
-        <Col span={24}>
-          <AlarmVoice
-            currentAlarms={R.filter(R.propEq("state", "alarm"), alarms)}
           />
         </Col>
       </Row>

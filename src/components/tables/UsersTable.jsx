@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import R from "ramda";
 import { useDispatch } from "react-redux";
-import { Table, Drawer, Tag, message, Modal } from "antd";
+import { Table, Drawer, Tag, message, Modal, Switch } from "antd";
 import { useTranslation } from "react-i18next";
 import { useFetch } from "apis/crud";
 import { usePermission } from "apis/auth";
@@ -118,6 +118,23 @@ const usersTable = () => {
           </Tag>
         </span>
       ),
+    },
+    {
+      title: t("enable"),
+      dataIndex: "enable",
+      key: "enable",
+      render: (text, record, index) => {
+        const enable = R.propOr(false, "enable", record);
+        return (
+          <Switch
+            checked={enable}
+            onChange={(checked) => {
+              const device = R.assoc("enable", checked, record);
+              update(device);
+            }}
+          />
+        );
+      },
     },
     {
       title: "Action",

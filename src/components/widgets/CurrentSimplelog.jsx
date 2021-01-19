@@ -9,7 +9,7 @@ import {
   NormalDeviceCard,
 } from "components/pureComponents/AlarmCard";
 import AlarmControlPanel from "components/widgets/AlarmControlPanel";
-import AlarmVoice from "components/widgets/AlarmVoice";
+
 import CurrentSimpleLogTable from "components/tables/CurrentSimpleLogTable";
 import R from "ramda";
 import { Button, Row, Col, Drawer, Radio } from "antd";
@@ -20,22 +20,8 @@ import { useDispatch } from "react-redux";
 import { setSimplelogLastTS } from "actions/appState";
 import { MINTIME } from "reducers/storeUtils";
 
-export default () => {
-  const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm(
-    {
-      interval: 1000,
-    },
-    "message",
-    true
-  );
-
-  useEffect(() => {
-    startPolling();
-
-    return () => {
-      stopPolling();
-    };
-  }, []);
+export default (props) => {
+  const { alarms = [] } = props;
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -80,11 +66,6 @@ export default () => {
             onRowClick={handleRowClick}
             filter={tableFilter}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={24}>
-          <AlarmVoice title={t("simplelog.voiceTitle")} />
         </Col>
       </Row>
     </div>

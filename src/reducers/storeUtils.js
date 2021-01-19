@@ -21,7 +21,7 @@ export const errorState = R.path(["appState", "hasError"]);
 export const errorMessage = R.path(["appState", "errorMessage"]);
 export const lang = R.path(["appState", "lang"]);
 export const lastSimplelogTS = R.pathOr(MINTIME, ["appState", "lastTS"]);
-export const voiceEnable = R.pathOr(true, ["appState", "voiceEnable"]);
+
 // get auth.text
 export const auth = R.prop("auth");
 export const authText = R.path(["auth", "text"]);

@@ -22,7 +22,7 @@
   "password": "密碼",
   "passwordTip": "密碼提示",
   "permission": "權限",
-
+  "enable":"Enable",
   "systemInformation": "系統資訊",
   "systemSettings": "系統設定",
   "selectLicenseFile": "選擇License檔案",
