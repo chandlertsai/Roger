@@ -57,22 +57,22 @@ const abilityField = (props: Props) => {
       label: t("devicePermission.vendor"),
       value: PermissionGroup.device.vendor,
     },
-    {
-      label: t("devicePermission.monitor"),
-      value: PermissionGroup.device.monitor,
-    },
-    {
-      label: t("devicePermission.errorLog"),
-      value: PermissionGroup.device.errorLog,
-    },
+    // {
+    //   label: t("devicePermission.monitor"),
+    //   value: PermissionGroup.device.monitor,
+    // },
+    // {
+    //   label: t("devicePermission.errorLog"),
+    //   value: PermissionGroup.device.errorLog,
+    // },
     {
       label: t("devicePermission.maintainLog"),
       value: PermissionGroup.device.maintainLog,
     },
-    {
-      label: t("devicePermission.errorReport"),
-      value: PermissionGroup.device.errorReport,
-    },
+    // {
+    //   label: t("devicePermission.errorReport"),
+    //   value: PermissionGroup.device.errorReport,
+    // },
     {
       label: t("devicePermission.alarm"),
       value: PermissionGroup.device.alarm,
@@ -137,13 +137,13 @@ const abilityField = (props: Props) => {
               onChange={checkChanged("user")}
             />
           </Card>
-          <Card type="inner" title={t("alarmPermission.title")}>
+          {/* <Card type="inner" title={t("alarmPermission.title")}>
             <Checkbox.Group
               options={optionsWarnning}
               defaultValue={value}
               onChange={checkChanged("alarm")}
             />
-          </Card>
+          </Card> */}
           <Card type="inner" title={t("devicePermission.title")}>
             <Checkbox.Group
               options={optionsDevice}
