@@ -33,7 +33,8 @@ export const useSendPasswordEmail = (collection: string): [mixed, Function] => {
  * @returns [collectionContext, remove, update, query]
  */
 export const useFetch = (
-  collection: string
+  collection: string,
+  opt = {}
 ): [mixed, Function, Function, Function] => {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export const useFetch = (
   useEffect(() => {
     dispatch(setLoading(true));
     axios
-      .get(readUrl)
+      .get(readUrl, opt)
       .then((res) => {
         setData(res.data);
       })

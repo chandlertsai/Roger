@@ -6,10 +6,13 @@ import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Popover, Modal, Switch } from "antd";
+import { Table, Drawer, Tag, Popover, Modal, Switch, Button } from "antd";
 import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
+import AlarmSelectTable from "components/tables/AlarmSelectTable";
 import { useLicense } from "apis/license";
+import { useSelector } from "react-redux";
+import { loadingState } from "reducers/storeUtils";
 import qs from "qs";
 import R from "ramda";
 import axios from "axios";
@@ -37,16 +40,19 @@ const devicesTable = (props: Props) => {
   const [tableData, remove, update, query] = useFetch("devices");
   const [isShowUserForm, setShowUserForm] = useState(false);
   const [editingDevice, setEditingDevice] = useState({});
+  const [showAlarmSelectTable, setShowAlarmSelectTable] = useState(false);
+
   const [deleteWarning, setDeleteWarning] = useState({
     show: false,
     groups: [],
   });
+  const [selectedAlarms, setSelectdAlarms] = useState([]);
   const license = useLicense();
   const { t } = useTranslation();
   const [licenseInfo, setLicenseInfo] = useState("");
   const usersNameList = useNameList("users");
   const [vendorList, rv, uv] = useFetch("vendors");
-
+  const confirmLoading = useSelector(loadingState);
   useEffect(() => {
     const length = tableData ? tableData.length : 0;
     setLicenseInfo(t("device.avialable") + length + "/" + license.permitCount);
@@ -100,6 +106,22 @@ const devicesTable = (props: Props) => {
 
   const handleModalOK = (e) => {
     setDeleteWarning({ groups: [], show: false });
+  };
+
+  const handleSelectModalOk = () => {
+    setShowAlarmSelectTable(false);
+    const dev = R.assoc("alarms", selectedAlarms, editingDevice);
+    update(dev);
+    setSelectdAlarms([]);
+  };
+
+  const handleSelectModalCancel = () => {
+    setShowAlarmSelectTable(false);
+    setSelectdAlarms([]);
+  };
+
+  const onAlarmSelectChanged = (dev, alarms) => {
+    setSelectdAlarms(alarms);
   };
 
   const deviceType = {
@@ -156,7 +178,6 @@ const devicesTable = (props: Props) => {
       key: "enableVoice",
       render: (text, record, index) => {
         //<p>{JSON.stringify(record, null, 2)}</p>,
-        console.log("render switch column ", index);
         const voiceEnable = R.propOr(false, "enableVoice", record);
         return (
           <Switch
@@ -167,6 +188,28 @@ const devicesTable = (props: Props) => {
               update(device);
             }}
           />
+        );
+      },
+    },
+    {
+      title: t("alarm.name"),
+      dataIndex: "alarms",
+      key: "alarms",
+      render: (text, record, index) => {
+        const alarms = record.alarms || [];
+        return (
+          <div className="navbar">
+            <Button
+              size="small"
+              type="primary"
+              onClick={() => {
+                setEditingDevice(record);
+                setShowAlarmSelectTable(true);
+              }}
+            >
+              {alarms.length}
+            </Button>
+          </div>
         );
       },
     },
@@ -185,6 +228,23 @@ const devicesTable = (props: Props) => {
 
   return (
     <div>
+      <Modal
+        title={t("device.selectAlarm")}
+        visible={showAlarmSelectTable}
+        confirmLoading={confirmLoading}
+        onOk={handleSelectModalOk}
+        onCancel={handleSelectModalCancel}
+        footer={[
+          <Button key="ok" onClick={handleSelectModalOk}>
+            {t("ok")}
+          </Button>,
+        ]}
+      >
+        <AlarmSelectTable
+          onChanged={onAlarmSelectChanged}
+          device={editingDevice}
+        />
+      </Modal>
       <TableToolbar
         title={t("device.tableTitle")}
         info={licenseInfo}

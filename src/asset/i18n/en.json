@@ -198,7 +198,8 @@
     "normalDeviceCountContext": "Total normal devices: ",
     "alarmDeviceCountContext": "Total devices have alarm: ",
     "ackDeviceCountContext": "Total devices are acknowledged: ",
-    "enableVoice":"Voice"
+    "enableVoice":"Voice",
+    "selectAlarm":"Binding alarms"
   },
   "inputPermissionName": "Please input permission name here...",
   "userPermission": {

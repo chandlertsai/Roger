@@ -129,8 +129,8 @@ const usersTable = () => {
           <Switch
             checked={enable}
             onChange={(checked) => {
-              const device = R.assoc("enable", checked, record);
-              update(device);
+              const user = R.assoc("enable", checked, record);
+              update(user);
             }}
           />
         );

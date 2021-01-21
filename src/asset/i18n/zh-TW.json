@@ -198,7 +198,8 @@
     "normalDeviceCountContext": "正常裝置總數: ",
     "alarmDeviceCountCoontext": "發生警報裝置總數: ",
     "ackDeviceCountContext": "維修中裝置總數: ",
-    "enableVoice":"語音"
+    "enableVoice":"語音",
+    "selectAlarm":"綁定報警"
   },
   "inputPermissionName": "請輸入新的權限名稱...",
   "userPermission": {

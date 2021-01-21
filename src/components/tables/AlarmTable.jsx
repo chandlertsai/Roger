@@ -11,18 +11,18 @@ import TableToolbar from "components/pureComponents/TableToolbar";
 import { useTranslation } from "react-i18next";
 import R from "ramda";
 
-const alarmTable = props => {
+const alarmTable = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update, query] = useFetch("alarms");
   const [isShowAlarmForm, setShowAlarmForm] = useState(false);
   const [editingAlarm, setEditingAlarm] = useState({});
   const { t } = useTranslation();
-  const onEditing = record => {
+  const onEditing = (record) => {
     setEditingAlarm(record);
     setShowAlarmForm(true);
   };
 
-  const onSubmit = vendor => {
+  const onSubmit = (vendor) => {
     const newData = R.omit(["_id"], vendor);
     update(newData);
     setShowAlarmForm(false);
@@ -31,7 +31,7 @@ const alarmTable = props => {
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: selectKeys => setSelectedRowKeys(selectKeys)
+    onChange: (selectKeys) => setSelectedRowKeys(selectKeys),
   };
 
   const addDefaultAlarm = () => {
@@ -43,7 +43,7 @@ const alarmTable = props => {
       pollingInterval: 10,
       triggerType: "once",
       message: "有錯誤發生",
-      conditions: []
+      conditions: [],
     });
   };
 
@@ -51,49 +51,38 @@ const alarmTable = props => {
     {
       title: t("name"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
 
     {
       title: t("alarm.source"),
       dataIndex: "source",
-      key: "source"
+      key: "source",
     },
 
     {
       title: t("alarm.pollingInterval"),
       dataIndex: "pollingInterval",
-      key: "pollingInterval"
+      key: "pollingInterval",
     },
 
     {
       title: t("alarm.message"),
       dataIndex: "message",
-      key: "message"
-    },
-    {
-      title: t("alarm.triggerDevState"),
-      dataIndex: "triggerDeviceStatus",
-      key: "triggerDeviceStatus"
-    },
-
-    {
-      title: t("alarm.releaseDevState"),
-      dataIndex: "releaseDeviceStatus",
-      key: "releaseDeviceStatus"
+      key: "message",
     },
 
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      onCell: record => ({
-        style: { paddingTop: 0, paddingBottom: 0 }
+      onCell: (record) => ({
+        style: { paddingTop: 0, paddingBottom: 0 },
       }),
       render: (text, record) => (
         <EditOperationCell handlerSetEditing={onEditing} record={record} />
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -104,12 +93,12 @@ const alarmTable = props => {
         onSearch={query}
         handlers={{
           addItem: addDefaultAlarm,
-          removeSelectedItems: remove
+          removeSelectedItems: remove,
           // onSearch: searchUser
         }}
         componentsText={{
           add: t("alarm.add"),
-          remove: t("alarm.removeSelected")
+          remove: t("alarm.removeSelected"),
         }}
       />
 
