@@ -15,7 +15,8 @@ import { Button, Row, Col, Drawer, Radio } from "antd";
 
 import { usePollingDevice } from "apis/device";
 import { useLicense } from "apis/license";
-
+import AlarmVoice from "components/widgets/AlarmVoice";
+import { usePollingAlarm } from "apis/alarm";
 export default () => {
   const [
     startPolling,
@@ -34,14 +35,25 @@ export default () => {
   const [totalDevices, setTotalDevices] = useState("");
   const [licenseInfo, setLicenseInfo] = useState("");
 
+  const [
+    startPollingAlarm,
+    stopPollingAlarm,
+    isPollingAlarm,
+    alarms,
+  ] = usePollingAlarm({
+    interval: 1000,
+  });
+
   useEffect(() => {
     startPolling();
+    startPollingAlarm();
     // axios
     //   .get("/apis/v1/count/devices")
     //   .then(R.pipe(R.prop("data"), R.prop("total"), setTotalDevices));
 
     return () => {
       stopPolling();
+      stopPollingAlarm();
     };
   }, []);
 
@@ -112,6 +124,7 @@ export default () => {
           />
         </Col>
       </Row>
+      <AlarmVoice alarms={alarms} />
     </div>
   );
 };
