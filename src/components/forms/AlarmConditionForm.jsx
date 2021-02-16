@@ -57,7 +57,7 @@ export default (props) => {
         conditionsAciton.push({
           key: uniqueKey("condition"),
 
-          input: "humidityFiled",
+          input: "humidity",
           condition: ">=",
           operator: "",
           not: false,

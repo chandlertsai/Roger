@@ -6,7 +6,10 @@ import CurrentAlarm from "components/widgets/CurrentAlarm";
 import CurrentMessage from "components/widgets/CurrentSimplelog";
 import { useTranslation } from "react-i18next";
 import { usePollingAlarm } from "apis/alarm";
+import R from "ramda";
 import AlarmVoice from "components/widgets/AlarmVoice";
+const isAlarm = R.propEq("state", "alarm");
+const filterAlarm = R.filter(isAlarm);
 const dashBoard = (props) => {
   const [startPolling, stopPolling, isPolling, alarms] = usePollingAlarm({
     interval: 1000,
@@ -21,7 +24,7 @@ const dashBoard = (props) => {
   return (
     <div>
       <CurrentAlarm alarms={alarms} />
-      <AlarmVoice alarms={alarms} />
+      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };
@@ -88,7 +91,7 @@ export const TotalDashboard = () => {
         {t("simplelog.name")}
       </h2>
       <CurrentMessage alarms={messages} />
-      <AlarmVoice alarms={alarms} />
+      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };
