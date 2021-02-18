@@ -17,6 +17,10 @@ import { usePollingDevice } from "apis/device";
 import { useLicense } from "apis/license";
 import AlarmVoice from "components/widgets/AlarmVoice";
 import { usePollingAlarm } from "apis/alarm";
+
+const isAlarm = R.propEq("state", "alarm");
+const filterAlarm = R.filter(isAlarm);
+
 export default () => {
   const [
     startPolling,
@@ -124,7 +128,7 @@ export default () => {
           />
         </Col>
       </Row>
-      <AlarmVoice alarms={alarms} />
+      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };
