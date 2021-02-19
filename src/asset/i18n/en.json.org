@@ -22,7 +22,7 @@
   "password": "Password",
   "passwordTip": "Password Tip",
   "permission": "Permission",
-  "enable":"Enable",
+
   "systemInformation": "Informations",
   "systemSettings": "Settings",
   "selectLicenseFile": "Select license file",
@@ -33,9 +33,7 @@
   "settings": {
     "abuseTitle": "Abuse IP",
     "abuseConfidenceScore": "Abuse Confidence Score",
-    "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP",
-    "abuseIPVoice":"Enable abuse message voice",
-    "rawTextVoice":"Enable raw text message voice"
+    "abuseScoreNote": "Trigger alarm if score is bigger than this value, if value is 0 system will not check abuse IP"
   },
   "error": {
     "ipFormat": "Wrong IP address format",
@@ -108,13 +106,8 @@
     "releaseCondition": "Release condition",
     "conditionHas": "Has",
     "conditionHasnot": "Hasn't",
-    "conditionExist":"Exist",
     "conditionLimitWarnning": "Conditions couldn't over 5 ",
     "conditionInputWarnning": "Input field means JSON property name.",
-    "conditionInsertCameraSimplelog": "Insert camera message",
-    "conditionInsertTemperatureSimplelog": "Insert temperature message",
-    "conditionInsertRawTextSimplelog": "Insert raw text message",
-    "addDefaultSimplelog":"Add default message",
     "add": "Add alarm",
     "removeSelected": "Remove selected alarms",
     "edit": "Edit alarm",
@@ -197,9 +190,7 @@
     "ackDeviceCount": "Devices are acknowledged",
     "normalDeviceCountContext": "Total normal devices: ",
     "alarmDeviceCountContext": "Total devices have alarm: ",
-    "ackDeviceCountContext": "Total devices are acknowledged: ",
-    "enableVoice":"Voice",
-    "selectAlarm":"Binding alarms"
+    "ackDeviceCountContext": "Total devices are acknowledged: "
   },
   "inputPermissionName": "Please input permission name here...",
   "userPermission": {
@@ -233,8 +224,7 @@
   },
   "logTable": {
     "rawData": "Raw Data",
-    "ts": "Time",
-    "exportCsv":"Export CSV"
+    "ts": "Time"
   },
   "menu": {
     "dashboard": "Dashboard",
@@ -244,11 +234,11 @@
     "alarmsSetting": "Alarm Setting",
     "miscSetting": "Misc Setting",
     "systemManagement": "System Management",
-    "summary": "Summary",
+    "summary": "Summery",
     "device": "Device",
     "message": "Message",
     "alarm": "Alarm",
-    "deviceSummary": "Device Summary",
+    "deviceSummary": "Device Summery",
     "deviceDetail": "Device Detail",
     "usersSetting": "User Setting",
     "groupSetting": "Group Setting",

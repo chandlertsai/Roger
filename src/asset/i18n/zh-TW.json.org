@@ -22,7 +22,7 @@
   "password": "密碼",
   "passwordTip": "密碼提示",
   "permission": "權限",
-  "enable":"Enable",
+
   "systemInformation": "系統資訊",
   "systemSettings": "系統設定",
   "selectLicenseFile": "選擇License檔案",
@@ -33,9 +33,7 @@
   "settings": {
     "abuseTitle": "黑名單設定",
     "abuseConfidenceScore": "威脅分數",
-    "abuseScoreNote": "查詢分數大於等於設定值時發送警報，設定值為0時，代表不檢查分數",
-    "abuseIPVoice":"黑名單語音開關",
-    "rawTextVoice":"純文字資料語音開關"
+    "abuseScoreNote": "查詢分數大於等於設定值時發送警報，設定值為0時，代表不檢查分數"
   },
   "error": {
     "ipFormat": "錯誤的IP格式",
@@ -108,13 +106,8 @@
     "releaseCondition": "解除條件",
     "conditionHas": "包含",
     "conditionHasnot": "不包含",
-    "conditionExist":"存在",
     "conditionLimitWarnning": "觸發條件最多5個",
     "conditionInputWarnning": "輸入欄位是JSON欄位名稱，如希望處理cacti欄位action就輸入action(請注意大小寫)",
-     "conditionInsertCameraSimplelog": "增加camera條件",
-    "conditionInsertTemperatureSimplelog": "增加溫濕度條件",
-    "conditionInsertRawTextSimplelog": "增加純字串條件",
-    "addDefaultSimplelog":"新增預設訊息",
     "add": "新增",
     "removeSelected": "移除選取項目",
     "edit": "編輯報警",
@@ -197,9 +190,7 @@
     "ackDeviceCount": "維修中裝置",
     "normalDeviceCountContext": "正常裝置總數: ",
     "alarmDeviceCountCoontext": "發生警報裝置總數: ",
-    "ackDeviceCountContext": "維修中裝置總數: ",
-    "enableVoice":"語音",
-    "selectAlarm":"綁定報警"
+    "ackDeviceCountContext": "維修中裝置總數: "
   },
   "inputPermissionName": "請輸入新的權限名稱...",
   "userPermission": {
@@ -233,29 +224,28 @@
   },
   "logTable": {
     "rawData": "原始資料",
-    "ts": "記錄時間",
-     "exportCsv":"匯出 CSV"
+    "ts": "記錄時間"
   },
   "menu": {
-    "dashboard": "儀表板",
-    "report": "報告",
-    "deviceSetting": "裝置設定",
-    "userSetting": "使用者設定",
-    "alarmsSetting": "警報設定",
-    "miscSetting": "雜項設定",
-    "systemManagement": "系統管理",
-    "summary": "摘要",
-    "device": "裝置",
-    "message": "訊息",
-    "alarm": "警報",
-    "deviceSummary": "裝置摘要",
-    "deviceDetail": "裝置細節",
-    "usersSetting": "使用者設定",
-    "groupSetting": "群組設定",
-    "permissionSetting": "權限設定",
-    "devicesSetting": "裝置設定",
-    "vendorsSetting": "廠商設定",
-    "uploadLicence": "上傳憑證",
-    "license": "憑證"
+    "dashboard": "Dashboard",
+    "report": "Report",
+    "deviceSetting": "Device Setting",
+    "userSetting": "User Setting",
+    "alarmsSetting": "Alarm Setting",
+    "miscSetting": "Misc Setting",
+    "systemManagement": "System Management",
+    "summary": "Summery",
+    "device": "Device",
+    "message": "Message",
+    "alarm": "Alarm",
+    "deviceSummary": "Device Summery",
+    "deviceDetail": "Device Detail",
+    "usersSetting": "User Setting",
+    "groupSetting": "Group Setting",
+    "permissionSetting": "Permission Setting",
+    "devicesSetting": "Device Setting",
+    "vendorsSetting": "Vendor Setting",
+    "uploadLicence": "Upload License",
+    "license": "License"
   }
 }
