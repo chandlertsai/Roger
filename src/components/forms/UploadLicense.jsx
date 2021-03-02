@@ -4,23 +4,24 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setError } from "actions/appState";
+import { message } from "antd";
 import { useTranslation } from "react-i18next";
 const uploadLicense = () => {
   const { t } = useTranslation();
   const { register, handleSubmit, watch, errors } = useForm();
   const dispatch = useDispatch();
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     var formData = new FormData();
     const file = data.licenseFile && data.licenseFile && data.licenseFile[0];
     formData.append("licenseFile", file);
     axios
       .post("/api/upload", formData, {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(res => console.log(res.data))
-      .catch(err => dispatch(setError(true, err)));
+      .then((res) => message.info(res.data))
+      .catch((err) => dispatch(setError(true, err)));
   };
 
   return (
