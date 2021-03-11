@@ -25,12 +25,12 @@ function useDebounce(value, delay) {
 function ISODateToString(text) {
   if (!text) return "";
   let date = new Date(text);
-  let year = date.getFullYear() || "";
-  let month = date.getMonth() + 1 || "";
-  let day = date.getDate() || "";
-  let hour = date.getHours() || "";
-  let min = date.getMinutes() || "";
-  let sec = date.getSeconds() || "";
+  let year = date.getFullYear() || "0000";
+  let month = date.getMonth() + 1 || "00";
+  let day = date.getDate() || "00";
+  let hour = date.getHours() || "00";
+  let min = date.getMinutes() || "00";
+  let sec = date.getSeconds() || "00";
   return (
     "" + year + "/" + month + "/" + day + "-" + hour + ":" + min + ":" + sec
   );
