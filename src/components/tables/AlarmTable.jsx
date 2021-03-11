@@ -4,22 +4,59 @@ import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
-import { Table, Drawer, Tag, Button } from "antd";
+import { Table, Drawer, Tag, Button, Modal } from "antd";
 import AlarmForm from "components/forms/AlarmForm";
 import AlarmConditionTable from "components/tables/AlarmConditionTable";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import { useTranslation } from "react-i18next";
+import qs from "qs";
 import R from "ramda";
-
+import axios from "axios";
 const alarmTable = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update, query] = useFetch("alarms");
   const [isShowAlarmForm, setShowAlarmForm] = useState(false);
   const [editingAlarm, setEditingAlarm] = useState({});
+  const [deleteWarning, setDeleteWarning] = useState({
+    show: false,
+    groups: [],
+  });
   const { t } = useTranslation();
   const onEditing = (record) => {
     setEditingAlarm(record);
     setShowAlarmForm(true);
+  };
+
+  const checkRemove = (body) => {
+    console.log("Remove alarm ", body);
+    axios
+      .get("/apis/v1/read/devices", {
+        params: { alarms: body },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { indices: false });
+        },
+      })
+      .then((res) => {
+        const groups = res.data || [];
+        if (groups.length > 0) {
+          console.log("Got ", groups);
+          setDeleteWarning({ show: true, groups });
+        } else {
+          console.log("RES ", res.data, body);
+          remove(body);
+        }
+      })
+
+      .catch((err) => {
+        console.log("ERRR ", err);
+        if (err.response) {
+          remove(body);
+        }
+      });
+  };
+
+  const handleModalOK = (e) => {
+    setDeleteWarning({ groups: [], show: false });
   };
 
   const onSubmit = (vendor) => {
@@ -93,7 +130,7 @@ const alarmTable = (props) => {
         onSearch={query}
         handlers={{
           addItem: addDefaultAlarm,
-          removeSelectedItems: remove,
+          removeSelectedItems: checkRemove,
           // onSearch: searchUser
         }}
         componentsText={{
@@ -113,6 +150,19 @@ const alarmTable = (props) => {
       >
         <AlarmForm doSubmit={onSubmit} alarm={editingAlarm} />
       </Drawer>
+      <Modal
+        visible={deleteWarning.show}
+        title={t("error.deleteAlarmTitle")}
+        onOk={handleModalOK}
+        onCancel={handleModalOK}
+      >
+        <p>{t("error.deleteAlarm")}</p>
+        <ul>
+          {deleteWarning.groups.map((group) => (
+            <li key={group.key}>{group.name}</li>
+          ))}
+        </ul>
+      </Modal>
       <Table
         size="small"
         rowSelection={rowSelection}

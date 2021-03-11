@@ -44,7 +44,9 @@
     "deletePermissionTitle": "Warning!! Permission used in users",
     "deletePermission": "Some users had link this permission, please set other permission to users first.",
     "deleteUserDeviceTitle": "Warning!! Groups have item",
-    "deleteUserDevice": "Some Groups had link this item, please remove item in groups first."
+    "deleteUserDevice": "Some Groups had link this item, please remove item in groups first.",
+    "deleteAlarmTitle":"Warning!! Alarm was bind with some devices",
+    "deleteAlarm":"Some device has bind with this alarm, please remove alarm in devices first."
   },
 
   "loginForm": {

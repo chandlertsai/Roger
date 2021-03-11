@@ -94,6 +94,8 @@ const devicesTable = (props: Props) => {
         const groups = res.data || [];
         if (groups.length > 0) {
           setDeleteWarning({ show: true, groups });
+        } else {
+          remove(body);
         }
       })
 
