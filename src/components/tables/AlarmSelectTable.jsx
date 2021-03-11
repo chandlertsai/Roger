@@ -16,7 +16,9 @@ const alarmSelectTable = (props) => {
   const { device, onChanged } = props;
 
   useEffect(() => {
-    setSelectedKeys(R.propOr([], "alarms", device));
+    const keys = R.propOr([], "alarms", device);
+    setSelectedKeys(keys);
+    onChanged(keys);
   }, [device]);
 
   const rowSelection = {

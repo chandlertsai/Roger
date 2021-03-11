@@ -72,7 +72,7 @@ const logTable = (props: Props) => {
 
   const sort = R.sortBy(R.prop("time"));
   useEffect(() => {
-    setTableData(sort(data));
+    setTableData(sort(data || []));
   }, [data]);
 
   const columns = [
@@ -110,7 +110,7 @@ const logTable = (props: Props) => {
           />
         </Col>
         <Col style={{ marginLeft: "8px" }}>
-          <CSVLink data={data} filename="export.csv">
+          <CSVLink data={data || []} filename="export.csv">
             Export CSV
           </CSVLink>
         </Col>
