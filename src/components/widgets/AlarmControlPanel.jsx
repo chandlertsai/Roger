@@ -69,7 +69,7 @@ const alarmControlPanel = (props) => {
     var url = "/webapi/api/closeAlarm";
 
     axios
-      .get(url, { params: { alarmKey: alarm.key } })
+      .get(url, { params: { alarmKey: alarm.key, userKey: authObj.key } })
       .then((res) => console.log(res.data));
 
     onClose();
