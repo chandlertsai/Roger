@@ -83,6 +83,8 @@ const voiceControllerReducer = (state, act) => {
     case "ADD_ALARM":
       const aq = R.unionWith(R.eqBy(compareKey), state.alarmQueue, act.payload);
       return R.assoc("alarmQueue", aq, state);
+    case "SET_ALAEM":
+      return R.assoc("alarmQueue", act.payload, state);
     case "ADD_MESSAGE":
       const mq = R.insertAll(0, act.payload, state.messageQueue);
       return R.assoc("messageQueue", mq, state);
@@ -149,9 +151,7 @@ const alarmVoice = (props: tProps) => {
 
     while (index <= voiceController.alarmQueue.length) {
       const a = voiceController.alarmQueue[index];
-      console.log("Alarm at index ", index, a);
       if (!isInBlackList(a)) {
-        console.log("no message idx ", index);
         dispatchVoice({ type: "SET_INDEX", payload: index + 1 });
         dispatchBlackList({
           type: "ADD",
@@ -173,7 +173,7 @@ const alarmVoice = (props: tProps) => {
     const voiceEnabledAlarm = R.filter(isEnableVoice, alarms);
     console.log("Add voice enabled alarm ", voiceEnabledAlarm);
     dispatchVoice({
-      type: "ADD_ALARM",
+      type: "SET_ALAEM",
       payload: voiceEnabledAlarm,
     });
   }, [alarms]);
