@@ -4,11 +4,18 @@ import axios from "axios";
 var qs = require("qs");
 const debuglog = R.tap((x) => console.log("DEBUG====> ", x));
 
-const alarmKeyList = R.map(R.pick(["key"]));
-const getAlarmkeys = R.pipe(
-  alarmKeyList,
-  R.map((v) => v.key)
-);
+// const alarmKeyList = R.map(R.pick(["key"]));
+// const getAlarmkeys = R.pipe(
+//   alarmKeyList,
+//   R.map((v) => v.key || v)
+// );
+
+function getAlarmkeys(alarms) {
+  if (!alarms) return [];
+  const alarmkeylist = alarms.map((v) => v.key || v);
+  console.log("getAlarmkeys input ", alarms, " alarmkeylist ", alarmkeylist);
+  return alarmkeylist;
+}
 
 // reducer used in reduce() to calculate elapsed times
 const calculateElapsed = (a, v) => {
@@ -150,8 +157,8 @@ function useAllDevicesSummary() {
 
       const devResult = R.map((dev) => {
         const alarms = R.propOr([], ["alarms"])(dev);
-        // console.log("dev: ", dev);
-        if (!!alarms) {
+        console.log("dev: ", dev, "alarms", alarms);
+        if (R.isEmpty(alarms)) {
           const percentageResult = {
             alarmElapse: 0 / 100,
             ackElapse: 0 / 100,
@@ -168,7 +175,7 @@ function useAllDevicesSummary() {
           };
         }
         const alarmkeys = getAlarmkeys(alarms);
-        // console.log("dev: ", dev);
+        console.log("alarmkeys: ", alarmkeys);
 
         const historyByDevice = R.filter((v) =>
           R.contains(R.prop("key", v), alarmkeys)
