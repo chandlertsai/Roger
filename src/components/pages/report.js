@@ -146,10 +146,27 @@ function useAllDevicesSummary() {
     const fetchdata = async () => {
       setFetching(true);
       let ret = await fetchAllHistory();
-      const histories = R.prop("histories")(ret);
+      const histories = R.propOr([], "histories")(ret);
 
       const devResult = R.map((dev) => {
         const alarms = R.propOr([], ["alarms"])(dev);
+        // console.log("dev: ", dev);
+        if (!!alarms) {
+          const percentageResult = {
+            alarmElapse: 0 / 100,
+            ackElapse: 0 / 100,
+            closeElapse: 0 / 100,
+            alarmTimes: 0,
+          };
+          // console.log("fineshed dev", dev);
+
+          return {
+            name: dev.name,
+            ip: dev.ip,
+            ...percentageResult,
+            key: dev.key,
+          };
+        }
         const alarmkeys = getAlarmkeys(alarms);
         // console.log("dev: ", dev);
 
@@ -158,14 +175,14 @@ function useAllDevicesSummary() {
         )(histories);
 
         const sortedHistory = R.sortBy(R.prop("index"))(historyByDevice);
-        //console.log("historyByDevice ", historyByDevice, sortedHistory);
+        // console.log("historyByDevice ", historyByDevice, sortedHistory);
 
         const results = R.map((v) => {
           const _key = R.prop("key")(v);
           let history = getHistoryByAlarm(_key)(sortedHistory);
-          //console.log("history ", history, sortedHistory);
+          // console.log("history ", history, sortedHistory);
           history = R.append({ state: "end", lastTS: Date.now() }, history);
-          //console.log("history ", history);
+          // console.log("history ", history);
           const historyResult = R.reduce(
             calculateElapsed,
             defaultHistoryResult
@@ -173,7 +190,7 @@ function useAllDevicesSummary() {
 
           return historyResult;
         }, alarms);
-        console.log("result ", results);
+        // console.log("result ", results);
 
         const sumOfResult = R.reduce(
           (a, v) => {
@@ -186,7 +203,7 @@ function useAllDevicesSummary() {
           { alarmElapse: 0, ackElapse: 0, closeElapse: 0, alarmTimes: 0 },
           results
         );
-
+        // console.log("SUM ", sumOfResult);
         const totalElapse =
           sumOfResult.alarmElapse +
           sumOfResult.ackElapse +
@@ -202,6 +219,7 @@ function useAllDevicesSummary() {
             Math.round((sumOfResult.closeElapse / totalElapse) * 10000) / 100,
           alarmTimes: sumOfResult.alarmTimes,
         };
+        console.log("fineshed dev", dev);
 
         return {
           name: dev.name,
@@ -209,7 +227,7 @@ function useAllDevicesSummary() {
           ...percentageResult,
           key: dev.key,
         };
-        //console.log("combineAlarmAndHistory", combineAlarmAndHistory);
+        console.log("combineAlarmAndHistory", combineAlarmAndHistory);
       }, R.prop("devices", ret));
 
       setFetching(false);
