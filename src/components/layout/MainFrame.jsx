@@ -91,11 +91,6 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
       key: "sidebar_system_menagement",
       items: systemManagementItems,
     },
-    {
-      name: t("menu.license"),
-      key: "sidebar_license",
-      items: licenseMenuItems,
-    },
   ];
 
   return (
