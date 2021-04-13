@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Layout } from "antd";
 import { ContentArea, Sidebar, Navbar } from "components/layout";
 import { testRoutes } from "routers/testRoutes";
-import { getSettingsRoutes } from "routers/settingsRoutes";
-import { getNormalRoutes } from "routers/normalRoutes";
+import { getPermissionRoutes } from "routers/permissionRoutes";
+import { getPrivateRoutes } from "routers/privateRoutes";
 import { useTranslation } from "react-i18next";
 import R, { includes, filter } from "ramda";
 
@@ -11,52 +11,52 @@ const { Header, Content, Footer, Sider } = Layout;
 const mainFrame = ({ showSidebar, toggleSidebar }) => {
   const { t } = useTranslation();
 
-  const settingsRoutes = getSettingsRoutes();
-  const normalRoutes = getNormalRoutes();
+  const permissionRoutes = getPermissionRoutes();
+  const privateRoutes = getPrivateRoutes();
 
   const dashboardMenuItems = filter((v) => {
     const key = v.to || "";
     return includes(key, ["/summary", "/device", "/message", "/alarm"]);
-  }, normalRoutes);
+  }, privateRoutes);
 
   const reportMenuItems = filter((v) => {
     const key = v.to || "";
     return includes(key, ["/deviceSummary", "/deviceDetail", "/log"]);
-  }, normalRoutes);
+  }, privateRoutes);
 
   const usersSettingMenuItems = filter((v) => {
     const key = v.to || "";
-    return includes(key, [
-      "/usersSetting",
-      "/groupSetting",
-      "/permissionSetting",
-    ]);
-  }, settingsRoutes);
+    return includes(key, ["/usersSetting", "/groupSetting"]);
+  }, permissionRoutes);
 
   const devicesSettingMenuItems = filter((v) => {
     const key = v.to || "";
-    return includes(key, ["/devicesSetting"]);
-  }, settingsRoutes);
+    return includes(key, ["/devicesSetting", "/vendorsSetting"]);
+  }, permissionRoutes);
 
   const alarmsSettingMenuItems = filter((v) => {
     const key = v.to || "";
     return includes(key, ["/alarmsSetting"]);
-  }, settingsRoutes);
+  }, permissionRoutes);
 
   const miscSettingMenuItems = filter((v) => {
     const key = v.to || "";
     return includes(key, ["/vendorsSetting", "/miscSetting"]);
-  }, settingsRoutes);
+  }, permissionRoutes);
 
   const systemManagementItems = filter((v) => {
     const key = v.to || "";
-    return includes(key, ["/uploadLicense", "/miscSetting"]);
-  }, settingsRoutes);
+    return includes(key, [
+      "/uploadLicense",
+      "/permissionSetting",
+      "/miscSetting",
+    ]);
+  }, permissionRoutes);
 
   const licenseMenuItems = filter((v) => {
     const key = v.to || "";
     return includes(key, ["/license"]);
-  }, normalRoutes);
+  }, privateRoutes);
 
   const submenus = [
     {
@@ -85,11 +85,6 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
       key: "sidebar_alarmsSetting",
       items: alarmsSettingMenuItems,
     },
-    {
-      name: t("menu.miscSetting"),
-      key: "sidebar_miscSetting",
-      items: miscSettingMenuItems,
-    },
 
     {
       name: t("menu.systemManagement"),
@@ -100,12 +95,6 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
       name: t("menu.license"),
       key: "sidebar_license",
       items: licenseMenuItems,
-    },
-    {
-      name: t("test"),
-      key: "sidbar_test",
-      icon: "bug",
-      items: testRoutes,
     },
   ];
 

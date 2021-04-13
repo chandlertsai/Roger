@@ -45,8 +45,9 @@
     "deletePermission": "一些使用者和此權限連結，請先移除使用者權限",
     "deleteUserDeviceTitle": "警告！刪除項目已存在群組中",
     "deleteUserDevice": "下面群組有包含欲刪除項目，請先從群組移除",
-     "deleteAlarmTitle":"警告！刪除報警使用中",
-    "deleteAlarm":"某些裝置已經綁定此報警，請先移除後再刪除"
+    "deleteAlarmTitle":"警告！刪除報警使用中",
+    "deleteAlarm":"某些裝置已經綁定此報警，請先移除後再刪除",
+    "permissionDenied":"權限不足，禁止進入"
   },
 
   "loginForm": {
@@ -55,7 +56,7 @@
     "password": "登入密碼: ",
     "forgetpassword": "忘記密碼？"
   },
-  "settingsRoutes": {
+  "permissionRoutes": {
     "user": "使用者設定",
     "group": "群組設定",
     "permission": "權限設定",
@@ -65,7 +66,7 @@
     "vendor": "供應商設定",
     "settings": "其他設定"
   },
-  "normalRoutes": {
+  "privateRoutes": {
     "dashboard": "即時監控",
     "log": "Log",
     "license": "授權狀態",
@@ -203,6 +204,11 @@
     "enableVoice":"語音",
     "selectAlarm":"綁定報警"
   },
+  "permissionTable":{
+    "add":"新增權限",
+    "remove":"移除權限",
+    "relog":"更改權限後必須要重新整理頁面才能生效"
+  },
   "inputPermissionName": "請輸入新的權限名稱...",
   "userPermission": {
     "title": "使用者相關權限",
@@ -257,7 +263,7 @@
     "permissionSetting": "權限設定",
     "devicesSetting": "裝置設定",
     "vendorsSetting": "廠商設定",
-    "uploadLicence": "上傳憑證",
-    "license": "憑證"
+    "uploadLicence": "憑證",
+    "license": "憑證XXXX"
   }
 }

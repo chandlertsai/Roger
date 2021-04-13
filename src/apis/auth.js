@@ -78,6 +78,7 @@ const PermissionGroup = {
     errorMessage: "ErrorMessage",
     specialMonitor: "Monitor1",
   },
+
   device: {
     information: "Device",
     vendor: "Vendor",
@@ -86,6 +87,15 @@ const PermissionGroup = {
     maintainLog: "DeviceManintainLog",
     errorReport: "DeviceErrorReport",
     alarm: "DevcieAlarm",
+  },
+
+  sidebar: {
+    dashboard: "dasboard",
+    report: "report",
+    userSetting: "userSetting",
+    deviceSetting: "deviceSetting",
+    alarmSetting: "alarmSetting",
+    system: "systemManagement",
   },
 };
 

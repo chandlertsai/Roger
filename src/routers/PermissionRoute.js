@@ -5,7 +5,7 @@ import { authPkey } from "reducers/storeUtils";
 import axios from "axios";
 import { Route, Redirect } from "react-router-dom";
 import PermissionDenied from "components/pureComponents/PermissionDenied";
-
+import { useTranslation } from "react-i18next";
 const notArray = R.complement(R.is(Array));
 
 const VALIDATING = 1;
@@ -16,7 +16,7 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
   const pKey = useSelector(authPkey);
   const [curState, setCurState] = useState(VALIDATING);
   const [reason, setReason] = useState("");
-
+  const { t } = useTranslation();
   useEffect(() => {
     const matchGroup = R.includes(group);
     axios({
@@ -32,7 +32,6 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
         }
         const getAbilies = R.pipe(R.head, R.prop("abilities"));
         const permission = getAbilies(res.data);
-
         if (matchGroup(permission)) {
           // console.log("PASS");
 
@@ -40,7 +39,7 @@ const PermissionRoute = ({ component: Component, group, ...rest }) => {
         } else {
           // console.log("FAILURE");
 
-          setReason("權限錯誤，請確認登入權限...");
+          setReason(t("error.permissionDenied"));
           setCurState(FAILURE);
         }
         return true;

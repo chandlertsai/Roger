@@ -53,7 +53,7 @@ export default () => {
   return (
     <div>
       <Spin spinning={fetching}>
-        <h2>{t("normalRoutes.deviceSummary")}</h2>
+        <h2>{t("privateRoutes.deviceSummary")}</h2>
         <Link to="/deviceDetail">{t("back")}</Link>
         <Table dataSource={result} columns={columns} size="small" />
       </Spin>

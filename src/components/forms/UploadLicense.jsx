@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setError } from "actions/appState";
 import { message } from "antd";
 import { useTranslation } from "react-i18next";
+import LicenseMessage from "components/pureComponents/licenseMessage";
 const uploadLicense = () => {
   const { t } = useTranslation();
   const { register, handleSubmit, watch, errors } = useForm();
@@ -25,20 +26,21 @@ const uploadLicense = () => {
   };
 
   return (
-    <form
-      className="container_col"
-      onSubmit={handleSubmit(onSubmit)}
-      encType="multipart/form-data"
-      // action='/api/upload'
-      // method='post'
-    >
-      <div className="form-row">
-        <label htmlFor="licenseFile">{t("selectLicenseFile")}</label>
-        <input type="file" name="licenseFile" ref={register} />
-      </div>
+    <div>
+      <form
+        className="container_col"
+        onSubmit={handleSubmit(onSubmit)}
+        encType="multipart/form-data"
+      >
+        <div className="form-row">
+          <label htmlFor="licenseFile">{t("selectLicenseFile")}</label>
+          <input type="file" name="licenseFile" ref={register} />
+        </div>
 
-      <input type="submit" value={t("upload")} />
-    </form>
+        <input type="submit" value={t("upload")} />
+      </form>
+      <LicenseMessage />
+    </div>
   );
 };
 

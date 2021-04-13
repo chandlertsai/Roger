@@ -46,7 +46,9 @@
     "deleteUserDeviceTitle": "Warning!! Groups have item",
     "deleteUserDevice": "Some Groups had link this item, please remove item in groups first.",
     "deleteAlarmTitle":"Warning!! Alarm was bind with some devices",
-    "deleteAlarm":"Some device has bind with this alarm, please remove alarm in devices first."
+    "deleteAlarm":"Some device has bind with this alarm, please remove alarm in devices first.",
+    "permissionDenied":"Permission denied."
+    
   },
 
   "loginForm": {
@@ -55,7 +57,7 @@
     "password": "Password: ",
     "forgetpassword": "Forget password?"
   },
-  "settingsRoutes": {
+  "permissionRoutes": {
     "user": "User Settings",
     "group": "Group Settings",
     "permission": "Permission Settings",
@@ -65,7 +67,7 @@
     "vendor": "Vendor Settings",
     "settings": "Misc Settings"
   },
-  "normalRoutes": {
+  "privateRoutes": {
     "dashboard": "Dashboard",
     "log": "Log",
     "license": "License",
@@ -203,6 +205,11 @@
     "enableVoice":"Voice",
     "selectAlarm":"Binding alarms"
   },
+  "permissionTable":{
+    "add":"Add permission",
+    "remove":"Remove permission",
+    "relog":"Please reload page to effective when you changed permission."
+  },
   "inputPermissionName": "Please input permission name here...",
   "userPermission": {
     "title": "User permissions",
@@ -257,7 +264,7 @@
     "permissionSetting": "Permission Setting",
     "devicesSetting": "Device Setting",
     "vendorsSetting": "Vendor Setting",
-    "uploadLicence": "Upload License",
-    "license": "License"
+    "uploadLicence": "License",
+    "license": "License no use"
   }
 }

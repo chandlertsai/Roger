@@ -2,21 +2,22 @@ import UsersTable from "components/tables/UsersTable";
 import GroupsTable from "components/tables/GroupsTabe";
 import DevicesTable from "components/tables/DeviceTable";
 import AlarmTable from "components/tables/AlarmTable";
-import PermissionRoleForm from "components/forms/PermissionRoleForm";
+
+import PermissionTable from "components/tables/PermissionTable";
 import { PermissionGroup } from "apis/auth";
 import UploadLicense from "components/forms/UploadLicense";
 import VendorTable from "components/tables/VendorTable";
 import SettingsForm from "components/forms/SettingsForm";
 import i18n from "src/i18n";
 
-export const getSettingsRoutes = () => [
+export const getPermissionRoutes = () => [
   {
     name: i18n.t("menu.usersSetting"),
     to: "/usersSetting",
     icon: "user",
     component: UsersTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.users,
+    permissionGroup: PermissionGroup.sidebar.userSetting,
   },
   {
     name: i18n.t("menu.groupSetting"),
@@ -24,15 +25,15 @@ export const getSettingsRoutes = () => [
     icon: "block",
     component: GroupsTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.group,
+    permissionGroup: PermissionGroup.sidebar.userSetting,
   },
   {
     name: i18n.t("menu.permissionSetting"),
     to: "/permissionSetting",
     icon: "lock",
-    component: PermissionRoleForm,
+    component: PermissionTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.group,
+    permissionGroup: PermissionGroup.sidebar.system,
   },
   {
     name: i18n.t("menu.uploadLicence"),
@@ -40,7 +41,7 @@ export const getSettingsRoutes = () => [
     icon: "uplaod",
     component: UploadLicense,
     permission: "permission",
-    permissionGroup: PermissionGroup.license,
+    permissionGroup: PermissionGroup.sidebar.system,
   },
   {
     name: i18n.t("menu.vendorsSetting"),
@@ -48,7 +49,7 @@ export const getSettingsRoutes = () => [
     icon: "uplaod",
     component: VendorTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.device.vendor,
+    permissionGroup: PermissionGroup.sidebar.deviceSetting,
   },
   {
     name: i18n.t("menu.devicesSetting"),
@@ -56,7 +57,7 @@ export const getSettingsRoutes = () => [
     icon: "cluster",
     component: DevicesTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.device.information,
+    permissionGroup: PermissionGroup.sidebar.deviceSetting,
   },
   {
     name: i18n.t("menu.alarmsSetting"),
@@ -64,7 +65,7 @@ export const getSettingsRoutes = () => [
     icon: "warning",
     component: AlarmTable,
     permission: "permission",
-    permissionGroup: PermissionGroup.device.alarm,
+    permissionGroup: PermissionGroup.sidebar.alarmSetting,
   },
 
   {
@@ -72,6 +73,7 @@ export const getSettingsRoutes = () => [
     to: "/miscSetting",
     icon: "SettingOutlined",
     component: SettingsForm,
-    permission: "private",
+    permission: "permission",
+    permissionGroup: PermissionGroup.sidebar.system,
   },
 ];
