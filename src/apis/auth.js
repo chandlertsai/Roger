@@ -94,7 +94,7 @@ const PermissionGroup = {
     report: "report",
     userSetting: "userSetting",
     deviceSetting: "deviceSetting",
-    alarmSetting: "alarmSetting",
+    alarmSetting: "alarmsSetting",
     system: "systemManagement",
   },
 };
