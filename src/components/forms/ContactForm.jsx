@@ -18,7 +18,6 @@ const contactForm = (props) => {
   const [data, setData] = useState();
   const [showTableCurrent, setShowTableCurrent] = useState(false);
   const [updateView, setUpdateView] = useState(false);
-  const [count, setCount] = useState(0);
   const { vendor, doSubmit, onClose } = props;
   const { t } = useTranslation();
   useEffect(() => {
@@ -53,8 +52,7 @@ const contactForm = (props) => {
 
     console.log('ready to setData:',data)
     setData(data);
-    console.log("count:",count);
-    setCount(count+1);
+    setUpdateView(!updateView);
     }else{
 
      };
