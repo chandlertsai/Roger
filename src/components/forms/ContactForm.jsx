@@ -16,6 +16,9 @@ const contactForm = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState();
+  const [showTableCurrent, setShowTableCurrent] = useState(false);
+  const [updateView, setUpdateView] = useState(false);
+  const [count, setCount] = useState(0);
   const { vendor, doSubmit, onClose } = props;
   const { t } = useTranslation();
   useEffect(() => {
@@ -34,13 +37,29 @@ const contactForm = (props) => {
     const key = uniqueKey("contact");
     const newContact = {
       key: key,
-      name: t("contact.inputName"),
-      title: t("contact.inputTitle"),
       sex: "male",
     };
     onEditing(newContact);
   };
-  const removeContact = () => {};
+
+  const removeContact = (selectedKey) => {
+    if(selectedKey.length!==0){
+    console.log("selectedKey:",selectedKey)
+    console.log("youclickremove , data:",data)
+
+    const x = R.reject(R.where({key: R.flip(R.includes)(selectedKey)}))
+    const dataAfterRemovingSelect = x(data.contacts)
+    data.contacts = dataAfterRemovingSelect
+
+    console.log('ready to setData:',data)
+    setData(data);
+    console.log("count:",count);
+    setCount(count+1);
+    }else{
+
+     };
+  };
+
   const onFinish = () => {
     console.log("onFinish ", data);
 
@@ -91,6 +110,7 @@ const contactForm = (props) => {
         }}
       />
       <ContactTable
+        updateView={showTableCurrent}
         {...data}
         onEditing={onEditing}
         rowSelection={rowSelection}

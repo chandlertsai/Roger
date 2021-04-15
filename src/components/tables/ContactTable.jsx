@@ -5,7 +5,7 @@ import { EditOperationCell } from "components/pureComponents/TableCells";
 import { useTranslation } from "react-i18next";
 import R from "ramda";
 const contactTable = (props) => {
-  const { contacts, onEditing = () => {}, rowSelection } = props;
+  const { updateView, contacts, onEditing = () => {}, rowSelection } = props;
   const { t } = useTranslation();
   let columns = [
     { title: t("name"), key: "name", dataIndex: "name" },

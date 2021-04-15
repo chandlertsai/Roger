@@ -28,6 +28,7 @@ const vendorTable = (props) => {
   };
 
   const onEditingContact = (record) => {
+    setEditingVendor(record);
     setShowContactForm(true);
   };
 
@@ -109,10 +110,10 @@ const vendorTable = (props) => {
         height="80%"
         onClose={() => setShowVendorForm(false)}
       >
-        <Button type="primary" className="my-2" onClick={onEditingContact}>
+        {false && <Button type="primary" className="my-2" onClick={onEditingContact}>
           {t("vendor.editContact")}
-        </Button>
-        <VendorForm doSubmit={onSubmit} vendor={editingVendor} />
+        </Button>}
+        <VendorForm doSubmit={onEditingContact} vendor={editingVendor} />
       </Drawer>
       <Drawer
         title={t("vendor.editContact")}
