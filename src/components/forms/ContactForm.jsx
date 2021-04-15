@@ -18,7 +18,7 @@ const contactForm = (props) => {
   const [data, setData] = useState();
   const [showTableCurrent, setShowTableCurrent] = useState(false);
   const [updateView, setUpdateView] = useState(false);
-  const { vendor, doSubmit, onClose } = props;
+  const { vendor, doSubmit, onClose ,showButton} = props;
   const { t } = useTranslation();
   useEffect(() => {
     setData(vendor);
@@ -60,7 +60,7 @@ const contactForm = (props) => {
 
   const onFinish = () => {
     console.log("onFinish ", data);
-
+    onClose();
     doSubmit(data);
   };
   const onSubmit = (newItem) => {
@@ -89,7 +89,7 @@ const contactForm = (props) => {
 
   return (
     <div className="container">
-      {onClose ? (
+      {showButton ? (
         <Divider>
           <Button onClick={onClose}>Close</Button>
         </Divider>

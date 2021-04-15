@@ -124,7 +124,7 @@ const vendorTable = (props) => {
         height="75%"
         onClose={() => setShowContactForm(false)}
       >
-        <ContactForm doSubmit={onSubmit} vendor={editingVendor} />
+        <ContactForm doSubmit={onSubmit} vendor={editingVendor} onClose={() => setShowContact(false)} showButton={false}/>
       </Drawer>
       <TableToolbar
         title={t("vendor.name")}
@@ -151,6 +151,7 @@ const vendorTable = (props) => {
           doSubmit={onSubmit}
           vendor={editingVendor}
           onClose={() => setShowContact(false)}
+          showButton={true}
         />
       ) : null}
     </div>
