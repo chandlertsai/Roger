@@ -79,7 +79,7 @@ const vendorForm = (props: tProps) => {
       </div>
       {errors.name && <p className="error">email格式錯誤</p>}
 
-      <Button htmlType="submit"> 確定 </Button>
+      <Button htmlType="submit"> {t("next")} </Button>
     </form>
   );
 };
