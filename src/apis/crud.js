@@ -75,6 +75,7 @@ export const useFetch = (
   const removeurl = "/apis/removes/" + collection;
   const post = (url) => (body) => {
     dispatch(setLoading(true));
+    console.log('body:',body);
     axios
       .post(url, body)
       .then((res) => {
