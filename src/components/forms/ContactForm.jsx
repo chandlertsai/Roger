@@ -16,7 +16,7 @@ const contactForm = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState();
-  const { vendor, doSubmit, onClose } = props;
+  const { vendor, doSubmit, onClose ,showButton} = props;
   const { t } = useTranslation();
   useEffect(() => {
     setData(vendor);
@@ -34,16 +34,29 @@ const contactForm = (props) => {
     const key = uniqueKey("contact");
     const newContact = {
       key: key,
-      name: t("contact.inputName"),
-      title: t("contact.inputTitle"),
       sex: "male",
     };
     onEditing(newContact);
   };
-  const removeContact = () => {};
+
+  const removeContact = (selectedKey) => {
+    if(selectedKey.length!==0){
+    console.log("selectedKey:",selectedKey);
+    console.log("youclickremove , data:",data);
+
+    const x = R.reject(R.where({key: R.flip(R.includes)(selectedKey)}));
+    const dataAfterRemovingSelect = x(data.contacts);
+    const newData = R.assoc("contacts",dataAfterRemovingSelect)(data);
+    console.log('ready to setData:',newData);
+    setData(newData);
+    }else{
+
+     };
+  };
+
   const onFinish = () => {
     console.log("onFinish ", data);
-
+    onClose();
     doSubmit(data);
   };
   const onSubmit = (newItem) => {
@@ -72,7 +85,7 @@ const contactForm = (props) => {
 
   return (
     <div className="container">
-      {onClose ? (
+      {showButton ? (
         <Divider>
           <Button onClick={onClose}>Close</Button>
         </Divider>
