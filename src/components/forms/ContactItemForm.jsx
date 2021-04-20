@@ -36,7 +36,6 @@ const contactItemForm = (props: tProps) => {
     reset(contact);
   }, [contact]);
   const onSubmit = (data) => {
-    console.log("contact item form submit ", data);
     const newData = R.pipe(R.mergeRight(contact), R.omit(["_id"]))(data);
 
     doSubmit(newData);
@@ -84,7 +83,7 @@ const contactItemForm = (props: tProps) => {
       </div>
       <div className="form-group">
         <label htmlFor="email">Email</label>
-        <input className="form-control" type="text" ref={register} />
+        <input className="form-control" type="text" name="email" ref={register} />
       </div>
       {errors.email && <p className="error">{t("error.emailFormat")}</p>}
       <div className="form-group">
