@@ -24,9 +24,9 @@ const avatorDropdown = (props: {
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="changepassword">
-        <Link to="/resetpassword">更改密碼</Link>
+        <Link to="/resetpassword">{t("option.resetPassword")}</Link>
       </Menu.Item>
-      <Menu.Item key="logout">登出</Menu.Item>
+      <Menu.Item key="logout">{t("option.logout")}</Menu.Item>
     </Menu>
   );
 

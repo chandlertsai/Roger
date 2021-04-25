@@ -1,6 +1,7 @@
 // @flow
 
 import React, { useState, useEffect } from "react";
+import {useTranslation} from "react-i18next"
 import { Table, Drawer, Tag, Popover, Row, Col } from "antd";
 
 import { useFetch, useFetchFields, getName } from "apis/crud";
@@ -34,6 +35,8 @@ const groupsTable = (props: Props) => {
   const [detailGroup, setDetailGroup] = useState({});
   const [isShowDetail, setShowDetail] = useState(false);
 
+  const { t } = useTranslation();
+
   const users = useFetchFields("users")(["name", "key", "email"]);
   const devices = useFetchFields("devices")(["name", "key", "ip"]);
 
@@ -66,13 +69,13 @@ const groupsTable = (props: Props) => {
     const key = uniqueKey("group");
     onEditing({
       key: key,
-      name: "輸入名稱",
+      name: "",
     });
   };
 
   const columns = [
     {
-      title: "群組名稱",
+      title: t("name"),
       dataIndex: "name",
       key: "name",
     },
@@ -96,7 +99,7 @@ const groupsTable = (props: Props) => {
   return (
     <div>
       <TableToolbar
-        title="群組管理"
+        title={t("group.manage")}
         selectedRowKeys={selectedRowKeys}
         onSearch={query}
         handlers={{
@@ -105,12 +108,13 @@ const groupsTable = (props: Props) => {
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增群組",
-          remove: "移除選取群組",
+          add: t("group.add"),
+          remove: t("group.removeSelected"),
         }}
+	placeholder={t("search.group")}
       />
       <Drawer
-        title="編輯群組資料"
+        title={t("group.edit")}
         visible={isShowGroupForm}
         placement="bottom"
         footer={null}

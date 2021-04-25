@@ -5,8 +5,9 @@
   "sex": "Sex",
   "male": "Male",
   "female": "Female",
+  "unknown": "Unknown",
   "ip": "IP",
-  "email": "Email",
+  "email": "E-mail",
   "phone": "Phone",
   "mobile": "Mobile phone",
   "fax": "Fax",
@@ -27,6 +28,7 @@
   "systemInformation": "Informations",
   "systemSettings": "Settings",
   "selectLicenseFile": "Select license file",
+  "title": "Title",
 
   "inputField": "Input Field",
   "condition": "Condition",
@@ -44,6 +46,8 @@
     "emailFormat": "Wrong email format",
     "deletePermissionTitle": "Warning!! Permission used in users",
     "deletePermission": "Some users had link this permission, please set other permission to users first.",
+    "deleteVendorDeviceTitle": "",
+    "deleteVendorDevice": "",
     "deleteUserDeviceTitle": "Warning!! Groups have item",
     "deleteUserDevice": "Some Groups had link this item, please remove item in groups first.",
     "deleteAlarmTitle":"Warning!! Alarm was bind with some devices",
@@ -167,7 +171,14 @@
     "edit": "Edit user"
   },
   "group": {
-    "name": "Group name"
+    "name": "Group name:",
+    "manage": "Group management",
+    "add": "Add group",
+    "remove": "Remove Group",
+    "removeSelected": "Remove selected group",
+    "edit": "Edit group",
+    "userName": "user name",
+    "deviceName": "device name"
   },
   "vendor": {
     "name": "Vendor",
@@ -175,6 +186,10 @@
     "remove": "Remove selected vendors",
     "editVendor": "Edit vendor information",
     "editContact": "Edit contact information"
+  },
+  "vendorform": {
+    "require": "name field is required",
+    "emailError": "Email format error"
   },
   "contact": {
     "name": "Contact",
@@ -267,5 +282,15 @@
     "vendorsSetting": "Vendor Setting",
     "uploadLicence": "License",
     "license": "License no use"
+  },
+  "option": {
+    "logout": "log out",
+    "resetPassword": "reset password"
+  },
+  "search": {
+    "user": "Search Name / E-mail / PasswordTip",
+    "group": "Search Name",
+    "device": "Search Name / IP",
+    "log": "Search IP"
   }
 }

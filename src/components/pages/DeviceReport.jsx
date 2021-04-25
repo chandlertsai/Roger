@@ -128,7 +128,6 @@ export default () => {
           />
         </Col>
       </Row>
-      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };

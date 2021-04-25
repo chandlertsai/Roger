@@ -55,7 +55,7 @@ const userForm = (props: Props) => {
             {errors.name && Touch.name && <span>{errors.name}</span>}
             <FormRow
               field="email"
-              labelText="E-Mail"
+              labelText="E-mail"
               fieldProp={{ type: "email" }}
             />
 

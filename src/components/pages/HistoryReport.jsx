@@ -63,9 +63,6 @@ export default () => {
             {t("alarmHistoryTable.report")}
           </Button>
         </Col>
-        <Col>
-          <Link to="/deviceSummary"> {t("alarmHistoryTable.allDevices")}</Link>
-        </Col>
       </Row>
 
       {reportVisiable ? (

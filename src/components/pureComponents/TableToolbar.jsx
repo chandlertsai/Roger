@@ -21,6 +21,7 @@ type Props = {
   title: string,
   info?: string,
   onSearch?: Function,
+  placeholder: string,
 };
 
 const tableToolBar = (props: Props) => {
@@ -31,6 +32,7 @@ const tableToolBar = (props: Props) => {
     title,
     info,
     onSearch,
+    placeholder,
   } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const { addItem, removeSelectedItems } = handlers;
@@ -52,6 +54,7 @@ const tableToolBar = (props: Props) => {
             className="form-control mr-2"
             onChange={(e) => setSearchTerm(e.target.value)}
             onPressEnter={(e) => setSearchTerm(e.target.value)}
+	    placeholder={placeholder}
           />
         ) : null}
 

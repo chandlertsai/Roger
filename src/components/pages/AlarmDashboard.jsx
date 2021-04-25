@@ -24,7 +24,6 @@ const dashBoard = (props) => {
   return (
     <div>
       <CurrentAlarm alarms={alarms} />
-      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };
@@ -49,7 +48,6 @@ export const MessageDashboard = (props) => {
   return (
     <div>
       <CurrentMessage alarms={alarms} />
-      <AlarmVoice />
     </div>
   );
 };
@@ -91,7 +89,6 @@ export const TotalDashboard = () => {
         {t("simplelog.name")}
       </h2>
       <CurrentMessage alarms={messages} />
-      <AlarmVoice alarms={filterAlarm(alarms)} />
     </div>
   );
 };

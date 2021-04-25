@@ -261,6 +261,7 @@ const devicesTable = (props: Props) => {
           add: t("device.add"),
           remove: t("device.removeSelected"),
         }}
+	placeholder={t("search.device")}
       />
       <Drawer
         title={t("device.tableTitle")}

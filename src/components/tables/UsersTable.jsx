@@ -65,6 +65,7 @@ const usersTable = () => {
       })
 
       .catch((err) => {
+	console.log("this is userTable error",err);
         if (err.response) {
           remove(body);
         }
@@ -172,6 +173,7 @@ const usersTable = () => {
           add: t("user.add"),
           remove: t("user.removeSelected"),
         }}
+	placeholder={t("search.user")}
       />
       <Drawer
         title={t("user.edit")}
