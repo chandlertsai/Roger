@@ -52,7 +52,8 @@
     "deleteUserDevice": "下面群組有包含欲刪除項目，請先從群組移除",
     "deleteAlarmTitle":"警告！刪除報警使用中",
     "deleteAlarm":"某些裝置已經綁定此報警，請先移除後再刪除",
-    "permissionDenied":"權限不足，禁止進入"
+    "permissionDenied":"權限不足，禁止進入",
+    "email": "E-mail格式錯誤"
   },
 
   "loginForm": {

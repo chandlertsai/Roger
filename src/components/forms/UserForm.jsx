@@ -9,6 +9,7 @@ import ErrorTip from "components/forms/ErrorTip";
 import axios from "axios";
 import R from "ramda";
 import FormRow from "components/forms/FormRow";
+import * as Yup from 'yup';
 // $FlowFixMe
 import "./form.less";
 
@@ -34,6 +35,16 @@ const userForm = (props: Props) => {
     return error;
   }
 
+   function validateEmail(value) {
+   let error;
+   if (!value) {
+     error = t("error.require");
+   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+     error = t("error.email");
+   }
+   return error;
+ }
+
   return (
     <div>
       <Formik
@@ -44,7 +55,7 @@ const userForm = (props: Props) => {
           const newData = R.omit(["_id"], values);
           doSubmit(newData);
         }}
-        render={({ errors, isValid, setFieldValue, values }) => (
+        render={({ errors, isValid, setFieldValue, values, touched }) => (
           <Form className="container_col">
             <FormRow
               field="name"
@@ -52,13 +63,14 @@ const userForm = (props: Props) => {
               fieldProp={{ type: "text" }}
               validate={validateName}
             />
-            {errors.name && Touch.name && <span>{errors.name}</span>}
-            <FormRow
+            {errors.name && touched.name && <span className="error">{errors.name}</span>}
+	    <FormRow
               field="email"
               labelText="E-mail"
               fieldProp={{ type: "email" }}
+	      validate={validateEmail}
             />
-
+            {errors.email && touched.email ? <span className="error">{errors.email}</span> : null}
             <FormRow
               field="passwordTip"
               labelText={t("passwordTip")}

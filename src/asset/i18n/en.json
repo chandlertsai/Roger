@@ -52,7 +52,8 @@
     "deleteUserDevice": "Some Groups had link this item, please remove item in groups first.",
     "deleteAlarmTitle":"Warning!! Alarm was bind with some devices",
     "deleteAlarm":"Some device has bind with this alarm, please remove alarm in devices first.",
-    "permissionDenied":"Permission denied."
+    "permissionDenied":"Permission denied.",
+    "email": "Invalid E-mail"
     
   },
 
