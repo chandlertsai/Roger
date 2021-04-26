@@ -73,7 +73,7 @@ const devicesTable = (props: Props) => {
 
   function canAddMoreEnableDevice() {
     const currentEnabledDevices = enableDevicesCount(tableData);
-    return currentEnabledDevices + 1 < license.permitCount;
+    return currentEnabledDevices + 1 <= license.permitCount;
   }
 
   const overPermitCount = () => message.error(t("device.overPermitCount"));
@@ -209,12 +209,12 @@ const devicesTable = (props: Props) => {
           <Switch
             checked={_enable}
             onChange={(checked) => {
-              if (!canAddMoreEnableDevice()) {
+              if (!canAddMoreEnableDevice() && checked) {
                 overPermitCount();
                 return;
               }
               const device = R.assoc("enable", checked, record);
-              console.log("update ", device);
+
               update(device);
             }}
           />
