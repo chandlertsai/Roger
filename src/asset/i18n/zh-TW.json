@@ -26,7 +26,7 @@
   "permission": "權限",
   "enable":"啟用",
   "systemInformation": "系統資訊",
-  "systemSettings": "系統設定",
+  "systemSettings": "其他設定",
   "selectLicenseFile": "選擇License檔案",
   "title": "職稱",
 
@@ -266,7 +266,7 @@
     "deviceSetting": "裝置設定",
     "userSetting": "使用者設定",
     "alarmsSetting": "警報設定",
-    "miscSetting": "系統設定",
+    "miscSetting": "其他設定",
     "systemManagement": "系統管理",
     "summary": "摘要",
     "device": "裝置",

@@ -93,7 +93,7 @@ const permissionTable = () => {
       key: "name",
     };
     const actionCol = {
-      title: "Action",
+      title: t("edit"),
       key: "action",
       dataIndex: "action",
       onCell: (record) => ({

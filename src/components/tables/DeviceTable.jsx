@@ -216,7 +216,7 @@ const devicesTable = (props: Props) => {
       },
     },
     {
-      title: "Action",
+      title: t("edit"),
       key: "action",
       dataIndex: "action",
       onCell: (record) => ({

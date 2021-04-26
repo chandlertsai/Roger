@@ -110,7 +110,7 @@ const alarmTable = (props) => {
     },
 
     {
-      title: "Action",
+      title: t("edit"),
       key: "action",
       dataIndex: "action",
       onCell: (record) => ({
