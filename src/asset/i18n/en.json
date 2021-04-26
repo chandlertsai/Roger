@@ -203,7 +203,8 @@
     "alarmDeviceCountContext": "Total devices have alarm: ",
     "ackDeviceCountContext": "Total devices are acknowledged: ",
     "enableVoice":"Voice",
-    "selectAlarm":"Binding alarms"
+    "selectAlarm":"Binding alarms",
+    "overPermitCount":"You have exceeded your maximun number of licensed permit"
   },
   "permissionTable":{
     "add":"Add permission",

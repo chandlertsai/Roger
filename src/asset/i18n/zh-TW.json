@@ -202,7 +202,8 @@
     "alarmDeviceCountCoontext": "發生警報裝置總數: ",
     "ackDeviceCountContext": "維修中裝置總數: ",
     "enableVoice":"語音",
-    "selectAlarm":"綁定報警"
+    "selectAlarm":"綁定報警",
+    "overPermitCount":"你已經超過授權裝置上限"
   },
   "permissionTable":{
     "add":"新增權限",
