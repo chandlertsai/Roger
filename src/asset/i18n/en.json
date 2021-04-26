@@ -15,6 +15,7 @@
   "delete": "Delete",
   "cancel": "Cancel",
   "upload": "Upload",
+  "next": "Next",
   "type": "Type",
   "setting": "Setting",
   "state": "State",
@@ -39,7 +40,7 @@
   },
   "error": {
     "ipFormat": "Wrong IP address format",
-    "requrieName": "Name field can not be empty",
+    "requireName": "Name field can not be empty",
     "emailFormat": "Wrong email format",
     "deletePermissionTitle": "Warning!! Permission used in users",
     "deletePermission": "Some users had link this permission, please set other permission to users first.",
