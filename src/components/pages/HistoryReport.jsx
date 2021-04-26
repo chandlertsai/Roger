@@ -6,6 +6,7 @@ import { useDebounce } from "apis/utils";
 import { useTranslation } from "react-i18next";
 import { useDeviceReport } from "./report";
 import AllDeviceSummary from "components/pages/AllDevicesSummaryReport";
+import useDeepCompareEffect from "use-deep-compare-effect";
 
 import axios from "axios";
 import R from "ramda";
@@ -16,7 +17,7 @@ const getDeviceKey = R.prop("value");
 export default () => {
   const [tableData, remove, update, query] = useFetch("devices");
   const [searchText, setSearchText] = useState("");
-  const [currentDevice, setCurrentDevice] = useState();
+  const [currentDevice, setCurrentDevice] = useState([]);
   const [reportVisiable, setReportVisiable] = useState(false);
   const {
     alarmHistory,
@@ -28,7 +29,15 @@ export default () => {
   const handleChange = (v) => {
     if (R.isNil(v)) return;
     setCurrentDevice(v);
+    setReportVisiable(true);
+    console.log("click")
   };
+
+  useDeepCompareEffect(()=>{
+  const key = getDeviceKey(currentDevice);
+ fetchHistory(key);
+console.log("cur",currentDevice)
+},[currentDevice])
 
   return (
     <div>
@@ -48,20 +57,8 @@ export default () => {
             {R.map((v) => (
               <Select.Option key={v.key}>{v.name + " | " + v.ip}</Select.Option>
             ))(tableData || [])}
+		
           </Select>
-        </Col>
-        <Col>
-          <Button
-            type="primary"
-            onClick={() => {
-              const key = getDeviceKey(currentDevice);
-              fetchHistory(key).then(() => setReportVisiable(true));
-            }}
-            loading={fetching}
-            disabled={currentDevice ? false : true}
-          >
-            {t("alarmHistoryTable.report")}
-          </Button>
         </Col>
       </Row>
 
@@ -74,6 +71,7 @@ export default () => {
           />
         </div>
       ) : null}
+<div>{console.log("render","c:",currentDevice,"repor:",reportVisiable,"deviceInfo",deviceInfo,"alarmHistory",alarmHistory)}</div>
     </div>
   );
 };
