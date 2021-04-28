@@ -6,7 +6,7 @@
   "male": "Male",
   "female": "Female",
   "ip": "IP",
-  "email": "Email",
+  "email": "E-Mail",
   "phone": "Phone",
   "mobile": "Mobile phone",
   "fax": "Fax",
@@ -41,7 +41,7 @@
   "error": {
     "ipFormat": "Wrong IP address format",
     "requireName": "Name field can not be empty",
-    "emailFormat": "Wrong email format",
+    "emailFormat": "Wrong E-Mail format",
     "deletePermissionTitle": "Warning!! Permission used in users",
     "deletePermission": "Some users had link this permission, please set other permission to users first.",
     "deleteUserDeviceTitle": "Warning!! Groups have item",
@@ -156,7 +156,7 @@
   "usersTable": {
     "duplicateError": "User name duplicate!",
     "inputName": "Input Name",
-    "inputEmail": "Input Email"
+    "inputEmail": "Input E-Mail"
   },
   "user": {
     "name": "User name",
@@ -167,7 +167,8 @@
     "edit": "Edit user"
   },
   "group": {
-    "name": "Group name"
+    "name": "Group name",
+    "title":"Group"
   },
   "vendor": {
     "name": "Vendor",

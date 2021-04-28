@@ -215,19 +215,7 @@ const alarmVoice = (props: tProps) => {
     { title: "Interval", dataIndex: "interval", key: "interval" },
   ];
 
-  return (
-    <div className="card text-white bg-danger">
-      <div className="card-body">
-        <h3 className="text-white">{title}</h3>
-      </div>
-      <h5>Black</h5>
-      <Table columns={blacklistColumns} dataSource={blackList} />
-      <h5>AlarmQueue</h5>
-      <Table columns={columns} dataSource={voiceController.alarmQueue} />
-      <h5>MessageQueue</h5>
-      <Table columns={columns} dataSource={voiceController.messageQueue} />
-    </div>
-  );
+  return <React.Fragment></React.Fragment>;
 };
 
 export default alarmVoice;
