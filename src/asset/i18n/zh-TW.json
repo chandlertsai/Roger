@@ -41,13 +41,13 @@
   "error": {
     "ipFormat": "錯誤的IP格式",
     "requireName": "名稱不可以為空白",
-    "emailFormat": "Wrong email format",
+    "emailFormat": "Wrong E-Mail format",
     "deletePermissionTitle": "刪除使用中權限警告",
     "deletePermission": "一些使用者和此權限連結，請先移除使用者權限",
     "deleteUserDeviceTitle": "警告！刪除項目已存在群組中",
     "deleteUserDevice": "下面群組有包含欲刪除項目，請先從群組移除",
-    "deleteAlarmTitle":"警告！刪除報警使用中",
-    "deleteAlarm":"某些裝置已經綁定此報警，請先移除後再刪除",
+    "deleteAlarmTitle":"警告！刪除警報使用中",
+    "deleteAlarm":"某些裝置已經綁定此警報，請先移除後再刪除",
     "permissionDenied":"權限不足，禁止進入"
   },
 
@@ -63,7 +63,7 @@
     "permission": "權限設定",
     "uploadLicence": "上傳 License",
     "device": "設備設定",
-    "alarm": "報警設定",
+    "alarm": "警報設定",
     "vendor": "供應商設定",
     "settings": "其他設定"
   },
@@ -73,7 +73,7 @@
     "license": "授權狀態",
     "device": "裝置狀態",
     "report": "裝置報表",
-    "deviceSummary": "裝置簡報"
+    "deviceSummary": "裝置摘要"
   },
   "simplelog": {
     "name": "訊息",
@@ -89,7 +89,7 @@
     "state": "State"
   },
   "alarm": {
-    "name": "報警",
+    "name": "警報",
     "alarmCount": "警報數目",
     "normalDevicesCount": "正常裝置",
     "normalDevicesContext": "正常裝置數目:  ",
@@ -102,8 +102,8 @@
     "closeContext": "全部處理完成警報數目: ",
     "alarmVoiceTitle": "語音警報",
     "devStatusActionTip": "裝置新狀態",
-    "triggerDeviceStatus": "報警觸發後裝置狀態:",
-    "releaseDeviceStatus": "報警解除後裝置狀態:",
+    "triggerDeviceStatus": "警報觸發後裝置狀態:",
+    "releaseDeviceStatus": "警報解除後裝置狀態:",
     "source": "來源",
     "customSource": "客製化來源",
     "pollingInterval": "輪詢間隔時間 (秒) ",
@@ -121,7 +121,7 @@
     "addDefaultSimplelog":"新增預設訊息",
     "add": "新增",
     "removeSelected": "移除選取項目",
-    "edit": "編輯報警",
+    "edit": "編輯警報",
     "triggerDevState": "觸發裝置狀態",
     "releaseDevState": "解除裝置狀態",
     "simpleLogTip": "選擇simpleLog將不會發警報改成訊息",
@@ -137,7 +137,7 @@
     "lastAckUser": "處理人員"
   },
   "alarmHistoryTable": {
-    "totalAlarmElapse": "報警總時間",
+    "totalAlarmElapse": "警報總時間",
     "totalAckElapse": "維修總時間",
     "totalCloseElapse": "正常時間",
     "index": "編號",
@@ -150,23 +150,24 @@
     "close": "正常",
     "report": "建立報告",
     "allDevices": "產生所有裝置報告",
-    "alarmTimes": "報警發生次數"
+    "alarmTimes": "警報發生次數"
   },
   "usersTable": {
     "duplicateError": "使用者名稱重複",
     "inputName": "請輸入名稱",
-    "inputEmail": "請輸入Email"
+    "inputEmail": "請輸入 E-Mail"
   },
   "user": {
     "name": "User name",
-    "tableTitle": "User",
+    "tableTitle": "使用者",
     "add": "新增使用者",
     "remove": "移除使用者",
     "removeSelected": "移除選取使用者",
     "edit": "編輯使用者資料"
   },
-  "group": {
-    "name": "Group name"
+   "group": {
+    "name": "群組名稱",
+    "title":"群組"
   },
   "vendor": {
     "name": "經銷商",
@@ -203,7 +204,7 @@
     "alarmDeviceCountCoontext": "發生警報裝置總數: ",
     "ackDeviceCountContext": "維修中裝置總數: ",
     "enableVoice":"語音",
-    "selectAlarm":"綁定報警",
+    "selectAlarm":"綁定警報",
     "overPermitCount":"你已經超過授權裝置上限"
   },
   "permissionTable":{
@@ -232,7 +233,7 @@
     "errorLog": "設備異常紀錄",
     "maintainLog": "設備維修紀錄",
     "errorReport": "設備損壞記錄表",
-    "alarm": "報警資料管理"
+    "alarm": "警報資料管理"
   },
   "licenseMessage": {
     "title": "授權狀態",
