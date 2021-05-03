@@ -5,6 +5,7 @@
   "sex": "Sex",
   "male": "Male",
   "female": "Female",
+  "unknow":"Unknow",
   "ip": "IP",
   "email": "E-Mail",
   "phone": "Phone",
@@ -48,7 +49,10 @@
     "deleteUserDevice": "Some Groups had link this item, please remove item in groups first.",
     "deleteAlarmTitle":"Warning!! Alarm was bind with some devices",
     "deleteAlarm":"Some device has bind with this alarm, please remove alarm in devices first.",
-    "permissionDenied":"Permission denied."
+    "permissionDenied":"Permission denied.",
+    "deleteVendorTitle": "Warning!! Vendors used in devices",
+    "deleteVendor": "Some devices had link this vendor, please set other vendor to devices first."
+
     
   },
 
@@ -168,7 +172,9 @@
   },
   "group": {
     "name": "Group name",
-    "title":"Group"
+    "title":"Group",
+    "deviceName":"Device Name",
+    "userName":"User Name"
   },
   "vendor": {
     "name": "Vendor",

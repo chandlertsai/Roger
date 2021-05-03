@@ -51,7 +51,7 @@ const vendorForm = (props: tProps) => {
           ref={register}
         />
       </div>
-      {errors.name && <p className="error">名稱為必要欄位</p>}
+      {errors.name && <p className="error">{t("error.requireName")}</p>}
 
       <div className="form-group">
         <label htmlFor="phone">{t("phone")} </label>
@@ -77,7 +77,7 @@ const vendorForm = (props: tProps) => {
           ref={register}
         />
       </div>
-      {errors.name && <p className="error">email格式錯誤</p>}
+      {errors.email && <p className="error">{t("error.emailFormat")}</p>}
 
       <Button htmlType="submit"> {t("next")} </Button>
     </form>

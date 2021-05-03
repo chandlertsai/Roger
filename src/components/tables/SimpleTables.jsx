@@ -1,25 +1,27 @@
 // @flow
 import React from "react";
 import { Table } from "antd";
+import { useTranslation } from "react-i18next";
 
 type tProps = {
   data: Array<mixed>,
-  rowSelection?: mixed
+  rowSelection?: mixed,
 };
 
 export const UsersSimpleTable = (props: tProps) => {
   const { data, rowSelection } = props;
+  const { t } = useTranslation();
   const columns = [
     {
-      title: "使用者名稱",
+      title: t("group.userName"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
-      title: "Email",
+      title: "E-mail",
       dataIndex: "email",
-      key: "email"
-    }
+      key: "email",
+    },
   ];
 
   return (
@@ -35,17 +37,18 @@ export const UsersSimpleTable = (props: tProps) => {
 
 export const DevicesSimpleTable = (props: tProps) => {
   const { data, rowSelection } = props;
+  const { t } = useTranslation();
   const columns = [
     {
-      title: "裝置名稱",
+      title: t("group.deviceName"),
       dataIndex: "name",
-      key: "name"
+      key: "name",
     },
     {
       title: "IP",
       dataIndex: "ip",
-      key: "ip"
-    }
+      key: "ip",
+    },
   ];
 
   return (

@@ -66,7 +66,7 @@ const groupsTable = (props: Props) => {
     const key = uniqueKey("group");
     onEditing({
       key: key,
-      name: "輸入名稱",
+      name: "",
     });
   };
 

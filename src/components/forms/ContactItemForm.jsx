@@ -77,13 +77,18 @@ const contactItemForm = (props: tProps) => {
           <select name="sex" className="custom-select" ref={register}>
             <option value="male">{t("male")}</option>
             <option value="woman">{t("female")}</option>
-            <option value="undefined">不明</option>
+            <option value="undefined">{t("unknow")}</option>
           </select>
         </div>
       </div>
       <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input className="form-control" type="text" name="email" ref={register} />
+        <label htmlFor="email">E-Mail</label>
+        <input
+          className="form-control"
+          type="text"
+          name="email"
+          ref={register}
+        />
       </div>
       {errors.email && <p className="error">{t("error.emailFormat")}</p>}
       <div className="form-group">
