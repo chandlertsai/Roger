@@ -10,9 +10,9 @@ import MainFrame from "components/layout/MainFrame";
 import initIcon from "components/fontawesome";
 import "./app.less";
 
-const App = props => {
+const pspsApp = (props) => {
   const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => setShowSidebar(pre => !pre);
+  const toggleSidebar = () => setShowSidebar((pre) => !pre);
 
   useEffect(() => {
     initIcon();
