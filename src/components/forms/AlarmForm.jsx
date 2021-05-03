@@ -13,6 +13,10 @@ import * as yup from "yup";
 // $FlowFixMe
 import "./form.less";
 
+const validator = yup.object().shape({
+  name: yup.string().required(),
+});
+
 const alarmForm = (props) => {
   const { alarm, doSubmit } = props;
   const conditions = alarm.conditions || [];
@@ -27,6 +31,7 @@ const alarmForm = (props) => {
     control,
   } = useForm({
     defaultValues: alarm,
+    validationSchema: validator,
   });
 
   const { t } = useTranslation();
@@ -70,6 +75,7 @@ const alarmForm = (props) => {
           ref={register}
         />
       </div>
+      {errors.name && <p className="error">{t("error.requireName")}</p>}
       <div className="form-group">
         <label htmlFor="source">{t("alarm.source")}</label>
         <select className="form-control" ref={register} name="source">

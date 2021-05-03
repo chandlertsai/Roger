@@ -52,7 +52,9 @@ const userForm = (props: Props) => {
               fieldProp={{ type: "text" }}
               validate={validateName}
             />
-            {errors.name && Touch.name && <span>{errors.name}</span>}
+            {errors.name && Touch.name && (
+              <span style={{ color: "red" }}>{errors.name}</span>
+            )}
             <FormRow
               field="email"
               labelText="E-Mail"

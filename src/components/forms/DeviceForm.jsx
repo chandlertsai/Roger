@@ -1,23 +1,35 @@
 // @flow
 import React, { useState, useEffect } from "react";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import R from "ramda";
 import { default as ErrorDiv } from "./ErrorTip";
-
+import axios from "axios";
 import * as yup from "yup";
 
 // $FlowFixMe
 import "./form.less";
 
+function checkIPDuplicate(record) {
+  return axios.get("/apis/v1/read/devices", {
+    params: { ip: R.propOr("", "ip", record) },
+  });
+}
+
 const validator = yup.object().shape({
   name: yup.string().required(),
-  ip: yup.string().matches(/(^(\d{1,3}\.){3}(\d{1,3})$)/, {
-    message: "Invalid IP address",
-    excludeEmptyString: true,
-  }),
+  ip: yup
+    .string()
+    .required()
+    .matches(
+      /(^(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))\.(\d|[1-9]\d|1\d\d|2([0-4]\d|5[0-5]))$)/,
+      {
+        message: "Invalid IP address",
+        excludeEmptyString: true,
+      }
+    ),
 });
 
 const deviceForm = (props) => {
@@ -36,9 +48,22 @@ const deviceForm = (props) => {
 
   const onSubmit = (data) => {
     const newData = R.pipe(R.mergeRight(device), R.omit(["_id"]))(data);
-
-    console.log("device form submit ", newData);
     doSubmit(newData);
+    // checkIPDuplicate(newData)
+    //   .then((res) => {
+    //     const groups = res.data || [];
+    //     if (groups.length > 0) {
+    //       message.error(t("error.ipFormat"));
+    //     } else {
+    //       doSubmit(newData);
+    //     }
+    //   })
+    //   .catch((err) => message.error(err));
+    // if (checkIPDuplicate(newData)) {
+    //   doSubmit(newData);
+    // } else {
+    //   message.error(t("error.ipFormat"));
+    // }
   };
 
   const createOptions = R.map((p) => (
