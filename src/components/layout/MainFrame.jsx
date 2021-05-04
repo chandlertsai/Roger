@@ -5,11 +5,54 @@ import { testRoutes } from "routers/testRoutes";
 import { getPermissionRoutes } from "routers/permissionRoutes";
 import { getPrivateRoutes } from "routers/privateRoutes";
 import { useTranslation } from "react-i18next";
+import {useSelector} from "react-redux";
 import R, { includes, filter } from "ramda";
+import axios from 'axios';
+import useDeepCompareEffect from "use-deep-compare-effect";
 
 const { Header, Content, Footer, Sider } = Layout;
 const mainFrame = ({ showSidebar, toggleSidebar }) => {
   const { t } = useTranslation();
+  const [newSubmenus, setNewSubmenus] = useState([]) 
+
+  const auth = useSelector(R.propOr({},"auth"))
+  const pKey = auth.pkey
+  let ab
+  let permission
+
+  const read = (body) => {
+    axios
+      .get("/apis/v1/read/permission", {
+        params: { key: body },
+        headers: {Authorization: `Bearer ${auth.token}`}
+      })
+      .then((res) => {
+        permission =  res.data 
+	ab =  permission[0].abilities
+	currentVisibilities(submenus)
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  };
+  
+
+  useDeepCompareEffect(()=>{
+    read(pKey)
+  },[auth,permission,ab,newSubmenus])
+
+  const currentVisibilities = (submenus) => {
+    if(ab){
+        ab.push("dashboard")
+	ab =ab.map((v)=>"sidebar_"+v)
+	//create specific menu `x` for current permission
+	let x = R.filter((v)=>{
+	let key = v.key
+	return R.includes(key,ab)
+	},submenus)
+	setNewSubmenus(x)
+	}
+}
 
   const permissionRoutes = getPermissionRoutes();
   const privateRoutes = getPrivateRoutes();
@@ -77,7 +120,7 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
     },
     {
       name: t("menu.devicesSetting"),
-      key: "sidebar_devicesSetting",
+      key: "sidebar_deviceSetting",
       items: devicesSettingMenuItems,
     },
     {
@@ -88,7 +131,7 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
 
     {
       name: t("menu.systemManagement"),
-      key: "sidebar_system_menagement",
+      key: "sidebar_systemManagement",
       items: systemManagementItems,
     },
   ];
@@ -101,7 +144,7 @@ const mainFrame = ({ showSidebar, toggleSidebar }) => {
         collapsed={false}
         styel={{ background: "blue" }}
       >
-        <Sidebar submenus={submenus} />
+        <Sidebar submenus={newSubmenus} />
       </Sider>
 
       <Layout className="bg-light">
