@@ -40,6 +40,7 @@ const usersTable = () => {
   const isEditing = (key) => key === editingkey;
 
   const onEditing = (record) => {
+    console.log("onediting record:",record);
     setEditingUser(record);
     setShowUserForm(true);
   };
@@ -126,6 +127,7 @@ const usersTable = () => {
       key: "enable",
       render: (text, record, index) => {
         const enable = R.propOr(false, "enable", record);
+	console.log('t:',text,"r:", record,"i", index)
         return (
           <Switch
             checked={enable}
