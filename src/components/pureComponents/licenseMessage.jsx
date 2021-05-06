@@ -1,20 +1,13 @@
 import React from "react";
 
 import { useTranslation } from "react-i18next";
-import { useLicense } from "apis/license";
+
 import { Table } from "antd";
 import R from "ramda";
 
-const licenseMessage = () => {
-  const lic = useLicense();
+const licenseMessage = ({ lic }) => {
   const { t } = useTranslation();
-  // const licenseItems = lic => {
-  //   const license = R.compose(R.prop("license"), R.head)(lic);
-  //   return R.map(i=>
-  //     <li class="list-group-item">{t("licenseMessage")}</li>
-  //   ,license)
-  // };
-  console.log("lic ", lic, R.path(["information", "owner"], lic));
+
   const columns = [
     {
       title: t("licenseMessage.expire"),

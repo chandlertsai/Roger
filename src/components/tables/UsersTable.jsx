@@ -87,6 +87,7 @@ const usersTable = () => {
       name: "",
       email: "",
       password: "1234",
+      passwordTip: "",
     });
   };
 
@@ -97,7 +98,7 @@ const usersTable = () => {
       key: "name",
     },
     {
-      title: "E-mail",
+      title: "E-Mail",
       dataIndex: "email",
       key: "email",
     },

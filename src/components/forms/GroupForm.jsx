@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import R from "ramda";
 
 import { Button, Row, Col } from "antd";
-
+import { useTranslation } from "react-i18next";
 import { useFetchFields } from "apis/crud";
 import {
   UsersSimpleTable,
@@ -27,7 +27,7 @@ const groupForm = (props: tProps) => {
   const users = useFetchFields("users")(["name", "key", "email"]);
   const devices = useFetchFields("devices")(["name", "key", "ip"]);
   const { group, doSubmit } = props;
-
+  const { t } = useTranslation();
   // initial
   useEffect(() => {
     console.log("GroupForm props.group ", group);
@@ -67,7 +67,7 @@ const groupForm = (props: tProps) => {
       <Row>
         <Col span={24}>
           <div className="form-group w-25">
-            <label htmlFor="name">群組名稱: </label>
+            <label htmlFor="name">{t("group.name")} </label>
             <input
               className="form-control"
               type="text"
@@ -90,7 +90,7 @@ const groupForm = (props: tProps) => {
         </Col>
       </Row>
 
-      <Button onClick={onSubmit}> 確定 </Button>
+      <Button onClick={onSubmit}> {t("submit")} </Button>
     </div>
   );
 };

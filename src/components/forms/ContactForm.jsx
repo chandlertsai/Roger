@@ -41,13 +41,9 @@ const contactForm = (props) => {
 
   const removeContact = (selectedKey) => {
     if(selectedKey.length!==0){
-    console.log("selectedKey:",selectedKey);
-    console.log("youclickremove , data:",data);
-
     const x = R.reject(R.where({key: R.flip(R.includes)(selectedKey)}));
     const dataAfterRemovingSelect = x(data.contacts);
     const newData = R.assoc("contacts",dataAfterRemovingSelect)(data);
-    console.log('ready to setData:',newData);
     setData(newData);
     }else{
 

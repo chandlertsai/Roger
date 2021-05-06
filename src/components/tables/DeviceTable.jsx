@@ -6,7 +6,16 @@ import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Popover, Modal, Switch, Button } from "antd";
+import {
+  Table,
+  Drawer,
+  Tag,
+  Popover,
+  Modal,
+  Switch,
+  Button,
+  message,
+} from "antd";
 import DeviceForm from "components/forms/DeviceForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import AlarmSelectTable from "components/tables/AlarmSelectTable";
@@ -53,10 +62,21 @@ const devicesTable = (props: Props) => {
   const usersNameList = useNameList("users");
   const [vendorList, rv, uv] = useFetch("vendors");
   const confirmLoading = useSelector(loadingState);
+  const enableDevicesCount = R.pipe(
+    R.countBy(R.prop("enable")),
+    R.propOr(0, "true")
+  );
   useEffect(() => {
-    const length = tableData ? tableData.length : 0;
+    const length = tableData ? enableDevicesCount(tableData) : 0;
     setLicenseInfo(t("device.avialable") + length + "/" + license.permitCount);
   }, [license, tableData]);
+
+  function canAddMoreEnableDevice() {
+    const currentEnabledDevices = enableDevicesCount(tableData);
+    return currentEnabledDevices + 1 <= license.permitCount;
+  }
+
+  const overPermitCount = () => message.error(t("device.overPermitCount"));
 
   const onEditing = (record) => {
     setEditingDevice(record);
@@ -74,6 +94,10 @@ const devicesTable = (props: Props) => {
   };
 
   const addDefaultDevice = () => {
+    if (!canAddMoreEnableDevice()) {
+      overPermitCount();
+      return;
+    }
     const key = uniqueKey("device");
     onEditing({
       key: key,
@@ -174,6 +198,30 @@ const devicesTable = (props: Props) => {
         );
       },
     },
+    {
+      title: t("enable"),
+      dataIndex: "enable",
+      key: "enable",
+      render: (text, record, index) => {
+        //<p>{JSON.stringify(record, null, 2)}</p>,
+        const _enable = R.propOr(false, "enable", record);
+        return (
+          <Switch
+            checked={_enable}
+            onChange={(checked) => {
+              if (!canAddMoreEnableDevice() && checked) {
+                overPermitCount();
+                return;
+              }
+              const device = R.assoc("enable", checked, record);
+
+              update(device);
+            }}
+          />
+        );
+      },
+    },
+
     {
       title: t("device.enableVoice"),
       dataIndex: "enableVoice",

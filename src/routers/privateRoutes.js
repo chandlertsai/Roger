@@ -40,6 +40,13 @@ export const getPrivateRoutes = () => [
     permission: "private",
   },
   {
+    name: i18n.t("menu.deviceSummary"),
+    to: "/deviceSummary",
+    component: AllDevicesSummaryReport,
+    permission: "permission",
+    permissionGroup: PermissionGroup.sidebar.report,
+  },
+  {
     name: i18n.t("menu.deviceDetail"),
     to: "/deviceDetail",
     icon: "login",
@@ -47,13 +54,7 @@ export const getPrivateRoutes = () => [
     permission: "permission",
     permissionGroup: PermissionGroup.sidebar.report,
   },
-  {
-    name: i18n.t("menu.deviceSummary"),
-    to: "/deviceSummary",
-    component: AllDevicesSummaryReport,
-    permission: "permission",
-    permissionGroup: PermissionGroup.sidebar.report,
-  },
+
   {
     name: i18n.t("privateRoutes.log"),
     to: "/log",

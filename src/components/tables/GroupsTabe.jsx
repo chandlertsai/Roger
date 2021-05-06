@@ -7,7 +7,7 @@ import { useFetch, useFetchFields, getName } from "apis/crud";
 import { useLicense } from "apis/license";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-
+import { useTranslation } from "react-i18next";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import Hide from "components/utils/Hide";
@@ -36,6 +36,7 @@ const groupsTable = (props: Props) => {
 
   const users = useFetchFields("users")(["name", "key", "email"]);
   const devices = useFetchFields("devices")(["name", "key", "ip"]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setShowDetail(false);
@@ -51,7 +52,6 @@ const groupsTable = (props: Props) => {
   };
 
   const onSubmit = (group) => {
-    console.log("Group table onSubmit ", group);
     update(group);
     setShowGroupForm(false);
     setEditingGroup({});
@@ -66,13 +66,13 @@ const groupsTable = (props: Props) => {
     const key = uniqueKey("group");
     onEditing({
       key: key,
-      name: "輸入名稱",
+      name: "",
     });
   };
 
   const columns = [
     {
-      title: "群組名稱",
+      title: t("group.name"),
       dataIndex: "name",
       key: "name",
     },
@@ -96,7 +96,7 @@ const groupsTable = (props: Props) => {
   return (
     <div>
       <TableToolbar
-        title="群組管理"
+        title={t("group.title")}
         selectedRowKeys={selectedRowKeys}
         onSearch={query}
         handlers={{
@@ -105,12 +105,12 @@ const groupsTable = (props: Props) => {
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增群組",
-          remove: "移除選取群組",
+          add: t("group.add"),
+          remove: t("group.removeSelect"),
         }}
       />
       <Drawer
-        title="編輯群組資料"
+        title={t("group.edit")}
         visible={isShowGroupForm}
         placement="bottom"
         footer={null}

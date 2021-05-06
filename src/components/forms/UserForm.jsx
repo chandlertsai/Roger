@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Checkbox } from "components/forms/FormikWedgets";
 import { setError } from "actions/appState";
 import ErrorTip from "components/forms/ErrorTip";
+import * as yup from "yup";
 import axios from "axios";
 import R from "ramda";
 import FormRow from "components/forms/FormRow";
@@ -17,6 +18,12 @@ type Props = {
   permissions: Array<mixed>,
   doSubmit: Function,
 };
+
+const validator = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email(),
+});
+
 const userForm = (props: Props) => {
   const { doSubmit, userData, permissions } = props;
   const { t } = useTranslation();
@@ -39,6 +46,7 @@ const userForm = (props: Props) => {
       <Formik
         initialValues={userData}
         enableReinitialize
+        validationSchema={validator}
         onSubmit={(values, actions) => {
           actions.setSubmitting(false);
           const newData = R.omit(["_id"], values);
@@ -50,14 +58,14 @@ const userForm = (props: Props) => {
               field="name"
               labelText={t("name")}
               fieldProp={{ type: "text" }}
-              validate={validateName}
             />
-            {errors.name && Touch.name && <span>{errors.name}</span>}
+            {errors.name && <p className="error">{t("error.requireName")}</p>}
             <FormRow
               field="email"
               labelText="E-Mail"
               fieldProp={{ type: "email" }}
             />
+            {errors.email && <p className="error">{t("error.emailFormat")}</p>}
 
             <FormRow
               field="passwordTip"

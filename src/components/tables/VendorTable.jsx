@@ -5,14 +5,15 @@ import { useFetch } from "apis/crud";
 import { EditOperationCell } from "components/pureComponents/TableCells";
 import { uniqueKey } from "apis/utils";
 import { setLoading, setError } from "actions/appState";
-import { Table, Drawer, Tag, Button } from "antd";
+import { Table, Drawer, Tag, Button, Modal } from "antd";
 import VendorForm from "components/forms/VendorForm";
 import ContactForm from "components/forms/ContactForm";
 import TableToolbar from "components/pureComponents/TableToolbar";
 import ContactTable from "components/tables/ContactTable";
 import { useTranslation } from "react-i18next";
 import R from "ramda";
-
+import axios from "axios";
+import qs from "qs";
 const vendorTable = (props) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [tableData, remove, update] = useFetch("vendors");
@@ -20,6 +21,10 @@ const vendorTable = (props) => {
   const [isShowContactForm, setShowContactForm] = useState(false);
   const [editingVendor, setEditingVendor] = useState({});
   const [showContact, setShowContact] = useState(false);
+  const [deleteWarning, setDeleteWarning] = useState({
+    show: false,
+    groups: [],
+  });
   const { t } = useTranslation();
 
   const onEditing = (record) => {
@@ -53,6 +58,32 @@ const vendorTable = (props) => {
       email: "",
       contacts: [],
     });
+  };
+
+  const checkRemove = (body) => {
+    axios
+      .get("/apis/v1/read/devices", {
+        params: { vendorkey: body },
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { indices: false });
+        },
+      })
+      .then((res) => {
+        const groups = res.data || [];
+        if (groups.length > 0) {
+          setDeleteWarning({ show: true, groups });
+        }
+      })
+
+      .catch((err) => {
+        if (err.response) {
+          remove(body);
+        }
+      });
+  };
+
+  const handleModalOK = (e) => {
+    setDeleteWarning({ groups: [], show: false });
   };
 
   const handleDetail = (r) => {
@@ -110,9 +141,11 @@ const vendorTable = (props) => {
         height="80%"
         onClose={() => setShowVendorForm(false)}
       >
-        {false && <Button type="primary" className="my-2" onClick={onEditingContact}>
-          {t("vendor.editContact")}
-        </Button>}
+        {false && (
+          <Button type="primary" className="my-2" onClick={onEditingContact}>
+            {t("vendor.editContact")}
+          </Button>
+        )}
         <VendorForm doSubmit={onEditingContact} vendor={editingVendor} />
       </Drawer>
       <Drawer
@@ -124,14 +157,19 @@ const vendorTable = (props) => {
         height="75%"
         onClose={() => setShowContactForm(false)}
       >
-        <ContactForm doSubmit={onSubmit} vendor={editingVendor} onClose={() => setShowContact(false)} showButton={false}/>
+        <ContactForm
+          doSubmit={onSubmit}
+          vendor={editingVendor}
+          onClose={() => setShowContact(false)}
+          showButton={false}
+        />
       </Drawer>
       <TableToolbar
         title={t("vendor.name")}
         selectedRowKeys={selectedRowKeys}
         handlers={{
           addItem: addDefaultVendor,
-          removeSelectedItems: remove,
+          removeSelectedItems: checkRemove,
           // onSearch: searchUser
         }}
         componentsText={{
@@ -139,7 +177,19 @@ const vendorTable = (props) => {
           remove: t("vendor.remove"),
         }}
       />
-
+      <Modal
+        visible={deleteWarning.show}
+        title={t("error.deleteVendorTitle")}
+        onOk={handleModalOK}
+        onCancel={handleModalOK}
+      >
+        <p>{t("error.deleteVendor")}</p>
+        <ul>
+          {deleteWarning.groups.map((group) => (
+            <li key={group.key}>{group.name}</li>
+          ))}
+        </ul>
+      </Modal>
       <Table
         size="small"
         rowSelection={rowSelection}

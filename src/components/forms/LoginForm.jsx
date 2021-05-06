@@ -50,9 +50,17 @@ const LForm = (props) => {
         <label htmlFor="password">{t("loginForm.password")}</label>
         <input type="password" name="password" defaultValue="" ref={register} />
       </div>
-      <Link className="alignRight" to="/forgetPassword">
-        {t("loginForm.forgetpassword")}
-      </Link>
+      <div className="form-rwo">
+        <Link className="alignRight" to="/forgetPassword">
+          {t("loginForm.forgetpassword")}
+        </Link>
+      </div>
+      <div className="form-rwo">
+        <Link className="alignRight" to="/loginChangeLicense">
+          {t("loginForm.uploadLicense")}
+        </Link>
+      </div>
+
       <Button className="center" htmlType="submit" loading={loading}>
         {t("login")}
       </Button>
