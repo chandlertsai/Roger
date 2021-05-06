@@ -1,5 +1,6 @@
 {
   "login": "登入",
+  "logout":"登出",
   "test": "測試",
   "name": "名稱",
   "sex": "性別",
@@ -21,6 +22,9 @@
   "setting": "設定",
   "state": "State",
   "back": "返回",
+  "changePassword":"更改密碼",
+  "newPassword":"新登入密碼",
+  "validPassword":"確認新登入密碼",
   "password": "密碼",
   "passwordTip": "密碼提示",
   "permission": "權限",
@@ -42,7 +46,9 @@
   "error": {
     "ipFormat": "錯誤的IP格式",
     "requireName": "名稱不可以為空白",
-    "emailFormat": "Wrong E-Mail format",
+    "requirePassword":"密碼不可以為空白",
+    "requireLicense":"License不可以為空白",
+    "emailFormat": " E-Mail格式錯誤",
     "deletePermissionTitle": "刪除使用中權限警告",
     "deletePermission": "一些使用者和此權限連結，請先移除使用者權限",
     "deleteUserDeviceTitle": "警告！刪除項目已存在群組中",
@@ -58,7 +64,8 @@
     "username": "使用者帳號: ",
     "usernameErr": "使用者帳號為必要欄位",
     "password": "登入密碼: ",
-    "forgetpassword": "忘記密碼？"
+    "forgetpassword": "忘記密碼？",
+    "uploadLicense":"更新License"
   },
   "permissionRoutes": {
     "user": "使用者設定",
@@ -172,7 +179,10 @@
     "name": "群組名稱",
     "title":"群組",
     "deviceName":"裝置名稱",
-    "userName":"使用者名稱"
+    "userName":"使用者名稱",
+     "add":"新增群組",
+    "removeSelect":"移除選取群組",
+    "edit":"編輯群組"
   },
   "vendor": {
     "name": "供應商",

@@ -4,20 +4,23 @@ import { setError, setLoading } from "actions/appState";
 import axios from "axios";
 
 export const useLicense = () => {
-  const [data, setData] = useState({});
+  const [license, setData] = useState({});
   const dispatch = useDispatch();
   const readUrl = "/api/license";
 
-  useEffect(() => {
+  function fetch() {
     dispatch(setLoading(true));
     axios
       .get(readUrl)
-      .then(res => {
+      .then((res) => {
         setData(res.data);
       })
-      .catch(error => dispatch(setError(true, error.message)))
+      .catch((error) => dispatch(setError(true, error.message)))
       .finally(() => dispatch(setLoading(false)));
+  }
+  useEffect(() => {
+    fetch();
   }, []);
 
-  return data;
+  return { license, fetch };
 };

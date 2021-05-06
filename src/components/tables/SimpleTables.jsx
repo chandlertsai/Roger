@@ -18,7 +18,7 @@ export const UsersSimpleTable = (props: tProps) => {
       key: "name",
     },
     {
-      title: "E-mail",
+      title: "E-Mail",
       dataIndex: "email",
       key: "email",
     },

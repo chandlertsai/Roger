@@ -1,5 +1,6 @@
 {
   "login": "Log in",
+  "logout": "Log out",
   "test": "Test",
   "name": "Name",
   "sex": "Sex",
@@ -21,6 +22,9 @@
   "setting": "Setting",
   "state": "State",
   "back": "Back",
+  "changePassword":"Change password",
+  "newPassword":"New password",
+  "validPassword":"New password again",
   "password": "Password",
   "passwordTip": "Password Tip",
   "permission": "Permission",
@@ -42,6 +46,8 @@
   "error": {
     "ipFormat": "Wrong IP address format",
     "requireName": "Name field can not be empty",
+    "requirePassword":"Password field can not be empty",
+    "requireLicense":"License field can not be empty",
     "emailFormat": "Wrong E-Mail format",
     "deletePermissionTitle": "Warning!! Permission used in users",
     "deletePermission": "Some users had link this permission, please set other permission to users first.",
@@ -60,7 +66,8 @@
     "username": "Account: ",
     "usernameErr": "Account can not be blank.",
     "password": "Password: ",
-    "forgetpassword": "Forget password?"
+    "forgetpassword": "Forget password?",
+    "uploadLicense":"Upload license"
   },
   "permissionRoutes": {
     "user": "User Settings",
@@ -174,7 +181,10 @@
     "name": "Group name",
     "title":"Group",
     "deviceName":"Device Name",
-    "userName":"User Name"
+    "userName":"User Name",
+    "add":"Add Group",
+    "removeSelect":"Remove selected groups",
+    "edit":"Edit Group"
   },
   "vendor": {
     "name": "Vendor",
@@ -275,5 +285,8 @@
     "vendorsSetting": "Vendor Setting",
     "uploadLicence": "License",
     "license": "License no use"
+  },
+  "uploadLicense":{
+    "uploadLabel":"License key"
   }
 }

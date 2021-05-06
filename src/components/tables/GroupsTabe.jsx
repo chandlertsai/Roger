@@ -105,12 +105,12 @@ const groupsTable = (props: Props) => {
           // onSearch: searchUser
         }}
         componentsText={{
-          add: "新增群組",
-          remove: "移除選取群組",
+          add: t("group.add"),
+          remove: t("group.removeSelect"),
         }}
       />
       <Drawer
-        title="編輯群組資料"
+        title={t("group.edit")}
         visible={isShowGroupForm}
         placement="bottom"
         footer={null}
