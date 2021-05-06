@@ -56,7 +56,7 @@ const devicesTable = (props: Props) => {
     groups: [],
   });
   const [selectedAlarms, setSelectdAlarms] = useState([]);
-  const license = useLicense();
+  const { license } = useLicense();
   const { t } = useTranslation();
   const [licenseInfo, setLicenseInfo] = useState("");
   const usersNameList = useNameList("users");
@@ -68,6 +68,7 @@ const devicesTable = (props: Props) => {
   );
   useEffect(() => {
     const length = tableData ? enableDevicesCount(tableData) : 0;
+    console.log("lic ", license);
     setLicenseInfo(t("device.avialable") + length + "/" + license.permitCount);
   }, [license, tableData]);
 
