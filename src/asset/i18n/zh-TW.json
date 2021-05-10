@@ -1,4 +1,5 @@
 {
+  "title": "職稱",
   "login": "登入",
   "logout":"登出",
   "test": "測試",
@@ -8,7 +9,7 @@
   "female": "女",
   "unknow":"不明",
   "ip": "IP",
-  "email": "Email",
+  "email": "E-Mail",
   "phone": "電話",
   "mobile": "手機",
   "fax": "傳真",
