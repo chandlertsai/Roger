@@ -85,7 +85,7 @@ const logTable = (props: Props) => {
       title: t("logTable.rawData"),
       dataIndex: "data",
       key: "data",
-      render: (text, record, index) => <span>{JSON.stringify(text)}</span>,
+      // render: (text, record, index) => <span>{JSON.stringify(text)}</span>,
     },
   ];
 
@@ -108,6 +108,7 @@ const logTable = (props: Props) => {
             columns={columns}
             dataSource={tableData}
             exportableProps={{
+              fileName: "log",
               btnProps: {
                 type: "primary",
                 children: <span>CSV</span>,
