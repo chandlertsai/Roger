@@ -3,18 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { useFetch } from "apis/crud";
 import { setLoading, setError } from "actions/appState";
-import {
-  Table,
-  Drawer,
-  Tag,
-  Popover,
-  Button,
-  Row,
-  Col,
-  Input,
-  Checkbox,
-} from "antd";
+import { Drawer, Tag, Popover, Button, Row, Col, Input, Checkbox } from "antd";
 
+import { Table } from "ant-table-extensions";
 import {
   useDebounce,
   dateCompare,
@@ -109,15 +100,20 @@ const logTable = (props: Props) => {
             enterButton
           />
         </Col>
-        <Col style={{ marginLeft: "8px" }}>
-          <CSVLink data={data || []} filename="export.csv">
-            Export CSV
-          </CSVLink>
-        </Col>
       </Row>
       <Row>
         <Col>
-          <Table size="small" columns={columns} dataSource={tableData} />
+          <Table
+            size="small"
+            columns={columns}
+            dataSource={tableData}
+            exportableProps={{
+              btnProps: {
+                type: "primary",
+                children: <span>CSV</span>,
+              },
+            }}
+          />
         </Col>
       </Row>
     </div>
