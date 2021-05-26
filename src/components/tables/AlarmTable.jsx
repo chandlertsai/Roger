@@ -137,6 +137,7 @@ const alarmTable = (props) => {
           add: t("alarm.add"),
           remove: t("alarm.removeSelected"),
         }}
+	placeholder={t("search.alarm")}
       />
 
       <Drawer

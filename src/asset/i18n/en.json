@@ -291,5 +291,12 @@
   },
   "uploadLicense":{
     "uploadLabel":"License key"
+  },
+  "search": {
+    "user": "Search Name / E-mail / PasswordTip",
+    "group": "Search Name",
+    "device": "Search Name / IP",
+    "log": "Search IP",
+    "alarm": "Search Name / Source / Message"
   }
 }

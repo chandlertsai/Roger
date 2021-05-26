@@ -286,5 +286,12 @@
     "vendorsSetting": "供應商設定",
     "uploadLicence": "憑證",
     "license": "憑證XXXX"
+  },
+  "search": {
+    "user": "搜尋 名稱 / E-mail / 密碼提示",
+    "group": "搜尋 名稱",
+    "device": "搜尋 名稱 / IP",
+    "log": "搜尋 IP",
+    "alarm": "搜尋名稱 / 來源 / 訊息"
   }
 }

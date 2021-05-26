@@ -94,7 +94,7 @@ const logTable = (props: Props) => {
       <Row className="my-2">
         <Col>
           <Search
-            placeholder="input search text"
+            placeholder={t("search.log")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             enterButton

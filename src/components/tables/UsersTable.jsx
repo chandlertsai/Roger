@@ -173,6 +173,7 @@ const usersTable = () => {
           add: t("user.add"),
           remove: t("user.removeSelected"),
         }}
+	placeholder={t("search.user")}
       />
       <Drawer
         title={t("user.edit")}

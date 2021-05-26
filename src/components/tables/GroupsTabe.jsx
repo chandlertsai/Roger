@@ -108,6 +108,7 @@ const groupsTable = (props: Props) => {
           add: t("group.add"),
           remove: t("group.removeSelect"),
         }}
+	placeholder={t("search.group")}
       />
       <Drawer
         title={t("group.edit")}
