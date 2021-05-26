@@ -150,7 +150,7 @@ const permissionTable = () => {
           remove: t("permissionTable.remove"),
         }}
       />
-      <h5>{t("permissionTable.relog")}</h5>
+      <font color="#FF0000">{t("permissionTable.relog")}</font>
       <Drawer
         title={t("permission")}
         visible={isShowForm}
