@@ -138,7 +138,9 @@
     "triggerDevState": "Trigger state",
     "releaseDevState": "Release state",
     "simpleLogTip": "Type simpleLog will trigger message...",
-    "voiceEnable": "Enable voice"
+    "voiceEnable": "Enable voice",
+    "cacti": "Alarms",
+    "simpleLog": "Message"
   },
   "currentAlarmTable": {
     "message": "Message",

@@ -79,8 +79,8 @@ const alarmForm = (props) => {
       <div className="form-group">
         <label htmlFor="source">{t("alarm.source")}</label>
         <select className="form-control" ref={register} name="source">
-          <option value="cacti">Cacti</option>
-          <option value="simpleLog">Simple Log</option>
+          <option value="cacti">{t("alarm.cacti")}</option>
+          <option value="simpleLog">{t("alarm.simpleLog")}</option>
           <option value="customSource">{t("alarm.customSource")}</option>
         </select>
         <small id="inputHelp" className="form-text text-muted">
